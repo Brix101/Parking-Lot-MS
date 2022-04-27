@@ -25,7 +25,7 @@ if not os.path.exists(DESTINATION):
 	os.mkdir(DESTINATION)
  
 @router.post("/uploadfile")
-async def create_upload_file(file: UploadFile,response: Response,db:Session = Depends(get_db)):
+async def create_upload_file(response: Response,file: UploadFile,db:Session = Depends(get_db)):
     try:
         fullpath = os.path.join(DESTINATION, f"{current_time}-data-{file.filename}") 
         link = f"http://localhost:8000/{fullpath}" #create Link   
