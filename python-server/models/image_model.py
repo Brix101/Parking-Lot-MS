@@ -9,4 +9,3 @@ class ImageModel(BaseModel,Base):
 
     name=Column(String(250))
     imageLink=Column(String(250))
-    # complete=Column(Boolean,default=False)
