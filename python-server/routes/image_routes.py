@@ -1,9 +1,10 @@
 import os
-import logging
 from datetime import date
 from fastapi import APIRouter,UploadFile,Depends
 from sqlalchemy.orm import Session
 from config.database import get_db
+
+from utils.image_upload import image_save
 
 from models.image_model import ImageModel
 
@@ -14,28 +15,13 @@ router = APIRouter(
     tags=["image"]
 )
 
-log = logging.getLogger(__name__)
-today = date.today()
-
 #year-month-date
-DESTINATION = f"static/{str(today)}/"
-CHUNK_SIZE = 2 ** 20  # 1MB
+DESTINATION = f"static/{str(date.today())}/"
 
-# Create Folder W/ Date
+# Create Folder W/ Date if does not excist
 if not os.path.exists(DESTINATION):
 	os.mkdir(DESTINATION)
  
-async def image_save(src, dst):
-    await src.seek(0)
-    with open(dst, "wb") as file_object:
-        while True:
-            contents = await src.read(CHUNK_SIZE)
-            if not contents:
-                log.info(f"Src completely consumed\n")
-                break
-            log.info(f"Consumed {len(contents)} bytes from Src file\n")
-            file_object.write(contents)# Save Object
-
 @router.post("/uploadfile/")
 async def create_upload_file(file: UploadFile,db:Session = Depends(get_db)):
     fullpath = os.path.join(DESTINATION, file.filename)    
