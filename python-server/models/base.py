@@ -12,4 +12,4 @@ class BaseModel(object):
 
     id =  Column(Integer, primary_key=True)
     createdAt = Column(DateTime, default=func.now())
-    updatedAt = Column(DateTime, default=func.now())
+    updatedAt = Column(DateTime, default=func.now(),onupdate=func.now())
