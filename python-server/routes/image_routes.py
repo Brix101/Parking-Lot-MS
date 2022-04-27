@@ -1,5 +1,5 @@
 import os
-from fastapi import APIRouter,UploadFile,Depends,Response,status
+from fastapi import APIRouter,UploadFile,Depends,HTTPException,Response,status
 from sqlalchemy.orm import Session
 from datetime import date,datetime
 from config.database import get_db
@@ -25,7 +25,7 @@ if not os.path.exists(DESTINATION):
 	os.mkdir(DESTINATION)
  
 @router.post("/uploadfile")
-async def create_upload_file(response: Response,file: UploadFile,db:Session = Depends(get_db)):
+async def create_upload_file(file: UploadFile,response: Response,db:Session = Depends(get_db)):
     try:
         fullpath = os.path.join(DESTINATION, f"{current_time}-data-{file.filename}") 
         link = f"http://localhost:8000/{fullpath}" #create Link   
@@ -43,6 +43,5 @@ async def create_upload_file(response: Response,file: UploadFile,db:Session = De
         return {"detail": f"{file.filename} saved to disk"}
         
     except Exception as e:
-        response.status_code = status.HTTP_400_BAD_REQUEST
-        return e
+        raise HTTPException(400,e)
         
