@@ -5,6 +5,7 @@ const port = 5000;
 const db = require("./utils/database");
 
 const Sample = db.Sample;
+const User = db.User;
 const Op = db.Sequelize.Op;
 
 app.get("/", (req, res) => {
@@ -25,13 +26,16 @@ app.get("/sample", (req, res) => {
     });
 });
 
-app.get("/post", (req, res) => {
+app.get("/user", (req, res) => {
   // Create a Tutorial
-  const sample = {
-    name: "sample",
+  const user = {
+    firstName: "Brix",
+    lastName: "Porras",
+    userName: "brix101",
+    password: "password",
   };
   // Save Tutorial in the database
-  Sample.create(sample)
+  User.create(user)
     .then((data) => {
       res.send(data);
     })
