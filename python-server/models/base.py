@@ -11,4 +11,5 @@ class BaseModel(object):
     # __table_args__ = {'mysql_engine': 'InnoDB'}
 
     id =  Column(Integer, primary_key=True)
-    created_at = Column(DateTime, default=func.now())
+    createdAt = Column(DateTime, default=func.now())
+    updatedAt = Column(DateTime, default=func.now())
