@@ -1,5 +1,3 @@
-from fastapi import HTTPException
-from .logger import log
 CHUNK_SIZE = 2 ** 20  # 1MB
  
 async def image_save(file, dst):
@@ -12,7 +10,5 @@ async def image_save(file, dst):
             while True:
                 contents = await file.read(CHUNK_SIZE)
                 if not contents:
-                    log.info(f"Src completely consumed\n")
-                    break
-                log.info(f"Consumed {len(contents)} bytes from Src file\n")
+                    return {"detail":"File Empty"}
                 file_object.write(contents)# Save Object
