@@ -16,9 +16,9 @@ router = APIRouter(
 )
 now = datetime.now()
 
-current_time = now.strftime("%H:%M:%S")
+current_time = now.strftime("%H-%M-%S")
 #year-month-date
-DESTINATION = f"static/{str(date.today())}/"
+DESTINATION = f"data/{str(date.today())}/"
 
 # Create Folder W/ Date if does not excist
 if not os.path.exists(DESTINATION):
