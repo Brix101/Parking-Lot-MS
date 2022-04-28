@@ -10,5 +10,5 @@ async def image_save(file, dst):
             while True:
                 contents = await file.read(CHUNK_SIZE)
                 if not contents:
-                    return {"detail":"File Empty"}
+                    break
                 file_object.write(contents)# Save Object
