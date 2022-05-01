@@ -1,8 +1,14 @@
 import requests
 import cv2
+from datetime import datetime
+
 
 
 url = "http://localhost:8000/image/uploadfile"
+
+
+now = datetime.now()
+
 
 if __name__ == "__main__":
     
@@ -15,8 +21,11 @@ if __name__ == "__main__":
             
             imS = cv2.resize(img, (960, 540)) # Resize image
             
-            # open('file.txt', 'wb')  # create an empty demo file
-            files = {'file':('img.png', open('img.png', 'rb'), 'image/png')}
+            current_time = now.strftime("%H-%M-%S")
+            cv2.imwrite(f'data/{current_time}.png', img)
+            
+            
+            files = {'file':(f'{current_time}.png', open(f'{current_time}.png', 'rb'), 'image/png')}
 
             r = requests.post(url, files=files)
 

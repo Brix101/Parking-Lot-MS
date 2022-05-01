@@ -27,6 +27,7 @@ if not os.path.exists(DESTINATION):
 @router.post("/uploadfile")
 async def upload_file(res: Response,file: UploadFile = File(..., description="A file read as UploadFile"),db:Session = Depends(get_db)):
     try:
+        # Todo Update FIlename
         fullpath = os.path.join(DESTINATION, f"{current_time}-data-{file.filename}") 
         link = f"http://localhost:8000/{fullpath}" #create Link   
         
@@ -36,7 +37,7 @@ async def upload_file(res: Response,file: UploadFile = File(..., description="A 
             res.status_code = status.HTTP_400_BAD_REQUEST
             return err
         
-        new_image = ImageModel(name=file.filename,imageLink=link)
+        new_image = ImageModel(plateNumber=file.filename,imageLink=link)
         db.add(new_image)
         db.commit()
         
