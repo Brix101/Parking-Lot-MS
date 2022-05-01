@@ -3,8 +3,8 @@ const Sequelize = require("sequelize");
 const argon2 = require("argon2");
 
 module.exports = (sequelize) => {
-  const Sample = sequelize.define(
-    "User",
+  const User = sequelize.define(
+    "Users",
     {
       firstName: {
         type: Sequelize.STRING,
@@ -18,6 +18,9 @@ module.exports = (sequelize) => {
       password: {
         type: Sequelize.STRING,
       },
+      email: {
+        type: Sequelize.STRING,
+      },
     },
     {
       hooks: {
@@ -28,5 +31,5 @@ module.exports = (sequelize) => {
       },
     }
   );
-  return Sample;
+  return User;
 };

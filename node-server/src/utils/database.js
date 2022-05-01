@@ -1,4 +1,4 @@
-const dbConfig = require("../config/db.config");
+const dbConfig = require("../../config/db.config");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -15,9 +15,9 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
 sequelize.sync();
 // sequelize.sync({force: true});
-// sequelize.sync({ alter: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
+sequelize.sync({ alter: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
 
 (async () => {
   try {
