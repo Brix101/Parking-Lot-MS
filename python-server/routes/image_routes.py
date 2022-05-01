@@ -25,7 +25,7 @@ if not os.path.exists(DESTINATION):
 	os.mkdir(DESTINATION)
  
 @router.post("/uploadfile")
-async def create_upload_file(file: UploadFile,response: Response,db:Session = Depends(get_db)):
+async def create_upload_file(res: Response,file: UploadFile,db:Session = Depends(get_db)):
     try:
         fullpath = os.path.join(DESTINATION, f"{current_time}-data-{file.filename}") 
         link = f"http://localhost:8000/{fullpath}" #create Link   
@@ -33,7 +33,7 @@ async def create_upload_file(file: UploadFile,response: Response,db:Session = De
         err = await image_save(file, fullpath)
         
         if err is not None:
-            response.status_code = status.HTTP_400_BAD_REQUEST
+            res.status_code = status.HTTP_400_BAD_REQUEST
             return err
         
         new_image = ImageModel(name=file.filename,imageLink=link)
