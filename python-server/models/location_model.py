@@ -10,6 +10,6 @@ class Location(BaseModel,Base):
 
     location=Column(Integer)
     availability=Column(Boolean,default=True)
-    parker_id = Column(Integer, ForeignKey('Parkers.id'),default=None)
+    parker_id = Column(Integer, ForeignKey('Parkers.id'))
     
-    # parker = relationship("Parkers", back_populates="location")
+    parker = relationship("Parker", back_populates="location")

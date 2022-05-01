@@ -11,6 +11,5 @@ class Parker(BaseModel,Base):
     plateNumber=Column(String(250))
     imageLink=Column(String(250)) 
     entered = Column(DateTime, default=func.now())
-    exited = Column(DateTime, default=None)
-    
-    # location = relationship("Locations",back_populates="parker", uselist=False) 
+    exited = Column(DateTime, default=None)    
+    location = relationship("Location",back_populates="parker", uselist=False) 
