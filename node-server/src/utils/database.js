@@ -31,6 +31,5 @@ sequelize.sync();
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.Sample = require("../models/sample.model")(sequelize, Sequelize);
-db.User = require("../models/user.model")(sequelize, Sequelize);
+db.User = require("../models/user.model")(sequelize);
 module.exports = db;

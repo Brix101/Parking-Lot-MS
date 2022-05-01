@@ -1,6 +1,8 @@
+const Sequelize = require("sequelize");
+
 const argon2 = require("argon2");
 
-module.exports = (sequelize, Sequelize) => {
+module.exports = (sequelize) => {
   const Sample = sequelize.define(
     "User",
     {
