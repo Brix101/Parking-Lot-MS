@@ -12,4 +12,5 @@ class Parker(BaseModel,Base):
     imageLink=Column(String(250)) 
     entered = Column(DateTime, default=func.now())
     exited = Column(DateTime, default=None)
-    location = relationship("ParkSlot",back_populates="parker") 
+    
+    # location = relationship("Locations",back_populates="parker", uselist=False) 

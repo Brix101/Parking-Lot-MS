@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 from config.database import get_db
 
 from models.parker_model import Parker
+from schemas.parker_schema import ParkerSchema
 
-from schemas.location_schema import LocationSchema
         
 router = APIRouter(
     prefix="/parker",
@@ -13,19 +13,17 @@ router = APIRouter(
 )
 
 @router.get("/")
-async def get_park_slot(db:Session = Depends(get_db)):
+async def get_parker(db:Session = Depends(get_db)):
     data = db.query(Parker).all()
     return data
 
-# @router.post("/")
-# async def add_park_slot(location:LocationSchema,db:Session = Depends(get_db)):
-#     try:            
-#         # **obj will unpack dict object/ in JS ...data
-#         new_location = Location(**location.toJson())
-#         db.add(new_location)
-#         db.commit()
-#         return {"message": f"{new_location.location} is Added"}
-#     except:
-#         return
+@router.post("/")
+async def add_parker(parker:ParkerSchema,db:Session = Depends(get_db)):
+    
+    # **obj will unpack dict object/ in JS ...data
+    new_parker = Parker(**parker.toJson())
+    db.add(new_parker)
+    db.commit()
+    return {"message": f"{new_parker.plateNumber} is Added"}
 
 # TODO add delete & update

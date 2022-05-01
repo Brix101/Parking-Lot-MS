@@ -1,3 +1,4 @@
+from email.policy import default
 from sqlalchemy import Column,Integer,Boolean,ForeignKey
 from sqlalchemy.orm import relationship
 from config.database import Base
@@ -9,6 +10,6 @@ class Location(BaseModel,Base):
 
     location=Column(Integer)
     availability=Column(Boolean,default=True)
-    parker_id = Column(Integer, ForeignKey('parkers.id'))
+    parker_id = Column(Integer, ForeignKey('Parkers.id'),default=None)
     
-    parker = relationship("Parker", back_populates="location")
+    # parker = relationship("Parkers", back_populates="location")
