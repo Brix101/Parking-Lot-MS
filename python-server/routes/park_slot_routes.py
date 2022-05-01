@@ -1,4 +1,5 @@
 from fastapi import APIRouter,Depends
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 from config.database import get_db
 
@@ -13,14 +14,18 @@ router = APIRouter(
 
 @router.get("/")
 async def get_park_slot(db:Session = Depends(get_db)):
-    name = db.query(ParkSlotModel).all()
-    return name
+    data = db.query(ParkSlotModel).all()
+    return data
 
 @router.post("/")
-async def add_park_slot(sample:ParkSlotSchema,db:Session = Depends(get_db)):
-    new_slot = ParkSlotModel(name=sample.name)
-    db.add(new_slot)
-    db.commit()
-    return {"message": f"{new_slot.spaceNumber} is Added"}
+async def add_park_slot(parkSpace:ParkSlotSchema,db:Session = Depends(get_db)):
+    try:            
+        # **obj will unpack dict object/ in JS ...data
+        new_slot = ParkSlotModel(**parkSpace.toJson())
+        db.add(new_slot)
+        db.commit()
+        return {"message": f"{new_slot.spaceNumber} is Added"}
+    except:
+        return
 
 # TODO add delete & update
