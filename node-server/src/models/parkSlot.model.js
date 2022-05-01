@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 
 module.exports = (sequelize) => {
-  const Sample = sequelize.define("ParkSlots", {
-    spaceNumber: {
+  const Sample = sequelize.define("Locations", {
+    location: {
       type: Sequelize.INTEGER,
     },
     availability: {
