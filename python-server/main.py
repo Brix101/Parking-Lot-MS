@@ -15,4 +15,4 @@ app.include_router(image_routes.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"detail": "Hello from PLMS"}
