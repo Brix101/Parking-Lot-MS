@@ -1,18 +1,18 @@
 const Sequelize = require("sequelize");
 
 module.exports = (sequelize) => {
-  const Sample = sequelize.define("Locations", {
+  const Location = sequelize.define("Locations", {
     location: {
       type: Sequelize.INTEGER,
     },
     availability: {
       type: Sequelize.BOOLEAN,
-      default: true,
+      defaultValue: true,
     },
-    plateNumber: {
-      type: Sequelize.STRING,
+    parker_id: {
+      type: Sequelize.INTEGER,
       default: null,
     },
   });
-  return Sample;
+  return Location;
 };

@@ -41,7 +41,7 @@ async def upload_file(res: Response,file: UploadFile = File(..., description="A 
         db.add(new_image)
         db.commit()
         
-        return {"detail": f"{file.filename} saved to disk"}
+        return {"message": f"{file.filename} saved to disk"}
         
     except Exception as e:
         raise HTTPException(400,e)

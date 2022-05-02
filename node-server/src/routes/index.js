@@ -1,3 +1,4 @@
+const locationRoutes = require("./location.routes");
 const userRoutes = require("./user.routes");
 
 const routes = (app) => {
@@ -6,6 +7,7 @@ const routes = (app) => {
   });
 
   userRoutes(app);
+  locationRoutes(app);
 };
 
 module.exports = routes;

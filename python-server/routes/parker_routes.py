@@ -1,5 +1,4 @@
-from fastapi import APIRouter,Depends
-from fastapi.encoders import jsonable_encoder
+from fastapi import APIRouter,Depends,HTTPException
 from sqlalchemy.orm import Session
 from config.database import get_db
 
@@ -20,10 +19,14 @@ async def get_parker(db:Session = Depends(get_db)):
 @router.post("/")
 async def add_parker(parker:ParkerSchema,db:Session = Depends(get_db)):
     
-    # **obj will unpack dict object/ in JS ...data
-    new_parker = Parker(**parker.toJson())
-    db.add(new_parker)
-    db.commit()
-    return {"message": f"{new_parker.plateNumber} is Added"}
+    try:
+        # **obj will unpack dict object/ in JS ...data
+        new_parker = Parker(**parker.toJson())
+        db.add(new_parker)
+        db.commit()
+        return {"message": f"{new_parker.plateNumber} is Added"}
+    
+    except Exception as e:
+        raise HTTPException(500,e.__doc__ or e.message)
 
 # TODO add delete & update

@@ -32,4 +32,5 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.User = require("../models/user.model")(sequelize);
+db.Location = require("../models/location.model")(sequelize);
 module.exports = db;

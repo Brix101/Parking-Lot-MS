@@ -1,5 +1,5 @@
-from fastapi import APIRouter,Depends
-from fastapi.encoders import jsonable_encoder
+from email import message
+from fastapi import APIRouter,Depends,HTTPException
 from sqlalchemy import null
 from sqlalchemy.orm import Session
 from config.database import get_db
@@ -29,7 +29,7 @@ async def add_location(location:LocationSchema,db:Session = Depends(get_db)):
                 
         return {"message": f"{new_location.location} is Added"}
         
-    except :
-        return {"Error"}
+    except Exception as e:
+        raise HTTPException(500,e.__doc__ or e.message)
 
 # TODO add delete & update
