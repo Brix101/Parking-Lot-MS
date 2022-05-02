@@ -20,7 +20,17 @@ const loginController = async (req, res) => {
     if (!isMatch) {
       return res.status(403).send({ message: "Password not Match" });
     }
-    res.send({ token: user.getToken });
+    res
+      .cookie("refreshToken", user.getRefreshToken(), {
+        maxAge: 3.154e10, // 1 year
+        httpOnly: true,
+        domain: "localhost",
+        path: "/",
+        sameSite: "strict",
+        secure: false,
+      })
+      .setHeader("x-access-token", user.getAccessToken())
+      .send({ "access-token": user.getAccessToken() });
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
       message:

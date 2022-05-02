@@ -19,7 +19,18 @@ const addController = async (req, res) => {
       password,
     };
     const user = await User.create(data);
-    res.send(user);
+
+    res
+      .cookie("session", user.getRefreshToken(), {
+        maxAge: 3.154e10, // 1 year
+        httpOnly: true,
+        domain: "localhost",
+        path: "/",
+        sameSite: "strict",
+        secure: false,
+      })
+      .setHeader("x-access-token", user.getAccessToken())
+      .send({ "access-token": user.getAccessToken() });
   } catch (error) {
     res.status(error instanceof ValidationError ? 400 : 500).send({
       message:

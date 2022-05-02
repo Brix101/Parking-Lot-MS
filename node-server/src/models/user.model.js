@@ -1,7 +1,9 @@
 const { DataTypes } = require("sequelize");
 const argon2 = require("argon2");
-const { sign } = require("jsonwebtoken");
+
 const sequelize = require("../utils/database");
+
+const { signJwt } = require("../utils/jwt.utils");
 
 const User = sequelize.define(
   "Users",
@@ -66,17 +68,28 @@ const User = sequelize.define(
         record.dataValues.password = await argon2.hash(password);
       },
     },
-    getterMethods: {
-      getToken() {
-        return sign({ ...this, id: this.id }, "Secret", {
-          expiresIn: 86400, //xp 24 hours
-        });
-      },
-    },
   }
 );
 User.prototype.verifyPass = async function (password) {
   return await argon2.verify(this.password, password);
+};
+
+User.prototype.getRefreshToken = function () {
+  return signJwt(
+    { id: this.id, userName: this.userName },
+    {
+      expiresIn: 86400, //xp 24hours
+    }
+  );
+};
+
+User.prototype.getAccessToken = function () {
+  return signJwt(
+    { ...this, id: this.id },
+    {
+      expiresIn: 900, //xp 15min
+    }
+  );
 };
 
 module.exports = User;

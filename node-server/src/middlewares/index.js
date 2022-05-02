@@ -1,3 +1,3 @@
 const deserializeUser = require("./deserializeUser");
-
-module.exports = { deserializeUser };
+const requiredUser = require("./requiredUser");
+module.exports = { deserializeUser, requiredUser };
