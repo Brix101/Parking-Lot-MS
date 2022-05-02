@@ -28,9 +28,7 @@ sequelize.sync({ alter: true }).then(() => {
   }
 })();
 
-const db = {};
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-db.User = require("../models/user.model")(sequelize);
-db.Location = require("../models/location.model")(sequelize);
-module.exports = db;
+User = require("../models/user.model")(sequelize);
+Location = require("../models/location.model")(sequelize);
+
+module.exports = { User, Location };

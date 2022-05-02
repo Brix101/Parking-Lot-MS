@@ -1,5 +1,4 @@
-const db = require("../utils/database");
-const Location = db.Location;
+const { Location } = require("../utils/database");
 
 const addController = async (req, res) => {
   try {

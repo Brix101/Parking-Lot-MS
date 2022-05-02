@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 const argon2 = require("argon2");
 
@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
     "Users",
     {
       firstName: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: {
@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
         },
       },
       lastName: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         notEmpty: {
           args: true,
@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
         },
       },
       userName: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: {
           args: true,
@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
         },
       },
       email: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         isEmail: true,
         validate: {
@@ -50,7 +50,7 @@ module.exports = (sequelize) => {
         },
       },
       password: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: {

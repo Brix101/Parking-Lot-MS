@@ -1,19 +1,19 @@
-const Sequelize = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   const Location = sequelize.define("Locations", {
     location: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       isInt: {
         msg: "Must be an integer number",
       },
     },
     availability: {
-      type: Sequelize.BOOLEAN,
+      type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
     parker_id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       default: null,
     },
   });
