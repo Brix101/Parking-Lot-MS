@@ -13,8 +13,9 @@ const addController = async (req, res) => {
     data = await Location.create({ location });
     res.send(data);
   } catch (error) {
-    res.status(500).send({
-      message: error.message || "Some error occurred",
+    res.status(error instanceof ValidationError ? 400 : 500).send({
+      message:
+        error.errors[0].message || error.message || "Some error occurred",
     });
   }
 };
@@ -29,8 +30,9 @@ const getAllController = async (req, res) => {
 
     res.send(data);
   } catch (error) {
-    res.status(500).send({
-      message: error.message || "Some error occurred",
+    res.status(error instanceof ValidationError ? 400 : 500).send({
+      message:
+        error.errors[0].message || error.message || "Some error occurred",
     });
   }
 };

@@ -1,7 +1,7 @@
-const { adduser } = require("../controllers/user.controller");
+const { addController } = require("../controllers/user.controller");
 
 const userRoutes = (app) => {
-  app.get("/api/user", adduser);
+  app.post("/api/user", addController);
 };
 
 module.exports = userRoutes;

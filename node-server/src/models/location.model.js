@@ -4,6 +4,9 @@ module.exports = (sequelize) => {
   const Location = sequelize.define("Locations", {
     location: {
       type: Sequelize.INTEGER,
+      isInt: {
+        msg: "Must be an integer number",
+      },
     },
     availability: {
       type: Sequelize.BOOLEAN,

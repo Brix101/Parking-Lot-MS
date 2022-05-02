@@ -1,26 +1,33 @@
 const db = require("../utils/database");
+const { ValidationError } = require("sequelize");
+
 const User = db.User;
 
-const adduser = (req, res) => {
-  // Create a Tutorial
-  const user = {
-    firstName: "Brix",
-    lastName: "Porras",
-    userName: "brix101",
-    password: "password",
-    email: "brixterporras@gmail.com",
-  };
-  // Save Tutorial in the database
-  User.create(user)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Sample.",
+const addController = async (req, res) => {
+  try {
+    const { firstName, lastName, userName, email, password, passConfirm } =
+      req.body;
+
+    if (password !== passConfirm) {
+      return res.status(400).send({
+        message: "Password are not the Same",
       });
+    }
+    const data = {
+      firstName,
+      lastName,
+      userName,
+      email,
+      password,
+    };
+    const user = await User.create(data);
+    res.send(user);
+  } catch (error) {
+    res.status(error instanceof ValidationError ? 400 : 500).send({
+      message:
+        error.errors[0].message || error.message || "Some error occurred",
     });
+  }
 };
 
-module.exports = { adduser };
+module.exports = { addController };
