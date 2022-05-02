@@ -1,4 +1,4 @@
-const { Location } = require("../utils/database");
+const { Location } = require("../models");
 
 const addController = async (req, res) => {
   try {

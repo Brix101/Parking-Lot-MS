@@ -1,4 +1,4 @@
-const { User } = require("../utils/database");
+const { User } = require("../models");
 const { ValidationError } = require("sequelize");
 
 const addController = async (req, res) => {

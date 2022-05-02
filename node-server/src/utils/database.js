@@ -28,7 +28,7 @@ sequelize.sync({ alter: true }).then(() => {
   }
 })();
 
-User = require("../models/user.model")(sequelize);
-Location = require("../models/location.model")(sequelize);
+// User = require("../models/user.model")(sequelize);
+// Location = require("../models/location.model")(sequelize);
 
-module.exports = { User, Location };
+module.exports = sequelize;

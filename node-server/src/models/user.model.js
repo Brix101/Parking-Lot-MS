@@ -1,72 +1,72 @@
 const { DataTypes } = require("sequelize");
+const sequelize = require("../utils/database");
 
 const argon2 = require("argon2");
 
-module.exports = (sequelize) => {
-  const User = sequelize.define(
-    "Users",
-    {
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "The field cannot be empty",
-          },
-        },
-      },
-      lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
+const User = sequelize.define(
+  "Users",
+  {
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
         notEmpty: {
-          args: true,
           msg: "The field cannot be empty",
         },
       },
-      userName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: {
-          args: true,
-          msg: "Username Taken",
-        },
-        validate: {
-          notEmpty: {
-            msg: "The field cannot be empty",
-          },
-        },
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      notEmpty: {
+        args: true,
+        msg: "The field cannot be empty",
       },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        isEmail: true,
-        validate: {
-          isEmail: {
-            msg: "Enter Valid Email",
-          },
-          notEmpty: {
-            msg: "The field cannot be empty",
-          },
-        },
+    },
+    userName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        args: true,
+        msg: "Username Taken",
       },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "The field cannot be empty",
-          },
+      validate: {
+        notEmpty: {
+          msg: "The field cannot be empty",
         },
       },
     },
-    {
-      hooks: {
-        beforeSave: async (record, _) => {
-          const password = record.dataValues.password;
-          record.dataValues.password = await argon2.hash(password);
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      isEmail: true,
+      validate: {
+        isEmail: {
+          msg: "Enter Valid Email",
+        },
+        notEmpty: {
+          msg: "The field cannot be empty",
         },
       },
-    }
-  );
-  return User;
-};
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "The field cannot be empty",
+        },
+      },
+    },
+  },
+  {
+    hooks: {
+      beforeSave: async (record, _) => {
+        const password = record.dataValues.password;
+        record.dataValues.password = await argon2.hash(password);
+      },
+    },
+  }
+);
+
+module.exports = User;
