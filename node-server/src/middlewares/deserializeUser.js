@@ -22,11 +22,12 @@ const deserializeUser = async (req, res, next) => {
   if (expired && refreshToken) {
     const { decoded } = verifyJwt(refreshToken);
     const user = await User.findByPk(decoded.id);
-    const newAccessToken = await user.getAccessToken();
+    const newAccessToken = user.getAccessToken();
+    res.setHeader("authorization", newAccessToken);
 
-    res.send({ "access-token": newAccessToken });
+    const newDecoded = verifyJwt(newAccessToken);
 
-    res.locals.user = decoded;
+    res.locals.user = newDecoded.decoded;
     return next();
   }
   next();

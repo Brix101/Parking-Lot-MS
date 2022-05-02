@@ -1,4 +1,5 @@
 const { Location } = require("../models");
+const { ValidationError } = require("sequelize");
 
 const addController = async (req, res) => {
   try {
@@ -12,9 +13,11 @@ const addController = async (req, res) => {
     data = await Location.create({ location });
     res.send(data);
   } catch (error) {
-    res.status(error instanceof ValidationError ? 400 : 500).send({
+    return res.status(error instanceof ValidationError ? 400 : 500).send({
       message:
-        error.errors[0].message || error.message || "Some error occurred",
+        error instanceof ValidationError
+          ? error.errors[0].message
+          : error.message || "Some error occurred",
     });
   }
 };
@@ -29,9 +32,11 @@ const getAllController = async (req, res) => {
 
     res.send(data);
   } catch (error) {
-    res.status(error instanceof ValidationError ? 400 : 500).send({
+    return res.status(error instanceof ValidationError ? 400 : 500).send({
       message:
-        error.errors[0].message || error.message || "Some error occurred",
+        error instanceof ValidationError
+          ? error.errors[0].message
+          : error.message || "Some error occurred",
     });
   }
 };

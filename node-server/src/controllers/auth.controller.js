@@ -29,7 +29,7 @@ const loginController = async (req, res) => {
         sameSite: "strict",
         secure: false,
       })
-      .setHeader("x-access-token", user.getAccessToken())
+      .setHeader("authorization", user.getAccessToken())
       .send({ "access-token": user.getAccessToken() });
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
