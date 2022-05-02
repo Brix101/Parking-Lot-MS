@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../utils/database");
-
 const argon2 = require("argon2");
+const { sign } = require("jsonwebtoken");
+const sequelize = require("../utils/database");
 
 const User = sequelize.define(
   "Users",
@@ -64,6 +64,13 @@ const User = sequelize.define(
       beforeSave: async (record, _) => {
         const password = record.dataValues.password;
         record.dataValues.password = await argon2.hash(password);
+      },
+    },
+    getterMethods: {
+      getToken() {
+        return sign({ id: this.id, userName: this.userName }, "Secret", {
+          expiresIn: 86400, //xp 24 hours
+        });
       },
     },
   }
