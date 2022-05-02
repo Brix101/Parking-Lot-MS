@@ -6,12 +6,14 @@ const {
   deleteController,
 } = require("../controllers/location.controller");
 
+const { requiredUser } = require("../middlewares");
+
 const locationRoutes = (app) => {
   app.get("/api/location", getAllController);
-  app.post("/api/location", addController);
-  app.get("/api/location/:id", getOneController);
-  app.put("/api/location/:id", updateController);
-  app.delete("/api/location/:id", deleteController);
+  app.post("/api/location", requiredUser, addController);
+  app.get("/api/location/:id", requiredUser, getOneController);
+  app.put("/api/location/:id", requiredUser, updateController);
+  app.delete("/api/location/:id", requiredUser, deleteController);
 };
 
 module.exports = locationRoutes;
