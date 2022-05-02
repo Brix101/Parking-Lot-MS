@@ -12,5 +12,6 @@ module.exports = {
     acquire: 30000,
     idle: 10000,
   },
-  SECRET_KEY: "SEEeeeEEEeeEEEeeecret",
+  REFRESH_KEY: "SEEeeeEEEeeEEEeeecret",
+  REFRESH_KEY: "SEEeeeEEEeeEEEeeecret",
 };

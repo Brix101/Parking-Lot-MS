@@ -15,17 +15,18 @@ const loginController = async (req, res) => {
       return res.status(404).send({ message: "User Not Found" });
     }
 
-    const isMatch = await argon2.verify(user.password, password);
+    const isMatch = await user.verifyPass(password);
 
     if (!isMatch) {
       return res.status(403).send({ message: "Password not Match" });
     }
-
     res.send({ token: user.getToken });
   } catch (error) {
-    res.status(error instanceof ValidationError ? 400 : 500).send({
+    return res.status(error instanceof ValidationError ? 400 : 500).send({
       message:
-        error.errors[0].message || error.message || "Some error occurred",
+        error instanceof ValidationError
+          ? error.errors[0].message
+          : error.message || "Some error occurred",
     });
   }
 };

@@ -68,12 +68,15 @@ const User = sequelize.define(
     },
     getterMethods: {
       getToken() {
-        return sign({ id: this.id, userName: this.userName }, "Secret", {
+        return sign({ ...this, id: this.id }, "Secret", {
           expiresIn: 86400, //xp 24 hours
         });
       },
     },
   }
 );
+User.prototype.verifyPass = async function (password) {
+  return await argon2.verify(this.password, password);
+};
 
 module.exports = User;
