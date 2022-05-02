@@ -3,8 +3,8 @@ const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
-  operatorsAliases: false,
-  logging: false, //? Disables logging
+  operatorsAliases: dbConfig.OP,
+  logging: dbConfig.logging,
   pool: {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
@@ -27,8 +27,5 @@ sequelize.sync({ alter: true }).then(() => {
     console.error("Unable to connect to the database:", error);
   }
 })();
-
-// User = require("../models/user.model")(sequelize);
-// Location = require("../models/location.model")(sequelize);
 
 module.exports = sequelize;

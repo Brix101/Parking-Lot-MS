@@ -4,6 +4,8 @@ module.exports = {
   PASSWORD: "root",
   DB: "parking-lot-ms",
   dialect: "mysql",
+  OP: 0,
+  logging: 0, //? Disables logging
   pool: {
     max: 5,
     min: 0,
