@@ -2,7 +2,8 @@ from fastapi import APIRouter,Depends,HTTPException,UploadFile,File,Response,sta
 from sqlalchemy.orm import Session
 from config.database import get_db
 
-from models.parker_model import Parker
+from models.parking_model import Parking
+from schemas.parking_schema import EntrySchema
 
 from utils.destination import Destination
 
@@ -17,31 +18,26 @@ destination = Destination()
 # Todo move this function to Node Server
 @router.get("/")
 async def get_parker(db:Session = Depends(get_db)):
-    data = db.query(Parker).all()
+    data = db.query(Parking).all()
     return data
 
-@router.post("/")
-async def parker_entry(res: Response,file : UploadFile = File(..., description="Select File to Upload"),db:Session = Depends(get_db)):
+@router.post("/entry")
+async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
     try:
-        err,link = await destination.upload(file)
         
-        if err is not None:
-            res.status_code = status.HTTP_400_BAD_REQUEST
-            return err
+        new_parker = Parking(**entry.toJson())
         
-        parker = Parker(plateNumber= file.filename,imageLink=link)
-        
-        db.add(parker)
+        db.add(new_parker)
         db.commit()
         
-        return {"parkerId": f"{parker.id}"}
+        return "Hello Parker"
     
     except Exception as e:
         raise HTTPException(500,e.__doc__ or e.message)
 
-@router.post("/")
+@router.post("/exit")
 async def parker_exit(res:Response,db:Session = Depends(get_db)):
     
-    return "Parker"
+    return "exit parker"
 
-# TODO update Delete
+# TODO add update for exit

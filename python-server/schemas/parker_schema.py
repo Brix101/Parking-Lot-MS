@@ -1,9 +1,7 @@
-from typing import Optional
 from pydantic import BaseModel
-from fastapi import UploadFile,File
 from fastapi.encoders import jsonable_encoder
 
-class ParkerSchema(BaseModel):
+class ParkingSchema(BaseModel):
     plateNumber : str
     location: str
 
@@ -15,3 +13,4 @@ class ParkerSchema(BaseModel):
     
     def toJson(self):
         return jsonable_encoder(self)
+    

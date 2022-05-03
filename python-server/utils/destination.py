@@ -22,7 +22,7 @@ class Destination:
                     file_object.write(contents)# Save Object    
     
         # TODO update filename
-    async def path(self,file):
+    async def upload(self,file):
         fullpath= os.path.join(self.destination, f"{self.timenow}-data-{file.filename}")
         err = await self.image_save(file,fullpath)      
                 #TODO update localhost to own ip

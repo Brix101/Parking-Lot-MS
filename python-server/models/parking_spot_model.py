@@ -1,0 +1,14 @@
+from sqlalchemy import Column,Integer,String,Boolean,ForeignKey, null
+from sqlalchemy.orm import relationship
+from config.database import Base
+from .base import  BaseModel
+
+class ParkingSpot(Base,BaseModel):
+    __tablename__ = "ParkingSpots"
+
+    spot=Column(String(100))
+    status=Column(Boolean,default=True)
+    description=Column(String(250))
+    active=Column(Boolean,default=False)
+    
+    parking = relationship("Parking",back_populates="parkingSpot") 

@@ -1,9 +1,11 @@
 from pydantic import BaseModel
 from fastapi.encoders import jsonable_encoder
 
-class LocationSchema(BaseModel):
-    location : int
-    availability : bool | None = True
+class ParkingSpotSchema(BaseModel):
+    spot : str
+    status : bool | None = True
+    description: str | None = None
+    active: bool | None = False
 
     class Config:
         orm_mode = True
