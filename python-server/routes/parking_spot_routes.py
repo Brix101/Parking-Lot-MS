@@ -19,11 +19,11 @@ async def get_parking_spot(db:Session = Depends(get_db)):
     return data
 
 @router.post("/")
-async def add_location(location:ParkingSpotSchema,db:Session = Depends(get_db)):
+async def add_location(parkingSpot:ParkingSpotSchema,db:Session = Depends(get_db)):
    
     try:            
         # **obj will unpack dict object/ in JS ...data
-        spot = ParkingSpot(**location.toJson())
+        spot = ParkingSpot(**parkingSpot.toJson())
         db.add(spot)
         db.commit()
                 

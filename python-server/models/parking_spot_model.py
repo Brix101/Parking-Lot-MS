@@ -1,4 +1,4 @@
-from sqlalchemy import Column,Integer,String,Boolean,ForeignKey, null
+from sqlalchemy import Boolean,Column,String, null
 from sqlalchemy.orm import relationship
 from config.database import Base
 from .base import  BaseModel
@@ -11,4 +11,11 @@ class ParkingSpot(Base,BaseModel):
     description=Column(String(250))
     active=Column(Boolean,default=False)
     
-    parking = relationship("Parking",back_populates="parkingSpot") 
+    parking = relationship("Parking",back_populates="parkingSpot")
+    
+    def update(self):
+        if(self.parking != null):
+            self.status = False
+        else:
+            self.status = True
+    

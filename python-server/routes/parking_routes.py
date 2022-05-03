@@ -3,14 +3,15 @@ from sqlalchemy.orm import Session
 from config.database import get_db
 
 from models.parking_model import Parking
+from models.parking_spot_model import ParkingSpot
 from schemas.parking_schema import EntrySchema
 
 from utils.destination import Destination
 
         
 router = APIRouter(
-    prefix="/parker",
-    tags=["Parker"]
+    prefix="/parking",
+    tags=["Parking"]
 )
 
 destination = Destination()
@@ -27,10 +28,14 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
         
         new_parker = Parking(**entry.toJson())
         
+        # ? Update parking spot status
+        spot = db.query(ParkingSpot).get(new_parker.parkingSpotId)
+        spot.update()
+        
         db.add(new_parker)
         db.commit()
         
-        return "Hello Parker"
+        return {"message":f"{spot.spot} parked"}
     
     except Exception as e:
         raise HTTPException(500,e.__doc__ or e.message)

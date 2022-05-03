@@ -21,7 +21,7 @@ async def get_parker(db:Session = Depends(get_db)):
     return data
 
 @router.post("/")
-async def parker_entry(res: Response,file : UploadFile = File(..., description="Select File to Upload"),db:Session = Depends(get_db)):
+async def add_parker(res: Response,file : UploadFile = File(..., description="Select File to Upload"),db:Session = Depends(get_db)):
     try:
         err,link = await destination.upload(file)
         
@@ -39,9 +39,5 @@ async def parker_entry(res: Response,file : UploadFile = File(..., description="
     except Exception as e:
         raise HTTPException(500,e.__doc__ or e.message)
 
-@router.post("/")
-async def parker_exit(res:Response,db:Session = Depends(get_db)):
-    
-    return "Parker"
 
 # TODO update Delete
