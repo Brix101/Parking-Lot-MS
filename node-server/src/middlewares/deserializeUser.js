@@ -19,11 +19,13 @@ const deserializeUser = async (req, res, next) => {
     res.locals.user = decoded;
     return next();
   }
+
   if (expired && refreshToken) {
     const { decoded } = verifyJwt(refreshToken);
     const user = await User.findByPk(decoded.id);
     const newAccessToken = user.getAccessToken();
-    res.setHeader("authorization", newAccessToken);
+
+    res.setHeader("x-access-token", newAccessToken);
 
     const newDecoded = verifyJwt(newAccessToken);
 
