@@ -41,6 +41,6 @@ const loginController = async (req, res) => {
 };
 
 const logoutController = async (req, res) => {
-  return res.clearCookie("refreshToken").send();
+  res.clearCookie("refreshToken").send();
 };
 module.exports = { loginController, logoutController };
