@@ -13,29 +13,31 @@ router = APIRouter(
     tags=["Parker"]
 )
 
-
+# Todo move this function to Node Server
 @router.get("/")
 async def get_parker(db:Session = Depends(get_db)):
     data = db.query(Parker).all()
     return data
 
-@router.post("/")
-async def add_parker(res: Response,image : UploadFile = File(..., description="Select File to Upload"),db:Session = Depends(get_db)):
+@router.post("/entry")
+async def parker_entry(res: Response,file : UploadFile = File(..., description="Select File to Upload"),db:Session = Depends(get_db)):
     try:
-        err,link = await Destination().path(image)
+        err,link = await Destination().path(file)
         
         if err is not None:
             res.status_code = status.HTTP_400_BAD_REQUEST
             return err
-        
-        # **obj will unpack dict object/ in JS ...data
-        # new_parker = Parker(**parker.toJson())
-        # db.add(new_parker)
-        # db.commit()
-        # return {"message": f"{new_parker.plateNumber} is Added"}
-        return link
+        # TODO add parker location
+        new_parker = Parker(plateNumber= file.filename,imageLink=link)
+        db.add(new_parker)
+        db.commit()
+        return {"message": f"{new_parker.plateNumber} is Added"}
     
     except Exception as e:
         raise HTTPException(500,e.__doc__ or e.message)
 
-# TODO add delete & update
+@router.post("/exit")
+async def parker_exit():
+    return "exit"
+
+# TODO add update for exit

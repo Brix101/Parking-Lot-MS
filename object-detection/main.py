@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 
-url = "http://localhost:8000/image/uploadfile"
+url = "http://localhost:8000/parker/entry"
 
 
 if __name__ == "__main__":
@@ -23,13 +23,14 @@ if __name__ == "__main__":
             
             if cv2.waitKey(25) == ord('a'):    
                 current_time = datetime.now().strftime("%H-%M-%S")
-                cv2.imwrite(f'data/{current_time}.png', img) #saved Image                
+                #TODO update filename change to plateNumber
+                cv2.imwrite(f'data/{current_time}.png', img) #?Saving Image                
                 files = {'file':(f'{current_time}.png', open(f'data/{current_time}.png', 'rb'), 'image/png')}
 
-                r = requests.post(url, files=files)
+                r = requests.post(url, files=files)#? Sending Image to backend
+                os.remove(f'data/{current_time}.png')
                 
                 print(r.json())
-                os.remove(f'data/{current_time}.png')
                 
                 
             if cv2.waitKey(25) == ord('q'):

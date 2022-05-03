@@ -3,9 +3,12 @@ const sequelize = require("../utils/database");
 
 const Location = sequelize.define("Locations", {
   location: {
-    type: DataTypes.INTEGER,
-    isInt: {
-      msg: "Must be an integer number",
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "The field cannot be empty",
+      },
     },
   },
   availability: {

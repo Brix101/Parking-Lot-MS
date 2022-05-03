@@ -5,7 +5,7 @@ from fastapi.encoders import jsonable_encoder
 
 class ParkerSchema(BaseModel):
     plateNumber : str
-    imageLink : str
+    location: str
 
     class Config:
         orm_mode = True
