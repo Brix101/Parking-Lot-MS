@@ -1,6 +1,5 @@
 const { User } = require("../models");
 const { ValidationError } = require("sequelize");
-const argon2 = require("argon2");
 
 const loginController = async (req, res) => {
   try {
@@ -41,4 +40,7 @@ const loginController = async (req, res) => {
   }
 };
 
-module.exports = { loginController };
+const logoutController = async (req, res) => {
+  return res.clearCookie("refreshToken").send();
+};
+module.exports = { loginController, logoutController };

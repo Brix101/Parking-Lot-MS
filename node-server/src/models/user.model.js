@@ -76,7 +76,7 @@ User.prototype.verifyPass = async function (password) {
 
 User.prototype.getRefreshToken = function () {
   return signJwt(
-    { id: this.id, userName: this.userName },
+    { ...this, id: this.id },
     {
       expiresIn: 86400, //xp 24hours
     }
@@ -85,7 +85,7 @@ User.prototype.getRefreshToken = function () {
 
 User.prototype.getAccessToken = function () {
   return signJwt(
-    { ...this, id: this.id },
+    { id: this.id, userName: this.userName },
     {
       expiresIn: 900, //xp 15min
     }
