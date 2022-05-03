@@ -19,3 +19,7 @@ class ParkingSpot(Base,BaseModel):
         else:
             self.status = True
     
+    def on_exit(self):
+        self.parking = 1        
+        self.update()
+    

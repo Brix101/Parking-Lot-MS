@@ -1,10 +1,12 @@
-from fastapi import APIRouter,Depends,HTTPException,UploadFile,File,Response,status
+from fastapi import APIRouter,Depends,HTTPException
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from config.database import get_db
 
+from models.parker_model import Parker
 from models.parking_model import Parking
 from models.parking_spot_model import ParkingSpot
-from schemas.parking_schema import EntrySchema
+from schemas.parking_schema import EntrySchema,ExitSchema
 
 from utils.destination import Destination
 
@@ -38,11 +40,23 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
         return {"message":f"{spot.spot} parked"}
     
     except Exception as e:
-        raise HTTPException(500,e.__doc__ or e.message)
+        raise HTTPException(500,e.__doc__ or e.args)
 
 @router.post("/exit")
-async def parker_exit(res:Response,db:Session = Depends(get_db)):
+async def parker_exit(exit:ExitSchema ,db:Session = Depends(get_db)):
+    try:
+        #? get owner of plateNumber
+        parker = db.query(Parker).filter_by(plateNumber=exit.plateNumber).order_by(desc("createdAt")).first()
+        parking = db.query(Parking).filter_by(parker=parker).first()
+        spot = db.query(ParkingSpot).get(parking.parkingSpotId)
+        
+        spot.on_exit()        
+        parking.on_exit()
+        db.commit()
+        return spot
     
-    return "exit parker"
+    except Exception as e:
+        print(e.args[0])
+        raise HTTPException(500,e.__doc__ or e.args[0])
 
 # TODO add update for exit

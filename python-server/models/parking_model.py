@@ -15,3 +15,7 @@ class Parking(Base,BaseModel):
     
     parkingSpot = relationship("ParkingSpot", back_populates="parking")
     parker = relationship("Parker", back_populates="parking")
+    
+    
+    def on_exit(self):
+        self.exited = func.now()
