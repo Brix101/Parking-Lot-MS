@@ -31,7 +31,7 @@ async def parker_entry(res: Response,file : UploadFile = File(..., description="
         new_parker = Parker(plateNumber= file.filename,imageLink=link)
         db.add(new_parker)
         db.commit()
-        return {"message": f"{new_parker.plateNumber} is Added"}
+        return {"message": f"{new_parker.imageLink} is Added"}
     
     except Exception as e:
         raise HTTPException(500,e.__doc__ or e.message)

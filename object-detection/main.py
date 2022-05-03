@@ -16,9 +16,11 @@ if __name__ == "__main__":
         ret, img = cap.read()
         
         if ret == True:
+                        
             
-            imS = cv2.resize(img, (960, 540)) # Resize image
+            # TODO Add here the object detection algo
             
+            imS = cv2.resize(img, (960, 540)) # Resize image            
             cv2.imshow("Video", imS) 
             
             if cv2.waitKey(25) == ord('a'):    
@@ -28,9 +30,9 @@ if __name__ == "__main__":
                 files = {'file':(f'{current_time}.png', open(f'data/{current_time}.png', 'rb'), 'image/png')}
 
                 r = requests.post(url, files=files)#? Sending Image to backend
-                os.remove(f'data/{current_time}.png')
                 
                 print(r.json())
+                os.remove(f'data/{current_time}.png')
                 
                 
             if cv2.waitKey(25) == ord('q'):
