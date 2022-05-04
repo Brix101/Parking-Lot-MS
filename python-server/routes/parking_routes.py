@@ -40,7 +40,7 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
         return {"message":f"{spot.spot} parked"}
     
     except Exception as e:
-        raise HTTPException(500,e.__doc__ or e.args)
+        raise HTTPException(500,e.__doc__ or e.args[0])
 
 @router.post("/exit")
 async def parker_exit(exit:ExitSchema ,db:Session = Depends(get_db)):
@@ -50,10 +50,10 @@ async def parker_exit(exit:ExitSchema ,db:Session = Depends(get_db)):
         parking = db.query(Parking).filter_by(parker=parker).first()
         spot = db.query(ParkingSpot).get(parking.parkingSpotId)
         
-        spot.parking = None;    
+        spot.on_exit()
         parking.on_exit()
         db.commit()
-        return spot
+        return {"message": parker}
     
     except Exception as e:
         print(e.args[0])

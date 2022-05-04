@@ -5,12 +5,25 @@ from datetime import datetime
 
 
 
-url = "http://localhost:8000/parker/"
+parker_url = "http://localhost:8000/parker/"
+parking_entry = 'http://localhost:8000/parking/entry'
+parking_exit = 'http://localhost:8000/parking/exit'
 
+class IdCatch:
+    def __init__(self):
+        self.id = 0
+    
+    def set_id(self,id):
+        self.id = id
+    
+    def get_id(self):
+        return self.id
+    
 
 if __name__ == "__main__":
     
     cap = cv2.VideoCapture(0)
+    idcatch = IdCatch()
     
     while (cap.isOpened()):
         ret, img = cap.read()
@@ -20,20 +33,35 @@ if __name__ == "__main__":
             
             # TODO Add here the object detection algo
             
-            imS = cv2.resize(img, (960, 540)) # Resize image            
+            imS = cv2.resize(img, (560, 240)) # Resize image            
             cv2.imshow("Video", imS) 
             
-            if cv2.waitKey(25) == ord('a'):    
+            #? Mock new Parker
+            if cv2.waitKey(25) == ord('1'):    
                 current_time = datetime.now().strftime("%H-%M-%S")
                 #TODO update filename change to plateNumber
                 cv2.imwrite(f'data/{current_time}.png', img) #?Saving Image                
                 files = {'file':(f'{current_time}.png', open(f'data/{current_time}.png', 'rb'), 'image/png')}
 
-                r = requests.post(url, files=files)#? Sending Image to backend
+                res = requests.post(parker_url, files=files)#? Sending Image to backend
                 
-                print(r.json())
+                data = res.json()
+                idcatch.set_id(data["parkerId"])
+                print(f"Set Id: {idcatch.get_id()}")
                 os.remove(f'data/{current_time}.png')
-                
+            
+            #? Mock parking Entry
+            if cv2.waitKey(25) == ord('2'):
+                data = {'parkingSpotId': 4,'parkerId': idcatch.get_id()}
+                res = requests.post(parking_entry,json=data)
+                print(res.json())
+            
+            #? Mock parking Exit
+            if cv2.waitKey(25) == ord('3'):
+                # 09-41-21.png
+                data = {"plateNumber": "09-41-21.png" }
+                res = requests.post(parking_exit,json=data)
+                print(res.json())
                 
             if cv2.waitKey(25) == ord('q'):
                 break

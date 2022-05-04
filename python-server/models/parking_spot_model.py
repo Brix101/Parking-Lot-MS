@@ -20,6 +20,5 @@ class ParkingSpot(Base,BaseModel):
             self.status = True
     
     def on_exit(self):
-        self.parking = null      
-        self.update()
+        self.status = True
     

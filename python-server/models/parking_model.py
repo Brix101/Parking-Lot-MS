@@ -19,3 +19,4 @@ class Parking(Base,BaseModel):
     
     def on_exit(self):
         self.exited = func.now()
+        
