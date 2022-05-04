@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 
-url = "http://localhost:8000/parker/entry"
+url = "http://localhost:8000/parker/"
 
 
 if __name__ == "__main__":

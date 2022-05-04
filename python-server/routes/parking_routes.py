@@ -50,7 +50,7 @@ async def parker_exit(exit:ExitSchema ,db:Session = Depends(get_db)):
         parking = db.query(Parking).filter_by(parker=parker).first()
         spot = db.query(ParkingSpot).get(parking.parkingSpotId)
         
-        spot.on_exit()        
+        spot.parking = None;    
         parking.on_exit()
         db.commit()
         return spot

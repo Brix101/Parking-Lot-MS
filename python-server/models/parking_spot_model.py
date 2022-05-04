@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean,Column,String, null
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship,backref
 from config.database import Base
 from .base import  BaseModel
 
@@ -11,7 +11,7 @@ class ParkingSpot(Base,BaseModel):
     description=Column(String(250))
     active=Column(Boolean,default=False)
     
-    parking = relationship("Parking",back_populates="parkingSpot")
+    parking = relationship("Parking", back_populates="parkingSpot")
     
     def update(self):
         if(self.parking != null):
@@ -20,6 +20,6 @@ class ParkingSpot(Base,BaseModel):
             self.status = True
     
     def on_exit(self):
-        self.parking = 1        
+        self.parking = null      
         self.update()
     

@@ -29,7 +29,7 @@ async def add_parker(res: Response,file : UploadFile = File(..., description="Se
             res.status_code = status.HTTP_400_BAD_REQUEST
             return err
         
-        parker = Parker(plateNumber= file.filename,imageLink=link)
+        parker = Parker(plateNumber= file.filename, imageLink=link)
         
         db.add(parker)
         db.commit()
@@ -37,7 +37,7 @@ async def add_parker(res: Response,file : UploadFile = File(..., description="Se
         return {"parkerId": f"{parker.id}"}
     
     except Exception as e:
-        raise HTTPException(500,e.__doc__ or e.message)
+        raise HTTPException(500,e.__doc__ or e.args[0])
 
 
 # TODO update Delete

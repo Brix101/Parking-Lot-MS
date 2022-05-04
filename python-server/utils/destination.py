@@ -23,6 +23,11 @@ class Destination:
     
         # TODO update filename
     async def upload(self,file):
+                # Create Folder W/ Date
+        if not os.path.exists(self.destination):
+            os.mkdir(self.destination)
+            
+            
         fullpath= os.path.join(self.destination, f"{self.timenow}-data-{file.filename}")
         err = await self.image_save(file,fullpath)      
                 #TODO update localhost to own ip
