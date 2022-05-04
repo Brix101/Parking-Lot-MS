@@ -30,15 +30,20 @@ async def add_parker(res: Response,file : UploadFile = File(..., description="Se
             res.status_code = status.HTTP_400_BAD_REQUEST
             return err
         
+        parker = db.query(Parker).filter_by(plateNumber= file.filename).first()
         
-        parker = Parker(plateNumber= file.filename)
-        new_image = ParkerImage(imageLink=link,parker=parker)
-        
-        db.add(parker)        
+        if(parker is None):      
+            new_parker = Parker(plateNumber= file.filename)
+            new_image = ParkerImage(imageLink=link,parker=new_parker)            
+            db.add(new_parker) 
+        else:
+            new_image = ParkerImage(imageLink=link,parker=parker)
+               
+               
         db.add(new_image)
         db.commit()
         
-        return {"parkerId": f"{parker.id}"}
+        return {"parkerId": f"{ new_parker.id if (parker.id is None ) else parker.id   }"}
     
     except Exception as e:
         print(e.args[0])
