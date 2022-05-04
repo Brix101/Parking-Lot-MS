@@ -45,7 +45,7 @@ const getOneController = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const spotCode = await Location.findByPk(id);
+    const spotCode = await ParkingSpot.findByPk(id);
 
     if (!spotCode) {
       return res.status(404).send({

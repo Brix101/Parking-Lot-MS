@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/database");
 
-const Location = sequelize.define("parkingSpots", {
+const Location = sequelize.define("ParkingSpots", {
   spotCode: {
     type: DataTypes.STRING,
     allowNull: false,
