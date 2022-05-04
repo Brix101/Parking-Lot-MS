@@ -9,6 +9,6 @@ class ParkerImage(BaseModel,Base):
 
 
     imageLink=Column(String(250))
-    parkerId = Column(Integer, ForeignKey('Parkers.id'))
+    parkerId = Column(Integer, ForeignKey('Parkers.id',ondelete='CASCADE'))
     
     parker = relationship("Parker", back_populates="parkerImages")

@@ -10,11 +10,11 @@ class Parking(Base,BaseModel):
 
     entered = Column(DateTime, default=func.now())
     exited = Column(DateTime, default=None)  
-    parkingSpotId = Column(Integer, ForeignKey('ParkingSpots.id'))
-    parkerId = Column(Integer, ForeignKey('Parkers.id'))
+    parkingSpotId = Column(Integer, ForeignKey('ParkingSpots.id',ondelete='CASCADE'))
+    parkerId = Column(Integer, ForeignKey('Parkers.id',ondelete='CASCADE'))
     
-    parkingSpot = relationship("ParkingSpot", back_populates="parking")
-    parker = relationship("Parker", back_populates="parking")
+    parkingSpot = relationship("ParkingSpot",cascade="all,delete", back_populates="parking")
+    parker = relationship("Parker",cascade="all,delete", back_populates="parking")
     
     
     def on_exit(self):

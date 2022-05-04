@@ -32,7 +32,7 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
         
         # ? Update parking spot status
         spot = db.query(ParkingSpot).get(new_parker.parkingSpotId)
-        spot.update()
+        spot.on_entry()
         
         db.add(new_parker)
         db.commit()
@@ -45,18 +45,18 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
 @router.post("/exit")
 async def parker_exit(exit:ExitSchema ,db:Session = Depends(get_db)):
     try:
+        # TODO !!! Update Exception Catcher
         #? get owner of plateNumber
-        parker = db.query(Parker).filter_by(plateNumber=exit.plateNumber).order_by(desc("createdAt")).first()
-        parking = db.query(Parking).filter_by(parker=parker).first()
+        parker = db.query(Parker).filter_by(plateNumber=exit.plateNumber).one_or_none()
+        parking = db.query(Parking).filter_by(parker=parker).one_or_none()
         spot = db.query(ParkingSpot).get(parking.parkingSpotId)
         
         spot.on_exit()
         parking.on_exit()
         db.commit()
-        return {"message": parker}
+        return {"message": "Exited"}
     
     except Exception as e:
-        print(e.args[0])
         raise HTTPException(500,e.__doc__ or e.args[0])
 
 # TODO add update for exit

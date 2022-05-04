@@ -35,7 +35,7 @@ async def add_parker(res: Response,file : UploadFile = File(..., description="Se
         if(parker is None):      
             new_parker = Parker(plateNumber= file.filename)
             new_image = ParkerImage(imageLink=link,parker=new_parker)            
-            db.add(new_parker) 
+            db.add(new_parker)
         else:
             new_image = ParkerImage(imageLink=link,parker=parker)
                
@@ -43,7 +43,8 @@ async def add_parker(res: Response,file : UploadFile = File(..., description="Se
         db.add(new_image)
         db.commit()
         
-        return {"parkerId": f"{ new_parker.id if (parker.id is None ) else parker.id   }"}
+        id = new_parker.id if (parker is None ) else parker.id        
+        return {"parkerId": f"{id}"}
     
     except Exception as e:
         print(e.args[0])

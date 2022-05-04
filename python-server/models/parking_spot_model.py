@@ -6,19 +6,17 @@ from .base import  BaseModel
 class ParkingSpot(Base,BaseModel):
     __tablename__ = "ParkingSpots"
 
-    spot=Column(String(100))
+    spotCode=Column(String(100))
     status=Column(Boolean,default=True)
     description=Column(String(250))
     active=Column(Boolean,default=False)
     
-    parking = relationship("Parking", back_populates="parkingSpot")
+    parking = relationship("Parking", back_populates="parkingSpot",passive_deletes=True)
     
-    def update(self):
-        if(self.parking != null):
-            self.status = False
-        else:
-            self.status = True
+    def on_entry(self):
+        self.status = False
     
     def on_exit(self):
         self.status = True
+        
     

@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from fastapi.encoders import jsonable_encoder
 
 class ParkingSpotSchema(BaseModel):
-    spot : str
+    spotCode : str
     status : bool | None = True
     description: str | None = None
     active: bool | None = False

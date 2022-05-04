@@ -10,5 +10,5 @@ class Parker(BaseModel,Base):
     plateNumber=Column(String(100))
     note=Column(String(250),default=None)   
     
-    parking = relationship("Parking",back_populates="parker")    
-    parkerImages = relationship("ParkerImage",back_populates="parker")
+    parking = relationship("Parking",back_populates="parker",passive_deletes=True)    
+    parkerImages = relationship("ParkerImage",back_populates="parker",passive_deletes=True)
