@@ -37,9 +37,10 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
         db.add(new_parker)
         db.commit()
         
-        return {"message":f"{spot.spot} parked"}
+        return {"message":f"{spot.spotCode} parked"}
     
     except Exception as e:
+        print(e)
         raise HTTPException(500,e.__doc__ or e.args[0])
 
 @router.post("/exit")
@@ -48,7 +49,7 @@ async def parker_exit(exit:ExitSchema ,db:Session = Depends(get_db)):
         # TODO !!! Update Exception Catcher
         #? get owner of plateNumber
         parker = db.query(Parker).filter_by(plateNumber=exit.plateNumber).one_or_none()
-        parking = db.query(Parking).filter_by(parker=parker).one_or_none()
+        parking = db.query(Parking).filter_by(parker=parker,exited=None).one_or_none()
         spot = db.query(ParkingSpot).get(parking.parkingSpotId)
         
         spot.on_exit()
