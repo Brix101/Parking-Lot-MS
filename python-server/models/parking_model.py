@@ -6,7 +6,7 @@ from .base import  BaseModel
 from sqlalchemy.sql import func
 
 class Parking(Base,BaseModel):
-    __tablename__ = "Parking"
+    __tablename__ = "Parkings"
 
     entered = Column(DateTime, default=func.now())
     exited = Column(DateTime, default=None)  

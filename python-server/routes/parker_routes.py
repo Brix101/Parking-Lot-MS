@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from config.database import get_db
 
 from models.parker_model import Parker
+from models.parker_image_model import ParkerImage
 
 from utils.destination import Destination
 
@@ -29,14 +30,18 @@ async def add_parker(res: Response,file : UploadFile = File(..., description="Se
             res.status_code = status.HTTP_400_BAD_REQUEST
             return err
         
-        parker = Parker(plateNumber= file.filename, imageLink=link)
         
-        db.add(parker)
+        parker = Parker(plateNumber= file.filename)
+        new_image = ParkerImage(imageLink=link,parker=parker)
+        
+        db.add(parker)        
+        db.add(new_image)
         db.commit()
         
         return {"parkerId": f"{parker.id}"}
     
     except Exception as e:
+        print(e.args[0])
         raise HTTPException(500,e.__doc__ or e.args[0])
 
 

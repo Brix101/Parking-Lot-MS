@@ -41,13 +41,17 @@ if __name__ == "__main__":
                 current_time = datetime.now().strftime("%H-%M-%S")
                 #TODO update filename change to plateNumber
                 cv2.imwrite(f'data/{current_time}.png', img) #?Saving Image                
-                files = {'file':(f'{current_time}.png', open(f'data/{current_time}.png', 'rb'), 'image/png')}
+                files = {'file':(f'asd123.png', open(f'data/{current_time}.png', 'rb'), 'image/png')}
 
                 res = requests.post(parker_url, files=files)#? Sending Image to backend
                 
                 data = res.json()
-                idcatch.set_id(data["parkerId"])
-                print(f"Set Id: {idcatch.get_id()}")
+                # if(data["parkerId"] in data ):                    
+                #     idcatch.set_id(data["parkerId"])
+                #     print(f"Set Id: {idcatch.get_id()}")
+                # else:
+                #     print(data)
+                print(data)
                 os.remove(f'data/{current_time}.png')
             
             #? Mock parking Entry
