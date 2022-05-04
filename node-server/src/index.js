@@ -1,6 +1,8 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const { deserializeUser, requiredUser } = require("./middlewares");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const { deserializeUser } = require("./middlewares");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -13,6 +15,14 @@ app.use(deserializeUser);
 
 routes(app);
 
-app.listen(port, () => {
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  /* options */
+});
+io.on("connection", (socket) => {
+  console.log(socket.id); // ojIckSD2jqNzOqIrAGzL
+});
+
+httpServer.listen(port, () => {
   console.log(`App running on port ${port}`);
 });

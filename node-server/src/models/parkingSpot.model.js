@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/database");
 
-const Location = sequelize.define("Locations", {
-  location: {
+const Location = sequelize.define("parkingSpots", {
+  spotCode: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
@@ -11,13 +11,17 @@ const Location = sequelize.define("Locations", {
       },
     },
   },
-  availability: {
+  status: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
-  parker_id: {
-    type: DataTypes.INTEGER,
-    default: null,
+  decription: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  active: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
   },
 });
 

@@ -1,5 +1,5 @@
 const authRoutes = require("./auth.routes");
-const locationRoutes = require("./location.routes");
+const parkingSpotRoutes = require("./parkingSpot.routes");
 const userRoutes = require("./user.routes");
 
 const routes = (app) => {
@@ -8,7 +8,7 @@ const routes = (app) => {
   });
   authRoutes(app);
   userRoutes(app);
-  locationRoutes(app);
+  parkingSpotRoutes(app);
 };
 
 module.exports = routes;

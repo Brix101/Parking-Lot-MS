@@ -1,16 +1,16 @@
-const { Location } = require("../models");
+const { ParkingSpot } = require("../models");
 const { ValidationError } = require("sequelize");
 
 const addController = async (req, res) => {
   try {
-    const { location } = req.body;
-    if (!location) {
+    const { spotCode } = req.body;
+    if (!spotCode) {
       return res.status(400).send({
         message: "Content can not be empty!",
       });
     }
 
-    data = await Location.create({ location });
+    data = await ParkingSpot.create({ spotCode });
     res.send(data);
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
@@ -24,11 +24,11 @@ const addController = async (req, res) => {
 
 const getAllController = async (req, res) => {
   try {
-    const location = req.query.location;
-    var condition = location
-      ? { location: { [Op.like]: `%${location}%` } }
+    const spotCode = req.query.spotCode;
+    var condition = spotCode
+      ? { spotCode: { [Op.like]: `%${spotCode}%` } }
       : null;
-    data = await Location.findAll({ where: condition });
+    data = await ParkingSpot.findAll({ where: condition });
 
     res.send(data);
   } catch (error) {
@@ -45,15 +45,15 @@ const getOneController = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const location = await Location.findByPk(id);
+    const spotCode = await Location.findByPk(id);
 
-    if (!location) {
+    if (!spotCode) {
       return res.status(404).send({
-        message: `Location Not Found`,
+        message: `spotCode Not Found`,
       });
     }
 
-    res.send(location);
+    res.send(spotCode);
   } catch (error) {
     return res.status(500).send({
       message: error.message || "Some error occurred",
@@ -63,13 +63,13 @@ const getOneController = async (req, res) => {
 const updateController = async (req, res) => {
   try {
     const id = req.params.id;
-    const num = await Location.update(req.body, {
+    const num = await ParkingSpot.update(req.body, {
       where: { id: id },
     });
 
     if (num !== 1) {
       return res.status(404).send({
-        message: `Location Not Found`,
+        message: `spotCode Not Found`,
       });
     }
 
@@ -85,13 +85,13 @@ const updateController = async (req, res) => {
 const deleteController = async (req, res) => {
   try {
     const id = req.params.id;
-    const num = await Location.destroy({
+    const num = await ParkingSpot.destroy({
       where: { id: id },
     });
 
     if (num !== 1) {
       return res.status(404).send({
-        message: `Location Not Found`,
+        message: `spotCode Not Found`,
       });
     }
 

@@ -1,4 +1,4 @@
-const Location = require("./location.model");
+const ParkingSpot = require("./P.model");
 const User = require("./user.model");
 
-module.exports = { Location, User };
+module.exports = { ParkingSpot, User };
