@@ -2,7 +2,7 @@ from fastapi import APIRouter,Depends,Response
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
-
+from middlewares.authentication import auth
 from models.parker_model import Parker
 from models.parking_model import Parking
 from models.parking_spot_model import ParkingSpot
@@ -19,12 +19,12 @@ router = APIRouter(
 destination = Destination()
 
 # Todo move this function to Node Server
-@router.get("/")
+@router.get("/", dependencies=[Depends(auth)])
 async def get_parker(db:Session = Depends(get_db)):
     data = db.query(Parking).all()
     return data
 
-@router.post("/entry")
+@router.post("/entry", dependencies=[Depends(auth)])
 async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
     try:
         # ? iterate
@@ -42,7 +42,7 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
     except Exception as e:
         raise e
 
-@router.post("/exit")
+@router.post("/exit", dependencies=[Depends(auth)])
 async def parker_exit(res:Response,exit:ExitSchema ,db:Session = Depends(get_db)):
     try:
         # TODO !!! Update Exception Catcher

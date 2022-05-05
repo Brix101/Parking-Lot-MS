@@ -20,15 +20,12 @@ class IdCatch:
     def get_id(self):
         return self.id
 
-class CookieCatcher:
+class Cookie:
     def __init__(self):
-        self.cookie = None
-    
-    def set_cookie(self):
         session = requests.Session()
         response = session.get(base_url)
-        self.cookie = session.cookies["fakesession"]
-    
+        self.cookie = response.cookies.get_dict()
+   
     def get_cookie(self):
         return self.cookie
     
@@ -37,29 +34,27 @@ if __name__ == "__main__":
     
     cap = cv2.VideoCapture(0)
     idcatch = IdCatch()
-    CookieCatcher = CookieCatcher()
+    cookie = Cookie()
     
-    CookieCatcher.set_cookie()
     
     while (cap.isOpened()):
         ret, img = cap.read()
         
-        if ret == True:
-                        
+        if ret == True:                        
             
             # TODO Add here the object detection algo
             
             imS = cv2.resize(img, (560, 240)) # Resize image            
             cv2.imshow("Video", imS) 
             
-            #? Mock new Parker
+            #? Mock add new Parker
             if cv2.waitKey(25) == ord('1'):    
                 current_time = datetime.now().strftime("%H-%M-%S")
                 #TODO update filename change to plateNumber
                 cv2.imwrite(f'data/{current_time}.png', img) #?Saving Image                
                 files = {'file':(f'current_time.png', open(f'data/{current_time}.png', 'rb'), 'image/png')}
 
-                res = requests.post(parker_url, files=files)#? Sending Image to backend
+                res = requests.post(parker_url, files=files,cookies=cookie.get_cookie())#? Sending Image to backend
                 
                 data = res.json()
                 if("parkerId" in data):                    
@@ -69,25 +64,23 @@ if __name__ == "__main__":
                     print(data)
                     
                 os.remove(f'data/{current_time}.png')
-            
-            #? Mock parking Entry
+                
+            # TODO Add IR activation here
+            #? Mock add parking Entry
             if cv2.waitKey(25) == ord('2'):
                 #! change parkingSpotId to to dynamic id when IR activated
                 data = {'parkingSpotId': 1,'parkerId': idcatch.get_id()}
                 res = requests.post(parking_entry,json=data)
                 print(res.json())
-            
-            #? Mock parking Exit
+                
+            # TODO Add Parker Exit here
+            #? Mock add parking Exit
             if cv2.waitKey(25) == ord('3'):
                 # 09-41-21.png
                 data = {"plateNumber": "current_time.png" }
                 res = requests.post(parking_exit,json=data)
                 print(res.json())
             
-                        #? Mock get Cookie
-            if cv2.waitKey(25) == ord('4'):                
-                print(CookieCatcher.get_cookie())
-                
             if cv2.waitKey(25) == ord('q'):
                 break
 

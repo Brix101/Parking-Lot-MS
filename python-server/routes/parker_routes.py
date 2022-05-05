@@ -18,7 +18,7 @@ router = APIRouter(
 destination = Destination()
 
 # Todo move this function to Node Server
-@router.get("/")
+@router.get("/", dependencies=[Depends(auth)])
 async def get_parker(db:Session = Depends(get_db)):
     data = db.query(Parker).all()
     return data
