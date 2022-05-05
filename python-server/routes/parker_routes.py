@@ -1,7 +1,9 @@
-from fastapi import APIRouter,Depends,HTTPException,UploadFile,File,Response,status
+from fastapi import APIRouter,Depends,UploadFile,File,Response,status
 from sqlalchemy.orm import Session
+
 from config.database import get_db
 
+from middlewares.authentication import auth
 from models.parker_model import Parker
 from models.parker_image_model import ParkerImage
 
@@ -21,7 +23,7 @@ async def get_parker(db:Session = Depends(get_db)):
     data = db.query(Parker).all()
     return data
 
-@router.post("/")
+@router.post("/", dependencies=[Depends(auth)])
 async def add_parker(res: Response,file : UploadFile = File(..., description="Select File to Upload"),db:Session = Depends(get_db)):
     try:
         err,link = await destination.upload(file)
