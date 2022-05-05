@@ -15,7 +15,7 @@ const Location = sequelize.define("ParkingSpots", {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
-  decription: {
+  description: {
     type: DataTypes.STRING,
     allowNull: true,
   },

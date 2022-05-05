@@ -38,6 +38,7 @@ io.on("connection", (socket) => {
   setInterval(() => {
     socket.emit("sample", { message: "Hello" });
   }, 1000);
+
   connections.add(socket);
   socket.once("disconnect", () => {
     connections.delete(socket);
