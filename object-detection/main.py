@@ -34,7 +34,7 @@ if __name__ == "__main__":
     
     cap = cv2.VideoCapture(0)
     idcatch = IdCatch()
-    cookie = Cookie()
+    cookie = Cookie()# initialize to get Cookie
     
     
     while (cap.isOpened()):
