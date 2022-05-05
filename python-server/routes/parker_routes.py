@@ -40,8 +40,7 @@ async def add_parker(res: Response,file : UploadFile = File(..., description="Se
             db.add(new_parker)
         else:
             new_image = ParkerImage(imageLink=link,parker=parker)
-               
-               
+                              
         db.add(new_image)
         db.commit()
         
