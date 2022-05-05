@@ -32,16 +32,13 @@ const io = new Server(httpServer, {
 });
 
 const connections = new Set();
-io.on("connection", (socket) => {
-  app.set("socket", io);
-
-  setInterval(() => {
-    socket.emit("sample", { message: "Hello" });
-  }, 1000);
-
+app.set("socket", io);
+io.on("connection", async (socket) => {
+  console.log("Connected  | " + socket.id);
   connections.add(socket);
-  socket.once("disconnect", () => {
+  socket.on("disconnect", () => {
     connections.delete(socket);
+    console.log(`Disconnected | ${socket.id}`);
   });
 });
 

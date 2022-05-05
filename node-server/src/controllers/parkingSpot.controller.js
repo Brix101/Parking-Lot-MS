@@ -23,6 +23,8 @@ const addController = async (req, res) => {
 };
 
 const getAllController = async (req, res) => {
+  const socket = req.app.get("socket");
+
   try {
     const spotCode = req.query.spotCode;
     var condition = spotCode
@@ -30,6 +32,7 @@ const getAllController = async (req, res) => {
       : null;
     data = await ParkingSpot.findAll({ where: condition });
 
+    socket.emit("parkingSpots", data);
     res.send(data);
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
