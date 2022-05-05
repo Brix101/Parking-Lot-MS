@@ -21,9 +21,12 @@ async def exception_handler(request: Request, next):
     try:
         return await next(request)
     except Exception as e:
-        err_message = f"Failed to execute: {request.method}: {request.url}. Detail: {e}"
-        logger.error(err_message)        
-        return JSONResponse(status_code=400, content={"message": f"{err_message}"})
+        logger.error(e)    
+        err_message = {
+            "message":f"Failed to execute: {request.method}: {request.url}",
+            "detail": f"{e}"
+        }    
+        return JSONResponse(status_code=400, content=err_message)
 
 app.include_router(parker_routes.router)
 app.include_router(parking_routes.router)

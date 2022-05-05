@@ -61,7 +61,7 @@ async def parker_exit(res:Response,exit:ExitSchema ,db:Session = Depends(get_db)
         for parking in parkings:
             spot = db.query(ParkingSpot).get(parking.parkingSpotId)     
             spot.on_exit()    
-            parkings.on_exit()
+            parking.on_exit()
             
         db.commit()
         return {"message": "Exited"}

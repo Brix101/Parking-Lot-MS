@@ -1,7 +1,11 @@
-from cgitb import handler
+from logging.config import dictConfig
 import logging
+from config.logger_config import LogConfig
 
-logging.basicConfig(level=logging.INFO, filename="logs/log.log", filemode="w",
-                    format="%(asctime)s - %(levelname)s: %(message)s")
+dictConfig(LogConfig().dict())
+
+# logging.basicConfig(level=logging.DEBUG, filename="logs/log.log", filemode="w",
+#                     format="%(levelname)s | %(asctime)s | %(message)s")
 
 logger = logging.getLogger("name")
+
