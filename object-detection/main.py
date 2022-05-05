@@ -1,10 +1,11 @@
+from urllib import response
 import requests
 import cv2
 import os
 from datetime import datetime
 
 
-
+base_url = "http://localhost:8000/"
 parker_url = "http://localhost:8000/parker/"
 parking_entry = 'http://localhost:8000/parking/entry'
 parking_exit = 'http://localhost:8000/parking/exit'
@@ -18,12 +19,27 @@ class IdCatch:
     
     def get_id(self):
         return self.id
+
+class CookieCatcher:
+    def __init__(self):
+        self.cookie = None
+    
+    def set_cookie(self):
+        session = requests.Session()
+        response = session.get(base_url)
+        self.cookie = session.cookies["fakesession"]
+    
+    def get_cookie(self):
+        return self.cookie
     
 
 if __name__ == "__main__":
     
     cap = cv2.VideoCapture(0)
     idcatch = IdCatch()
+    CookieCatcher = CookieCatcher()
+    
+    CookieCatcher.set_cookie()
     
     while (cap.isOpened()):
         ret, img = cap.read()
@@ -67,6 +83,10 @@ if __name__ == "__main__":
                 data = {"plateNumber": "current_time.png" }
                 res = requests.post(parking_exit,json=data)
                 print(res.json())
+            
+                        #? Mock get Cookie
+            if cv2.waitKey(25) == ord('4'):                
+                print(CookieCatcher.get_cookie())
                 
             if cv2.waitKey(25) == ord('q'):
                 break

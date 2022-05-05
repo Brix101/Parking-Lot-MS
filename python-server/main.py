@@ -1,5 +1,4 @@
-from urllib.request import Request
-from fastapi import FastAPI,HTTPException
+from fastapi import FastAPI,Request,Response,Depends,HTTPException
 from config.database import engine,Base
 from fastapi.staticfiles import StaticFiles
 
@@ -17,21 +16,32 @@ app = FastAPI(title="Parking Lot MS")
 app.mount("/data", StaticFiles(directory="../data"), name="static")# Static folder and routes
 
 @app.middleware("http")
-async def exception_handler(request: Request, next):
+async def sample(request: Request, call_next):
+    print("sample")
+    return await call_next(request)
+    
+    
+@app.middleware("http")
+async def exception_handler(request: Request, call_next):
     try:
-        return await next(request)
+        return await call_next(request)
     except Exception as e:
         logger.error(e)    
         err_message = {
-            "message":f"Failed to execute: {request.method}: {request.url}",
+            "message":f"Failed to execute: {request.method} method on {request.url}",
             "detail": f"{e}"
         }    
-        return JSONResponse(status_code=400, content=err_message)
-
+        return JSONResponse(status_code=501, content=err_message)
+    
 app.include_router(parker_routes.router)
 app.include_router(parking_routes.router)
 app.include_router(parking_spot_routes.router)
 
-@app.get("/")
-async def root(): 
+async def sample(response:Response):
+    raise HTTPException(403,"Unauthorized")
+
+@app.get("/", dependencies=[Depends(sample)])
+async def root(response: Response): 
+    response.set_cookie(key="fakesession", value="asdfasdfasdfasdfasdfasdfsa")
+    
     return {"message": "☁☁☁"}
