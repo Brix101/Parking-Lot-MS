@@ -1,4 +1,5 @@
-from fastapi import APIRouter,Depends,HTTPException
+from fastapi import APIRouter,Depends,Response
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
 
@@ -39,30 +40,33 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
         return {"message":f"{spot.spotCode} parked"}
     
     except Exception as e:
-        print(e)
-        raise HTTPException(500,e.__doc__ or e.args[0])
+        raise e
 
 @router.post("/exit")
-async def parker_exit(exit:ExitSchema ,db:Session = Depends(get_db)):
+async def parker_exit(res:Response,exit:ExitSchema ,db:Session = Depends(get_db)):
     try:
         # TODO !!! Update Exception Catcher
         #? get owner of plateNumber
         parker = db.query(Parker).filter_by(plateNumber=exit.plateNumber).one_or_none()
         if(parker is None):            
-            return HTTPException(404,detail="Parker Not Found")
+            res.status_code=404
+            return {'detail':"Parker Not Found"}
         
-        parking = db.query(Parking).filter_by(parker=parker,exited=None).all()
+        parkings = db.query(Parking).filter_by(parker=parker,exited=None).all()
     
-        for x in parking:
-            spot = db.query(ParkingSpot).get(x.parkingSpotId)     
+        if( len(parkings) <= 0):            
+            res.status_code=404
+            return {'detail':"Parker is not Parked"}
+
+        for parking in parkings:
+            spot = db.query(ParkingSpot).get(parking.parkingSpotId)     
             spot.on_exit()    
-            x.on_exit()
+            parkings.on_exit()
             
         db.commit()
         return {"message": "Exited"}
     
     except Exception as e:
-        print(e.args)
-        raise HTTPException(500,e.__doc__ or e.args[0])
+        raise e
 
 # TODO add update for exit

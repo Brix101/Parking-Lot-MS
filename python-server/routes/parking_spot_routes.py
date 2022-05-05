@@ -30,7 +30,6 @@ async def add_location(parkingSpot:ParkingSpotSchema,db:Session = Depends(get_db
         return {"message": f"{spot.spotCode} is Added"}
         
     except Exception as e:
-        print(e)
-        raise HTTPException(500,e.__doc__ or e.message)
+       raise e
 
 # TODO add delete & update

@@ -47,8 +47,7 @@ async def add_parker(res: Response,file : UploadFile = File(..., description="Se
         return {"parkerId": f"{id}"}
     
     except Exception as e:
-        print(e.args[0])
-        raise HTTPException(500,e.__doc__ or e.args[0])
+        raise e
 
 
 # TODO update Delete
