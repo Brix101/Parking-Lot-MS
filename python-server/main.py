@@ -1,9 +1,8 @@
-from fastapi import FastAPI,Request,Response, Depends
+from fastapi import FastAPI,Request,Response
 from config.database import engine,Base
 from fastapi.staticfiles import StaticFiles
-
 from fastapi.responses import JSONResponse
-
+from utils.jwt_utils import get_jwt
 from utils.logger import logger
 
 Base.metadata.create_all(engine)#Initialize Database
@@ -35,6 +34,6 @@ app.include_router(parking_spot_routes.router)
 
 @app.get("/")
 async def root(response: Response): 
-    response.set_cookie(key="session", value="asdfasdfasdfasdfasdfasdfsa")
+    response.set_cookie(key="session", value=get_jwt())
     
     return {"message": "☁☁☁"}

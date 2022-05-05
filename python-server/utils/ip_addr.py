@@ -1,9 +1,9 @@
 import socket    
 
-class GetIP:
+class IP:
     def __init__(self):
         self.hostname = socket.gethostname()    
         self.IPAddr = socket.gethostbyname(self.hostname) 
         
-    def ip(self):
+    def get_ip(self):
         return self.IPAddr

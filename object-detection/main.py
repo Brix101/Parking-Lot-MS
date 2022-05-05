@@ -70,7 +70,7 @@ if __name__ == "__main__":
             if cv2.waitKey(25) == ord('2'):
                 #! change parkingSpotId to to dynamic id when IR activated
                 data = {'parkingSpotId': 1,'parkerId': idcatch.get_id()}
-                res = requests.post(parking_entry,json=data)
+                res = requests.post(parking_entry,json=data,cookies=cookie.get_cookie())
                 print(res.json())
                 
             # TODO Add Parker Exit here
@@ -78,7 +78,7 @@ if __name__ == "__main__":
             if cv2.waitKey(25) == ord('3'):
                 # 09-41-21.png
                 data = {"plateNumber": "current_time.png" }
-                res = requests.post(parking_exit,json=data)
+                res = requests.post(parking_exit,json=data,cookies=cookie.get_cookie())
                 print(res.json())
             
             if cv2.waitKey(25) == ord('q'):
