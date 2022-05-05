@@ -1,0 +1,4 @@
+2022-05-05 15:52:28,140 - INFO: Started server process [26298]
+2022-05-05 15:52:28,140 - INFO: Waiting for application startup.
+2022-05-05 15:52:28,140 - INFO: Application startup complete.
+2022-05-05 15:52:33,542 - ERROR: Failed to execute: POST: http://localhost:8000/parking/exit. Detail: 'list' object has no attribute 'on_exit'

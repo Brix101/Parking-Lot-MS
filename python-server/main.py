@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 
 from fastapi.responses import JSONResponse
 
-from utils.logger import log
+from utils.logger import logger
 
 from routes import parker_routes, parking_routes,parking_spot_routes
 
@@ -22,7 +22,7 @@ async def exception_handler(request: Request, next):
         return await next(request)
     except Exception as e:
         err_message = f"Failed to execute: {request.method}: {request.url}. Detail: {e}"
-        log.error(err_message)        
+        logger.error(err_message)        
         return JSONResponse(status_code=400, content={"message": f"{err_message}"})
 
 app.include_router(parker_routes.router)

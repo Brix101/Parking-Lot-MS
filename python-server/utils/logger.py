@@ -1,3 +1,7 @@
+from cgitb import handler
 import logging
 
-log = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, filename="logs/log.log", filemode="w",
+                    format="%(asctime)s - %(levelname)s: %(message)s")
+
+logger = logging.getLogger("name")
