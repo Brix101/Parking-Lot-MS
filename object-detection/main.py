@@ -64,7 +64,7 @@ if __name__ == "__main__":
             #? Mock parking Exit
             if cv2.waitKey(25) == ord('3'):
                 # 09-41-21.png
-                data = {"plateNumber": "09-41-21.png" }
+                data = {"plateNumber": "current_time.png" }
                 res = requests.post(parking_exit,json=data)
                 print(res.json())
                 
