@@ -2,6 +2,7 @@ const { ParkingSpot } = require("../models");
 const { ValidationError } = require("sequelize");
 
 const addController = async (req, res) => {
+  const socket = req.app.get("socket");
   try {
     const { spotCode } = req.body;
     if (!spotCode) {
@@ -11,6 +12,7 @@ const addController = async (req, res) => {
     }
 
     data = await ParkingSpot.create({ spotCode });
+    socket.emit("addedSpot", data);
     res.send(data);
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
@@ -21,18 +23,13 @@ const addController = async (req, res) => {
     });
   }
 };
-
 const getAllController = async (req, res) => {
-  const socket = req.app.get("socket");
-
   try {
     const spotCode = req.query.spotCode;
     var condition = spotCode
       ? { spotCode: { [Op.like]: `%${spotCode}%` } }
       : null;
     data = await ParkingSpot.findAll({ where: condition });
-
-    socket.emit("parkingSpots", data);
     res.send(data);
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
@@ -43,7 +40,6 @@ const getAllController = async (req, res) => {
     });
   }
 };
-
 const getOneController = async (req, res) => {
   try {
     const id = req.params.id;
@@ -64,18 +60,20 @@ const getOneController = async (req, res) => {
   }
 };
 const updateController = async (req, res) => {
+  const socket = req.app.get("socket");
   try {
     const id = req.params.id;
+
     const num = await ParkingSpot.update(req.body, {
       where: { id: id },
     });
-
-    if (num !== 1) {
+    if (num[0] !== 1) {
       return res.status(404).send({
         message: `spotCode Not Found`,
       });
     }
-
+    const spot = await ParkingSpot.findByPk(id);
+    socket.emit("updateSpot", spot.dataValues);
     res.send({
       message: "Updated successfully!",
     });
