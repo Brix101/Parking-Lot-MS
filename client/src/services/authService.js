@@ -8,6 +8,11 @@ const authAPI = baseAPI.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      transformResponse: (response, meta, args) => {
+        const header = meta.response.headers;
+        console.log("Hello ", header.get("x-access-token"));
+        // return response;
+      },
     }),
   }),
 });

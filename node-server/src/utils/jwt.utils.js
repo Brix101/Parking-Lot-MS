@@ -20,7 +20,7 @@ function verifyJwt(token) {
   } catch (error) {
     return {
       valid: false,
-      expired: error.message === "jwt expired",
+      expired: true,
       decoded: null,
     };
   }

@@ -28,17 +28,18 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
     origin: "http://localhost:3000",
+    credentials: true,
   },
 });
 
 const connections = new Set();
 app.set("socket", io);
 io.on("connection", async (socket) => {
-  console.log("Connected  | " + socket.id);
+  // console.log("Connected  | " + socket.id);
   connections.add(socket);
   socket.on("disconnect", () => {
     connections.delete(socket);
-    console.log(`Disconnected | ${socket.id}`);
+    // console.log(`Disconnected | ${socket.id}`);
   });
 });
 

@@ -14,9 +14,9 @@ function Login() {
     console.log(data);
   }
   if (error) {
-    if (error.data.message) {
-      alert(error.data.message);
-    }
+    // if (error.data.message) {
+    //   alert(error.data.message);
+    // }
     console.log(error.status);
   }
   if (isLoading) {

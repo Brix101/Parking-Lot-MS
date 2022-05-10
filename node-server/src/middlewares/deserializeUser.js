@@ -10,7 +10,7 @@ const deserializeUser = async (req, res, next) => {
   const refreshToken =
     req.cookies && req.cookies.refreshToken ? req.cookies.refreshToken : null;
 
-  if (!accessToken) {
+  if (!refreshToken) {
     return next();
   }
 
@@ -22,14 +22,17 @@ const deserializeUser = async (req, res, next) => {
 
   if (expired && refreshToken) {
     const { decoded } = verifyJwt(refreshToken);
-    const user = await User.findByPk(decoded.id);
-    const newAccessToken = user.getAccessToken();
+    if (decoded) {
+      const user = await User.findByPk(decoded.id);
+      const newAccessToken = user.getAccessToken();
 
-    res.setHeader("x-access-token", newAccessToken);
+      res.setHeader("x-access-token", newAccessToken);
 
-    const newDecoded = verifyJwt(newAccessToken);
+      console.log("send");
+      const newDecoded = verifyJwt(newAccessToken);
 
-    res.locals.user = newDecoded.decoded;
+      res.locals.user = newDecoded.decoded;
+    }
     return next();
   }
   next();

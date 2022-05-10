@@ -5,6 +5,11 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
     getAllParkingSpot: build.query({
       query: () => "/parking-spot",
+      transformResponse: (response, meta, args) => {
+        const headers = meta.response.headers;
+        console.log("headers :", meta.response);
+        return response;
+      },
       async onCacheEntryAdded(
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
