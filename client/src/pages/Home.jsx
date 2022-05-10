@@ -7,6 +7,7 @@ function Home() {
   //   console.log("isLoading");
   // }
   console.log(data);
+
   return <div>Home</div>;
 }
 
