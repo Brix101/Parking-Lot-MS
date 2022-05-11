@@ -14,14 +14,17 @@ const routes = require("./routes");
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(deserializeUser);
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: "http://localhost:3000",
+    methods: ["GET", "PUT", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "authorization", "X-Access-Token"],
+    exposedHeaders: ["Content-Type", "authorization", "X-Access-Token"],
     credentials: true,
   })
 );
 
+app.use(deserializeUser);
 routes(app);
 
 const httpServer = createServer(app);
