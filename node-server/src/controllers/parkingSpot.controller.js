@@ -24,15 +24,12 @@ const addController = async (req, res) => {
   }
 };
 const getAllController = async (req, res) => {
-  const socket = req.app.get("socket");
   try {
     const spotCode = req.query.spotCode;
     var condition = spotCode
       ? { spotCode: { [Op.like]: `%${spotCode}%` } }
       : null;
     data = await ParkingSpot.findAll({ where: condition });
-
-    socket.emit("allSpots", data);
 
     res.send(data);
   } catch (error) {

@@ -6,7 +6,7 @@ function Home() {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
+      // console.log(data);
     }
     if (error) {
       console.log(error);

@@ -36,10 +36,18 @@ const io = new Server(httpServer, {
 });
 
 const connections = new Set();
+const { ParkingSpot } = require("./models");
 app.set("socket", io);
 io.on("connection", async (socket) => {
   // console.log("Connected  | " + socket.id);
   connections.add(socket);
+
+  // ? Poll every 5 secs
+  setInterval(async () => {
+    const data = await ParkingSpot.findAll();
+    socket.emit("allSpots", data);
+  }, 5000);
+
   socket.on("disconnect", () => {
     connections.delete(socket);
     // console.log(`Disconnected | ${socket.id}`);
