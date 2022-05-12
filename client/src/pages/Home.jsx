@@ -2,11 +2,17 @@ import React, { useEffect } from "react";
 import { useGetAllParkingSpotQuery } from "../services/parkingSpotService";
 
 function Home() {
-  const { data, error, isLoading } = useGetAllParkingSpotQuery();
+  const {
+    data: parkingSpots,
+    error,
+    isLoading,
+  } = useGetAllParkingSpotQuery({
+    pollingInterval: 1000,
+  });
 
   useEffect(() => {
-    if (data) {
-      // console.log(data);
+    if (parkingSpots) {
+      // console.log(parkingSpots);
     }
     if (error) {
       console.log(error);
@@ -16,7 +22,24 @@ function Home() {
     }
   });
 
-  return <div>Home</div>;
+  const spots = () => {
+    return parkingSpots.map((spot, i) => {
+      return (
+        <div key={i}>
+          {/* <p>{spot.id}</p> */}
+          <p>
+            {spot.spotCode} + {spot.updatedAt}
+          </p>
+        </div>
+      );
+    });
+  };
+  return (
+    <div>
+      {parkingSpots && spots()}
+      Home
+    </div>
+  );
 }
 
 export default Home;

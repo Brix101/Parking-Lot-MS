@@ -12,7 +12,6 @@ const deserializeUser = async (req, res, next) => {
 
   if (!refreshToken) {
     res.removeHeader("authorization");
-    console.log("removed");
     return next();
   }
 
