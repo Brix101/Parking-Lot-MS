@@ -5,7 +5,7 @@ export const baseAPI = createApi({
     baseUrl: "http://localhost:5000/api/",
     prepareHeaders(headers, { getState }) {
       // const token = getState().auth.token;
-      var token = localStorage.getItem("X-Access-Token");
+      var token = localStorage.getItem("authorization");
 
       headers.set("authorization", `Bearer ${token}`);
       return headers;

@@ -7,12 +7,12 @@ const deserializeUser = async (req, res, next) => {
       ? req.headers.authorization.replace(/^Bearer\s/, "")
       : null;
 
-  // console.log(accessToken);
   const refreshToken =
     req.cookies && req.cookies.refreshToken ? req.cookies.refreshToken : null;
 
-  if (!refreshToken || !accessToken) {
-    res.header("X-Access-Token");
+  if (!refreshToken) {
+    res.removeHeader("authorization");
+    console.log("removed");
     return next();
   }
 
@@ -28,7 +28,7 @@ const deserializeUser = async (req, res, next) => {
       const user = await User.findByPk(decoded.id);
       const newAccessToken = user.getAccessToken();
 
-      res.header("X-Access-Token", newAccessToken);
+      res.setHeader("authorization", newAccessToken);
       console.log("send");
       const newDecoded = verifyJwt(newAccessToken);
 

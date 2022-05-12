@@ -8,13 +8,11 @@ const authAPI = baseAPI.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      transformResponse(response, meta) {
-        const headers = meta.response.headers.get("X-Access-Token");
-        localStorage.removeItem("X-Access-Token");
+      transformResponse: (response, meta) => {
+        const headers = meta.response.headers.get("authorization");
         if (headers) {
-          localStorage.setItem("X-Access-Token", headers);
+          localStorage.setItem("authorization", headers);
         }
-        console.log(headers);
         return response;
       },
     }),

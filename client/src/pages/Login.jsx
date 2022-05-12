@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useLoginMutation } from "../services/authService";
 
@@ -10,18 +10,17 @@ function Login() {
 
   const [userLogin, { data, error, isLoading }] = useLoginMutation();
 
-  if (data) {
-    console.log(data);
-  }
-  if (error) {
-    // if (error.data.message) {
-    //   alert(error.data.message);
-    // }
-    console.log(error.status);
-  }
-  if (isLoading) {
-    console.log("Loading");
-  }
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+    }
+    if (error) {
+      console.log(error);
+    }
+    if (isLoading) {
+      console.log("Loading");
+    }
+  });
 
   const handleChange = (e) => {
     setState({ ...state, [e.currentTarget.name]: e.currentTarget.value });
@@ -29,7 +28,11 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await userLogin({ ...state });
+    try {
+      await userLogin({ ...state });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>

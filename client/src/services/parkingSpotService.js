@@ -8,12 +8,10 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
         url: "/parking-spot",
       }),
       transformResponse(response, meta) {
-        const headers = meta.response.headers.get("X-Access-Token");
-        localStorage.removeItem("X-Access-Token");
+        const headers = meta.response.headers.get("authorization");
         if (headers) {
-          localStorage.setItem("X-Access-Token", headers);
+          localStorage.setItem("authorization", headers);
         }
-        console.log(headers);
         return response;
       },
       async onCacheEntryAdded(
@@ -34,9 +32,6 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
             // updateCachedData((draft) => {
             //   draft.filter(spot);
             // });
-          });
-          socket.on("X-Access-Token", (token) => {
-            console.log(token);
           });
         } catch (error) {}
 
