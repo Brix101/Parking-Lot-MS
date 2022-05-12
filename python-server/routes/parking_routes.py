@@ -1,5 +1,4 @@
 from fastapi import APIRouter,Depends,Response
-from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
 from middlewares.authentication import auth

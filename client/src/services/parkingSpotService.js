@@ -27,11 +27,11 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
               draft.push(spot);
             });
           });
-
-          socket.on("updateSpot", (spot) => {
-            // updateCachedData((draft) => {
-            //   draft.filter(spot);
-            // });
+          socket.on("allSpots", (spots) => {
+            updateCachedData((draft) => {
+              draft.splice(0, draft.length);
+              draft.push(...spots);
+            });
           });
         } catch (error) {}
 

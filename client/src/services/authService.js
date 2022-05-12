@@ -16,7 +16,12 @@ const authAPI = baseAPI.injectEndpoints({
         return response;
       },
     }),
+    logout: build.query({
+      query: () => ({
+        url: "/logout",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authAPI;
+export const { useLoginMutation, useLogoutQuery } = authAPI;

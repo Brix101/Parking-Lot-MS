@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean,Column,String, null
+from sqlalchemy import Boolean,Column,String
 from sqlalchemy.orm import relationship,backref
 from config.database import Base
 from .base import  BaseModel

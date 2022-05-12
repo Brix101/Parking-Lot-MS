@@ -45,7 +45,6 @@ io.on("connection", async (socket) => {
     // console.log(`Disconnected | ${socket.id}`);
   });
 });
-
 httpServer.listen(port, () => {
   console.log(`App running on port ${port}`);
 });

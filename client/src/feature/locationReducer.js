@@ -1,7 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+const getParkingSpots = createAsyncThunk({});
 
 const initialState = {
-  value: 0,
+  entities: [],
+  loading: false,
 };
 
 export const locationSlice = createSlice({
@@ -22,6 +25,7 @@ export const locationSlice = createSlice({
     //   state.value += action.payload;
     // },
   },
+  extraReducers: {},
 });
 
 // Action creators are generated for each case reducer function
