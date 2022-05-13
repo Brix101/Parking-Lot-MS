@@ -1,4 +1,6 @@
 const authRoutes = require("./auth.routes");
+const parkerRoutes = require("./parker.routes");
+const parkingRoutes = require("./parking.routes");
 const parkingSpotRoutes = require("./parkingSpot.routes");
 const userRoutes = require("./user.routes");
 
@@ -9,6 +11,8 @@ const routes = (app) => {
 
   authRoutes(app);
   userRoutes(app);
+  parkerRoutes(app);
+  parkingRoutes(app);
   parkingSpotRoutes(app);
 };
 

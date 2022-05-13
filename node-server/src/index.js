@@ -3,10 +3,13 @@ const cookieParser = require("cookie-parser");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
-const ip = require("./utils/ip");
+
+const { QueryTypes } = require("sequelize");
 
 const { deserializeUser } = require("./middlewares");
+const sequelize = require("./utils/database");
 const { ParkingSpot } = require("./models");
+const ip = require("./utils/ip");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -45,8 +48,13 @@ io.on("connection", async (socket) => {
 
   // ? Poll every 5 secs
   setInterval(async () => {
-    const data = await ParkingSpot.findAll();
-    socket.emit("allSpots", data);
+    const spots = await ParkingSpot.findAll();
+    socket.emit("allSpots", spots);
+
+    // const parkings = await sequilize.query("SELECT * FROM `Parkings`", {
+    //   type: QueryTypes.SELECT,
+    // });
+    // socket.emit("allPakings", parkings);
   }, 5000);
 
   socket.on("disconnect", () => {
