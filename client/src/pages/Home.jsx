@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import {
   useGetAllParkingSpotQuery,
   useDeleteParkingSpotMutation,
+  useUpdateParkingSpotMutation,
 } from "../services/parkingSpotService";
 
 function Home() {
-  const [deleteSpot, { data: res, error, isLoading }] =
-    useDeleteParkingSpotMutation();
+  const [updateSpot, { data: res, error, isLoading }] =
+    useUpdateParkingSpotMutation();
   const {
     data: parkingSpots,
     // error,
@@ -44,7 +45,14 @@ function Home() {
             </div>
           );
         })}
-      <button onClick={async () => await deleteSpot(125)}>delete</button>
+      <button
+        onClick={async () => {
+          const data = { description: "Sample from react" };
+          await updateSpot({ id: 3, data });
+        }}
+      >
+        button
+      </button>
     </div>
   );
 }

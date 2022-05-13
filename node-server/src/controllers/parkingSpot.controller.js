@@ -44,7 +44,6 @@ const getAllController = async (req, res) => {
 const updateController = async (req, res) => {
   try {
     const id = req.params.id;
-
     const num = await ParkingSpot.update(req.body, {
       where: { id: id },
     });

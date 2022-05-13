@@ -49,10 +49,10 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
       }),
     }),
     updateParkingSpot: build.mutation({
-      query: ({ id, ...data }) => ({
+      query: ({ id, ...body }) => ({
         url: `/parking-spot/${id}`,
         method: "PUT",
-        body: data,
+        body,
       }),
     }),
     deleteParkingSpot: build.mutation({
@@ -67,5 +67,6 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
 export const {
   useGetAllParkingSpotQuery,
   useAddParkingSpotMutation,
+  useUpdateParkingSpotMutation,
   useDeleteParkingSpotMutation,
 } = parkingSpotAPI;
