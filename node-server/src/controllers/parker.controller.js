@@ -4,12 +4,9 @@ const sequilize = require("../utils/database");
 
 const getAllController = async (req, res) => {
   try {
-    data = await sequilize.query(
-      "SELECT * FROM Parkers INNER JOIN ParkerImages on ParkerImages.parkerId = Parkers.id",
-      {
-        type: QueryTypes.SELECT,
-      }
-    );
+    data = await sequilize.query("SELECT id, plateNumber, note FROM Parkers", {
+      type: QueryTypes.SELECT,
+    });
 
     res.send(data);
   } catch (error) {
@@ -22,11 +19,11 @@ const getAllController = async (req, res) => {
   }
 };
 
-const getAllByPlateController = async (req, res) => {
+const getByPlateController = async (req, res) => {
   try {
     const plateNumber = req.params.plateNumber;
     data = await sequilize.query(
-      "SELECT * FROM Parkers INNER JOIN ParkerImages on ParkerImages.parkerId = Parkers.id GROUP BY Parkers.plateNumber = :plateNumber",
+      "SELECT ParkerImages.id, Parkers.plateNumber, ParkerImages.imageLink FROM `Parkers` INNER JOIN ParkerImages ON Parkers.id = ParkerImages.parkerId WHERE Parkers.plateNumber = :plateNumber",
       {
         replacements: { plateNumber: plateNumber },
         type: QueryTypes.SELECT,
@@ -46,5 +43,5 @@ const getAllByPlateController = async (req, res) => {
 
 module.exports = {
   getAllController,
-  getAllByPlateController,
+  getByPlateController,
 };
