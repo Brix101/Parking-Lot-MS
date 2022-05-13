@@ -33,9 +33,6 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
               draft.push(...spots);
             });
           });
-          socket.on("hello", (data) => {
-            console.log(data);
-          });
         } catch (error) {}
 
         await cacheEntryRemoved;
