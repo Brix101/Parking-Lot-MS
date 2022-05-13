@@ -7,6 +7,6 @@ const { requiredUser } = require("../middlewares");
 const parkingRoutes = (app) => {
   app.get("/api/parker", getAllController);
   app.get("/api/parker/:plateNumber", getByPlateController);
-  app.post("/api/parker/:id", updateController);
+  app.put("/api/parker/:id", updateController);
 };
 module.exports = parkingRoutes;

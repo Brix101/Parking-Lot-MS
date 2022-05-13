@@ -40,6 +40,7 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
         socket.close();
       },
     }),
+    // TODO Add update parking spot
   }),
 });
 
