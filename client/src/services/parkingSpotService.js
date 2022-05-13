@@ -1,5 +1,6 @@
 import { baseAPI } from "../feature/apiReducer";
 import io from "socket.io-client";
+import { server } from "../constant/server";
 
 const parkingSpotAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -18,7 +19,7 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }
       ) {
-        const socket = io("http://192.168.1.77:5000");
+        const socket = io(server);
         try {
           await cacheDataLoaded;
 
@@ -40,8 +41,31 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
         socket.close();
       },
     }),
-    // TODO Add update parking spot
+    addParkingSpot: build.mutation({
+      query: ({ ...data }) => ({
+        url: "/parking-spot",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    updateParkingSpot: build.mutation({
+      query: ({ id, ...data }) => ({
+        url: `/parking-spot/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    deleteParkingSpot: build.mutation({
+      query: (id) => ({
+        url: `/parking-spot/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllParkingSpotQuery } = parkingSpotAPI;
+export const {
+  useGetAllParkingSpotQuery,
+  useAddParkingSpotMutation,
+  useDeleteParkingSpotMutation,
+} = parkingSpotAPI;

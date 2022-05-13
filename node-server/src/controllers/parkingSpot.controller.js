@@ -41,25 +41,6 @@ const getAllController = async (req, res) => {
     });
   }
 };
-const getOneController = async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    const spotCode = await ParkingSpot.findByPk(id);
-
-    if (!spotCode) {
-      return res.status(404).send({
-        message: `spotCode Not Found`,
-      });
-    }
-
-    res.send(spotCode);
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message || "Some error occurred",
-    });
-  }
-};
 const updateController = async (req, res) => {
   try {
     const id = req.params.id;
@@ -107,7 +88,6 @@ const deleteController = async (req, res) => {
 module.exports = {
   addController,
   getAllController,
-  getOneController,
   updateController,
   deleteController,
 };

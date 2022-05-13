@@ -18,6 +18,7 @@ const deserializeUser = async (req, res, next) => {
   const { decoded, expired } = verifyJwt(accessToken);
   if (decoded) {
     res.locals.user = decoded;
+
     return next();
   }
 
@@ -28,7 +29,6 @@ const deserializeUser = async (req, res, next) => {
       const newAccessToken = user.getAccessToken();
 
       res.setHeader("authorization", newAccessToken);
-      console.log("send");
       const newDecoded = verifyJwt(newAccessToken);
 
       res.locals.user = newDecoded.decoded;

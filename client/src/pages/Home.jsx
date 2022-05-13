@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
-import { useGetAllParkingSpotQuery } from "../services/parkingSpotService";
+import {
+  useGetAllParkingSpotQuery,
+  useDeleteParkingSpotMutation,
+} from "../services/parkingSpotService";
 
 function Home() {
+  const [deleteSpot, { data: res, error, isLoading }] =
+    useDeleteParkingSpotMutation();
   const {
     data: parkingSpots,
-    error,
-    isLoading,
+    // error,
+    // isLoading,
   } = useGetAllParkingSpotQuery({
     pollingInterval: 1000,
   });
@@ -20,24 +25,26 @@ function Home() {
     if (isLoading) {
       console.log("Loading");
     }
+    if (res) {
+      console.log(res);
+    }
   });
 
-  const spots = () => {
-    return parkingSpots.map((spot, i) => {
-      return (
-        <div key={i}>
-          {/* <p>{spot.id}</p> */}
-          <p>
-            {spot.spotCode} + {spot.updatedAt}
-          </p>
-        </div>
-      );
-    });
-  };
   return (
     <div>
-      {parkingSpots && spots()}
       Home
+      {parkingSpots &&
+        parkingSpots.map((spot, i) => {
+          return (
+            <div key={i}>
+              {/* <p>{spot.id}</p> */}
+              <p>
+                {spot.spotCode} + {spot.updatedAt}
+              </p>
+            </div>
+          );
+        })}
+      <button onClick={async () => await deleteSpot(125)}>delete</button>
     </div>
   );
 }

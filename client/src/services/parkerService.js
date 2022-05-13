@@ -52,8 +52,18 @@ const parkerApi = baseAPI.injectEndpoints({
         return response;
       },
     }),
-    // TODO Add update parker
+    updateParker: build.mutation({
+      query: ({ id, ...data }) => ({
+        url: `/parker/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllParkerQuery, useGetAllParkerImageQuery } = parkerApi;
+export const {
+  useGetAllParkerQuery,
+  useGetAllParkerImageQuery,
+  useUpdateParkerMutation,
+} = parkerApi;
