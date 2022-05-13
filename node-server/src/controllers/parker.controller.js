@@ -41,7 +41,38 @@ const getByPlateController = async (req, res) => {
   }
 };
 
+const updateController = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { note } = req.body;
+
+    const num = await sequilize.query(
+      "UPDATE `Parkers` SET `note`=:note WHERE `id`= :id",
+      {
+        replacements: { id: id, note: note },
+        type: QueryTypes.UPDATE,
+      }
+    );
+    if (num[0] !== 1) {
+      return res.status(404).send({
+        message: `Parker Not Found`,
+      });
+    }
+    res.send({
+      message: "Updated successfully!",
+    });
+  } catch (error) {
+    return res.status(error instanceof ValidationError ? 400 : 500).send({
+      message:
+        error instanceof ValidationError
+          ? error.errors[0].message
+          : error.message || "Some error occurred",
+    });
+  }
+};
+
 module.exports = {
   getAllController,
   getByPlateController,
+  updateController,
 };
