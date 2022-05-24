@@ -3,15 +3,15 @@ const { ValidationError, Op } = require("sequelize");
 
 const loginController = async (req, res) => {
   try {
-    const { userName, password } = req.body;
+    const { identity, password } = req.body;
     const user = await User.findOne({
       where: {
         [Op.or]: [
           {
-            email: userName,
+            email: identity,
           },
           {
-            userName: userName,
+            userName: identity,
           },
         ],
       },

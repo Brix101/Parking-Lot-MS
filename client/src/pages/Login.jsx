@@ -4,7 +4,7 @@ import { useLoginMutation } from "../services/authService";
 
 function Login() {
   const [state, setState] = useState({
-    userName: "",
+    identity: "",
     password: "",
   });
 
@@ -39,10 +39,10 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="userName"
+          name="identity"
           required
           onChange={handleChange}
-          value={state.userName}
+          value={state.identity}
         />
         <input
           type="password"
