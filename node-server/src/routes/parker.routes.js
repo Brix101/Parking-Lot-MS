@@ -4,6 +4,8 @@ const {
   updateController,
 } = require("../controllers/parker.controller");
 const { requiredUser } = require("../middlewares");
+
+// Todo set required user on routes
 const parkingRoutes = (app) => {
   app.get("/api/parker", getAllController);
   app.get("/api/parker/:plateNumber", getByPlateController);

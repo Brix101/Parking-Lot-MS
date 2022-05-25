@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../services/authService";
 
 function Login() {
+  const navigate = useNavigate();
   const [state, setState] = useState({
     identity: "",
     password: "",
   });
 
-  const [userLogin, { data, error, isLoading }] = useLoginMutation();
+  const [userLogin, { data, error, isLoading, isSuccess }] = useLoginMutation();
 
   useEffect(() => {
     if (data) {
-      console.log(data);
     }
     if (error) {
       console.log(error);
     }
     if (isLoading) {
       console.log("Loading");
+    }
+    if (isSuccess) {
+      navigate("/admin");
     }
   });
 

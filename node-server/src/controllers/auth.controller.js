@@ -26,6 +26,14 @@ const loginController = async (req, res) => {
     if (!isMatch) {
       return res.status(403).send({ message: "Password not Match" });
     }
+
+    const authUser = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      userName: user.userName,
+      email: user.email,
+    };
+
     res
       .cookie("refreshToken", user.getRefreshToken(), {
         maxAge: 3.154e10, // 1 year
@@ -35,7 +43,7 @@ const loginController = async (req, res) => {
         sameSite: "strict",
         secure: false,
       })
-      .send({ token: user.getAccessToken() });
+      .send({ user: authUser, token: user.getAccessToken() });
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
       message:
@@ -47,6 +55,12 @@ const loginController = async (req, res) => {
 };
 
 const logoutController = async (req, res) => {
-  res.clearCookie("refreshToken").send();
+  const user = {
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+  };
+  res.clearCookie("refreshToken").send({ user: user });
 };
 module.exports = { loginController, logoutController };

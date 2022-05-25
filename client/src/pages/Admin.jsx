@@ -13,7 +13,6 @@ import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Outlet, useLocation } from "react-router-dom";
 import { blueGrey } from "@mui/material/colors";
 import SideBarItems from "../components/SideBarItems";
@@ -132,11 +131,20 @@ function Admin() {
             >
               {location.state}
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton selected color="inherit">
+                <Typography
+                  variant="caption"
+                  component="div"
+                  sx={{ flexGrow: 1 }}
+                >
+                  Brixter Porras
+                </Typography>
+              </IconButton>
+              <IconButton selected color="inherit">
+                <Badge color="secondary">BP</Badge>
+              </IconButton>
+            </Box>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>

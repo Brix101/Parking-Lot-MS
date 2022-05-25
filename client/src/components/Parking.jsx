@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import Table from "@mui/material/Table";
@@ -40,7 +39,7 @@ function Parking() {
             <TableHead>
               <TableRow>
                 <TableCell>Plate Number</TableCell>
-                <TableCell>Entered</TableCell>
+                <TableCell align="right">Entered</TableCell>
                 <TableCell align="right">Exited</TableCell>
               </TableRow>
             </TableHead>
@@ -50,7 +49,7 @@ function Parking() {
                   return (
                     <TableRow key={i}>
                       <TableCell>{p.plateNumber}</TableCell>
-                      <TableCell style={{ color: "red" }}>
+                      <TableCell align="right" style={{ color: "red" }}>
                         {p.entered}
                       </TableCell>
                       <TableCell align="right">{p.exited}</TableCell>

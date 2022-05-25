@@ -1,5 +1,4 @@
 import { baseAPI } from "../feature/apiReducer";
-import io from "socket.io-client";
 
 const parkingApi = baseAPI.injectEndpoints({
   endpoints: (build) => ({
