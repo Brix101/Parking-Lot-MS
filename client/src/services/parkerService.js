@@ -1,5 +1,6 @@
 import { baseAPI } from "../feature/apiReducer";
 import io from "socket.io-client";
+import { server } from "../constant/server";
 
 const parkerApi = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -18,7 +19,7 @@ const parkerApi = baseAPI.injectEndpoints({
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }
       ) {
-        const socket = io("http://192.168.1.77:5000");
+        const socket = io(server);
         // try {
         //   await cacheDataLoaded;
 

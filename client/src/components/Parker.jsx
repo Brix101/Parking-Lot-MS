@@ -8,13 +8,13 @@ function Parker() {
 
   useEffect(() => {
     if (data) {
-      // console.log(data);
+      console.log(data);
     }
     if (error) {
       console.log(error);
     }
     if (isLoading) {
-      console.log("Loading");
+      // console.log("Loading");
     }
   });
 
