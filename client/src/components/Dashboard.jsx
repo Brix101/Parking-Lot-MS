@@ -37,20 +37,24 @@ function Dashboard() {
 
       var utc = new Date().toJSON().slice(0, 10);
 
-      const daily = parking.filter((p) => {
-        var date = p.entered.split("T")[0];
-        return date === utc;
-      }).length;
+      setDaily(
+        // get Daily
+        parking.filter((p) => {
+          var date = p.entered.split("T")[0];
+          return date === utc;
+        }).length
+      );
 
-      const monthly = parking.filter((p) => {
-        var [year, month] = p.entered.split("-");
-        return (
-          currentMonth().toString() === month && currentYear.toString() === year
-        );
-      }).length;
-
-      setDaily(daily);
-      setMonthly(monthly);
+      setMonthly(
+        // get Monthly
+        parking.filter((p) => {
+          var [year, month] = p.entered.split("-");
+          return (
+            currentMonth().toString() === month &&
+            currentYear.toString() === year
+          );
+        }).length
+      );
     }
   }, [parking, parkingSpot]);
 
@@ -131,7 +135,7 @@ function Dashboard() {
             p: 2,
             display: "flex",
             flexDirection: "column",
-            height: 300,
+            height: 400,
           }}
         >
           <Chart />

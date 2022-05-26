@@ -9,61 +9,73 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Title from "./Title";
+import { useGetAllParkingQuery } from "../services/parkingService";
+import { useEffect } from "react";
 
 // Generate Sales Data
-function createData(time, amount) {
-  return { time, amount };
+function createData(date, count) {
+  return { date, count };
 }
 
-const data = [
-  createData("00:00", 0),
-  createData("01:00", 300),
-  createData("02:00", 300),
-  createData("03:00", 300),
-  createData("04:00", 300),
-  createData("05:00", 300),
-  createData("06:00", 600),
-  createData("07:00", 600),
-  createData("08:00", 600),
-  createData("09:00", 800),
-  createData("10:00", 800),
-  createData("11:00", 800),
-  createData("12:00", 1500),
-  createData("13:00", 1500),
-  createData("14:00", 1500),
-  createData("15:00", 2000),
-  createData("16:00", 2000),
-  createData("17:00", 2000),
-  createData("18:00", 2100),
-  createData("19:00", 2100),
-  createData("20:00", 2100),
-  createData("21:00", 2100),
-  createData("22:00", 2100),
-  createData("23:00", 2100),
-  createData("24:00", undefined),
-];
+// set Initial data for last 30 days
+const initialData = [];
+var today = new Date();
+for (let i = 0; i < 30; i++) {
+  var priorDate = new Date(new Date().setDate(today.getDate() - i))
+    .toISOString()
+    .split("T")[0];
+
+  initialData.push(createData(priorDate.substring(5, 10), 0));
+}
+initialData.reverse();
 
 export default function Chart() {
+  const { data } = useGetAllParkingQuery();
   const theme = useTheme();
+  useEffect(() => {
+    if (data) {
+      const parking = data.map((parking) => {
+        return parking.entered.split("T")[0].substring(5, 10);
+      });
 
+      parking.forEach(function (parkerCount) {
+        initialData.forEach((inData) => {
+          if (inData.date === parkerCount) {
+            inData.count++;
+          }
+        });
+      });
+    }
+  }, [data]);
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>Parking Stats</Title>
       <ResponsiveContainer>
         <LineChart
-          data={data}
+          data={initialData}
           margin={{
             top: 16,
             right: 16,
-            bottom: 0,
+            bottom: 24,
             left: 24,
           }}
         >
           <XAxis
-            dataKey="time"
+            dataKey="date"
             stroke={theme.palette.text.secondary}
             style={theme.typography.body2}
-          />
+          >
+            <Label
+              position="center"
+              style={{
+                textAnchor: "end",
+                fill: theme.palette.text.primary,
+                ...theme.typography.body1,
+              }}
+            >
+              Date
+            </Label>
+          </XAxis>
           <YAxis
             stroke={theme.palette.text.secondary}
             style={theme.typography.body2}
@@ -77,13 +89,13 @@ export default function Chart() {
                 ...theme.typography.body1,
               }}
             >
-              Parking Stats
+              Parker Count
             </Label>
           </YAxis>
           <Line
             isAnimationActive={false}
             type="monotone"
-            dataKey="amount"
+            dataKey="count"
             stroke={theme.palette.primary.main}
             dot={false}
           />
