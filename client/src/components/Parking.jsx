@@ -30,8 +30,8 @@ function Parking() {
     if (data) {
       const dataCount = data.length;
       const total = dataCount - toView;
-      const limit = total >= toAdd;
-      setToAdd(limit ? toAdd : total);
+      const onLimit = total >= toAdd;
+      setToAdd(onLimit ? toAdd : total);
     }
   }, [data, error, toView, toAdd]);
 
@@ -96,9 +96,16 @@ function Parking() {
                   })}
               </TableBody>
             </Table>
-            <Link color="primary" href="#" onClick={pagination} sx={{ mt: 3 }}>
-              View more Logs
-            </Link>
+            {toAdd > 0 && (
+              <Link
+                color="primary"
+                href="#"
+                onClick={pagination}
+                sx={{ mt: 3 }}
+              >
+                View more Logs
+              </Link>
+            )}
           </React.Fragment>
         </Paper>
       )}
