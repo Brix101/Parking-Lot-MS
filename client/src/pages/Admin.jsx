@@ -1,21 +1,24 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import MuiDrawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
-import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
-import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet, useLocation } from "react-router-dom";
 import { blueGrey } from "@mui/material/colors";
 import SideBarItems from "../components/SideBarItems";
+import {
+  Box,
+  Container,
+  CssBaseline,
+  Divider,
+  IconButton,
+  Link,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+
+import MuiDrawer from "@mui/material/Drawer";
+import MuiAppBar from "@mui/material/AppBar";
+import { useGetUserQuery } from "../services/userService";
 
 function Copyright(props) {
   return (
@@ -94,12 +97,27 @@ const mdTheme = createTheme({
 
 function Admin() {
   const location = useLocation();
+  const [user, setUser] = useState({});
+  const [initial, setInitial] = useState();
 
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  const { data } = useGetUserQuery();
+
+  useEffect(() => {
+    if (data) {
+      setUser(data.user);
+
+      var initials =
+        data.user.firstName.charAt(0) + data.user.lastName.charAt(0);
+      setInitial(initials);
+    }
+  }, [user, data]);
+
+  console.log(user);
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -132,17 +150,24 @@ function Admin() {
               {location.state}
             </Typography>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton selected color="inherit">
+              <IconButton color="inherit">
                 <Typography
                   variant="caption"
                   component="div"
                   sx={{ flexGrow: 1 }}
                 >
-                  Brixter Porras
+                  {user && (
+                    <>
+                      {user.firstName} {user.lastName}
+                    </>
+                  )}
                 </Typography>
               </IconButton>
-              <IconButton selected color="inherit">
-                <Badge color="secondary">BP</Badge>
+              <IconButton
+                color="inherit"
+                sx={{ backgroundColor: "secondary.main" }}
+              >
+                {initial}
               </IconButton>
             </Box>
           </Toolbar>

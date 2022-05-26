@@ -16,41 +16,11 @@ const authAPI = baseAPI.injectEndpoints({
         }
         return response;
       },
-      async onCacheEntryAdded(
-        arg,
-        { cacheDataLoaded, cacheEntryRemoved, dispatch, getCacheEntry }
-      ) {
-        try {
-          await cacheDataLoaded;
-          const data = getCacheEntry().data;
-
-          dispatch(setUser(data.user));
-
-          await cacheEntryRemoved;
-        } catch (error) {
-          console.log(error);
-        }
-      },
     }),
     logout: build.query({
       query: () => ({
         url: "/logout",
       }),
-      async onCacheEntryAdded(
-        arg,
-        { cacheDataLoaded, cacheEntryRemoved, dispatch, getCacheEntry }
-      ) {
-        try {
-          await cacheDataLoaded;
-          const data = getCacheEntry().data;
-
-          dispatch(setUser(data.user));
-
-          await cacheEntryRemoved;
-        } catch (error) {
-          console.log(error);
-        }
-      },
     }),
   }),
 });

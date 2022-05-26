@@ -39,4 +39,23 @@ const addController = async (req, res) => {
   }
 };
 
-module.exports = { addController };
+const getUserController = async (req, res) => {
+  const localUser = res.locals.user;
+
+  const user = await User.findOne({
+    where: {
+      id: localUser.id,
+    },
+  });
+
+  const authUser = {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    userName: user.userName,
+    email: user.email,
+  };
+
+  res.send({ user: authUser });
+};
+
+module.exports = { addController, getUserController };

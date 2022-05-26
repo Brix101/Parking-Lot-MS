@@ -34,7 +34,7 @@ function Parking() {
     <>
       <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
         <React.Fragment>
-          <Title>Recent Logs</Title>
+          <Title>Parking Logs</Title>
           <Table size="small">
             <TableHead>
               <TableRow>
