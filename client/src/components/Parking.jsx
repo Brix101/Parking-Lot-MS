@@ -13,6 +13,7 @@ import Loader from "./Loader";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import SearchAppBar from "./SearchAppBar";
 
 function Parking() {
   const navigate = useNavigate();
@@ -61,6 +62,7 @@ function Parking() {
         <Loader />
       ) : (
         <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+          <SearchAppBar />
           <React.Fragment>
             <Title>Logs</Title>
             <Table size="small">

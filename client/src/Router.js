@@ -10,6 +10,8 @@ import Parker from "./components/Parker";
 import Parkers from "./components/Parkers";
 import ParkerImage from "./components/ParkerImage";
 import Parking from "./components/Parking";
+import ParkingSpot from "./components/ParkingSpot";
+import User from "./components/User";
 
 function Router() {
   return (
@@ -22,6 +24,8 @@ function Router() {
         <Route path="parker/:plate" element={<Parker />} />
         <Route path="parker-image" element={<ParkerImage />} />
         <Route path="parking" element={<Parking />} />
+        <Route path="parking-spot" element={<ParkingSpot />} />
+        <Route path="user" element={<User />} />
       </Route>
       {/* TODO add not found route
       <Route path="/nof-found"/> */}
