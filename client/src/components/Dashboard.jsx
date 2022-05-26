@@ -8,9 +8,10 @@ import { useGetAllParkingSpotQuery } from "../services/parkingSpotService";
 import { useGetAllParkingQuery } from "../services/parkingService";
 import { useEffect } from "react";
 import { useState } from "react";
+import Loader from "./Loader";
 
 function Dashboard() {
-  const { data: parkingSpot } = useGetAllParkingSpotQuery();
+  const { data: parkingSpot, isLoading } = useGetAllParkingSpotQuery();
   const { data: parking } = useGetAllParkingQuery();
   const [available, setAvailable] = useState();
   const [unAvailable, setunAvailable] = useState();
@@ -64,84 +65,90 @@ function Dashboard() {
     return month + 1 < 10 ? "0" + month : month;
   }
   return (
-    <Grid container spacing={3}>
-      <Grid item lg={12}>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper
-              sx={{
-                p: 2,
-                display: "flex",
-                flexDirection: "column",
-                height: 135,
-              }}
-            >
-              <Title>Available</Title>
-              <Typography component="p" variant="h4">
-                {available}
-              </Typography>
-            </Paper>
+          <Grid item lg={12}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 135,
+                  }}
+                >
+                  <Title>Available</Title>
+                  <Typography component="p" variant="h4">
+                    {available}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 135,
+                  }}
+                >
+                  <Title>Unavailable</Title>
+                  <Typography component="p" variant="h4">
+                    {unAvailable}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 135,
+                  }}
+                >
+                  <Title>Daily</Title>
+                  <Typography component="p" variant="h4">
+                    {daily}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 135,
+                  }}
+                >
+                  <Title>Monthly</Title>
+                  <Typography component="p" variant="h4">
+                    {monthly}
+                  </Typography>
+                </Paper>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={4} lg={3}>
+          <Grid item lg={12}>
             <Paper
               sx={{
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
-                height: 135,
+                height: 400,
               }}
             >
-              <Title>Unavailable</Title>
-              <Typography component="p" variant="h4">
-                {unAvailable}
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper
-              sx={{
-                p: 2,
-                display: "flex",
-                flexDirection: "column",
-                height: 135,
-              }}
-            >
-              <Title>Daily</Title>
-              <Typography component="p" variant="h4">
-                {daily}
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper
-              sx={{
-                p: 2,
-                display: "flex",
-                flexDirection: "column",
-                height: 135,
-              }}
-            >
-              <Title>Monthly</Title>
-              <Typography component="p" variant="h4">
-                {monthly}
-              </Typography>
+              <Chart />
             </Paper>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item lg={12}>
-        <Paper
-          sx={{
-            p: 2,
-            display: "flex",
-            flexDirection: "column",
-            height: 400,
-          }}
-        >
-          <Chart />
-        </Paper>
-      </Grid>
-    </Grid>
+      )}
+    </>
   );
 }
 

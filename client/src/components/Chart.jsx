@@ -11,6 +11,7 @@ import {
 import Title from "./Title";
 import { useGetAllParkingQuery } from "../services/parkingService";
 import { useEffect } from "react";
+import Loader from "./Loader";
 
 // Generate Sales Data
 function createData(date, count) {
@@ -30,7 +31,7 @@ for (let i = 0; i < 30; i++) {
 initialData.reverse();
 
 export default function Chart() {
-  const { data } = useGetAllParkingQuery();
+  const { data, isLoading } = useGetAllParkingQuery();
   const theme = useTheme();
   useEffect(() => {
     if (data) {
@@ -48,59 +49,65 @@ export default function Chart() {
     }
   }, [data]);
   return (
-    <React.Fragment>
-      <Title>Parking Stats</Title>
-      <ResponsiveContainer>
-        <LineChart
-          data={initialData}
-          margin={{
-            top: 16,
-            right: 16,
-            bottom: 24,
-            left: 24,
-          }}
-        >
-          <XAxis
-            dataKey="date"
-            stroke={theme.palette.text.secondary}
-            style={theme.typography.body2}
-          >
-            <Label
-              position="center"
-              style={{
-                textAnchor: "end",
-                fill: theme.palette.text.primary,
-                ...theme.typography.body1,
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <React.Fragment>
+          <Title>Parking Stats</Title>
+          <ResponsiveContainer>
+            <LineChart
+              data={initialData}
+              margin={{
+                top: 16,
+                right: 16,
+                bottom: 24,
+                left: 24,
               }}
             >
-              Date
-            </Label>
-          </XAxis>
-          <YAxis
-            stroke={theme.palette.text.secondary}
-            style={theme.typography.body2}
-          >
-            <Label
-              angle={270}
-              position="left"
-              style={{
-                textAnchor: "middle",
-                fill: theme.palette.text.primary,
-                ...theme.typography.body1,
-              }}
-            >
-              Parker Count
-            </Label>
-          </YAxis>
-          <Line
-            isAnimationActive={false}
-            type="monotone"
-            dataKey="count"
-            stroke={theme.palette.primary.main}
-            dot={false}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </React.Fragment>
+              <XAxis
+                dataKey="date"
+                stroke={theme.palette.text.secondary}
+                style={theme.typography.body2}
+              >
+                <Label
+                  position="center"
+                  style={{
+                    textAnchor: "end",
+                    fill: theme.palette.text.primary,
+                    ...theme.typography.body1,
+                  }}
+                >
+                  Date
+                </Label>
+              </XAxis>
+              <YAxis
+                stroke={theme.palette.text.secondary}
+                style={theme.typography.body2}
+              >
+                <Label
+                  angle={270}
+                  position="left"
+                  style={{
+                    textAnchor: "middle",
+                    fill: theme.palette.text.primary,
+                    ...theme.typography.body1,
+                  }}
+                >
+                  Parker Count
+                </Label>
+              </YAxis>
+              <Line
+                isAnimationActive={false}
+                type="monotone"
+                dataKey="count"
+                stroke={theme.palette.primary.main}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </React.Fragment>
+      )}
+    </>
   );
 }

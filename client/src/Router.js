@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 
 import Dashboard from "./components/Dashboard";
 import Parker from "./components/Parker";
+import Parkers from "./components/Parkers";
 import ParkerImage from "./components/ParkerImage";
 import Parking from "./components/Parking";
 
@@ -17,7 +18,8 @@ function Router() {
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<Admin />}>
         <Route index element={<Dashboard />} />
-        <Route path="parker" element={<Parker />} />
+        <Route path="parker" element={<Parkers />} />
+        <Route path="parker/:plate" element={<Parker />} />
         <Route path="parker-image" element={<ParkerImage />} />
         <Route path="parking" element={<Parking />} />
       </Route>

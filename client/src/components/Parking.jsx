@@ -9,65 +9,99 @@ import TableRow from "@mui/material/TableRow";
 import Title from "./Title";
 
 import { useGetAllParkingQuery } from "../services/parkingService";
+import Loader from "./Loader";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Parking() {
+  const navigate = useNavigate();
+  const [toView, setToView] = useState(5);
+  const [toAdd, setToAdd] = useState(3);
   const { data, error, isLoading } = useGetAllParkingQuery({
     pollingInterval: 1000,
   });
 
   useEffect(() => {
-    if (data) {
-      // console.log(data);
-    }
     if (error) {
       console.log(error);
     }
-    if (isLoading) {
-      console.log("Loading");
-    }
-  });
 
-  function preventDefault(event) {
+    if (data) {
+      const dataCount = data.length;
+      const total = dataCount - toView;
+      const limit = total >= toAdd;
+      setToAdd(limit ? toAdd : total);
+    }
+  }, [data, error, toView, toAdd]);
+
+  function pagination(event) {
     event.preventDefault();
+    setToView(toView + toAdd);
   }
+
+  const DateConverter = (toConvert) => {
+    const date = new Date(toConvert);
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var dt = date.getDate();
+
+    if (dt < 10) {
+      dt = "0" + dt;
+    }
+    if (month < 10) {
+      month = "0" + month;
+    }
+
+    return year + "-" + month + "-" + dt;
+  };
   return (
     <>
-      <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-        <React.Fragment>
-          <Title>Parking Logs</Title>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>Plate Number</TableCell>
-                <TableCell align="right">Entered</TableCell>
-                <TableCell align="right">Exited</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data &&
-                data.map((p, i) => {
-                  return (
-                    <TableRow key={i}>
-                      <TableCell>{p.plateNumber}</TableCell>
-                      <TableCell align="right" style={{ color: "red" }}>
-                        {p.entered}
-                      </TableCell>
-                      <TableCell align="right">{p.exited}</TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-          <Link
-            color="primary"
-            href="#"
-            onClick={preventDefault}
-            sx={{ mt: 3 }}
-          >
-            See more orders
-          </Link>
-        </React.Fragment>
-      </Paper>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+          <React.Fragment>
+            <Title>Logs</Title>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Plate Number</TableCell>
+                  <TableCell align="right">Entered</TableCell>
+                  <TableCell align="right">Exited</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data &&
+                  data.slice(0, toView).map((parker, i) => {
+                    return (
+                      <TableRow key={i}>
+                        <TableCell>
+                          <Button
+                            onClick={() => {
+                              navigate(`/admin/parker/${parker.plateNumber}`, {
+                                state: parker.plateNumber,
+                              });
+                            }}
+                          >
+                            {parker.plateNumber}
+                          </Button>
+                        </TableCell>
+                        <TableCell align="right" style={{ color: "red" }}>
+                          {parker.entered}
+                        </TableCell>
+                        <TableCell align="right">{parker.exited}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+            <Link color="primary" href="#" onClick={pagination} sx={{ mt: 3 }}>
+              View more Logs
+            </Link>
+          </React.Fragment>
+        </Paper>
+      )}
     </>
   );
 }

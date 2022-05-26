@@ -15,31 +15,6 @@ const parkerApi = baseAPI.injectEndpoints({
         }
         return response;
       },
-      async onCacheEntryAdded(
-        arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }
-      ) {
-        const socket = io(server);
-        // try {
-        //   await cacheDataLoaded;
-
-        //   socket.on("addedSpot", (spot) => {
-        //     updateCachedData((draft) => {
-        //       draft.push(spot);
-        //     });
-        //   });
-        //   socket.on("allSpots", (spots) => {
-        //     updateCachedData((draft) => {
-        //       draft.splice(0, draft.length);
-        //       draft.push(...spots);
-        //     });
-        //   });
-        // } catch (error) {}
-
-        await cacheEntryRemoved;
-
-        socket.close();
-      },
     }),
     getAllParkerImage: build.query({
       query: (plateNumber) => ({

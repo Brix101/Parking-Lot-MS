@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
 import Divider from "@mui/material/Divider";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -25,17 +25,16 @@ function SideBarItems() {
             icon={<BarChartIcon />}
             text="Parking Logs"
           />
-          <ListItemButton>
-            <ListItemIcon>
-              <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Orders" />
-          </ListItemButton>
+          <SideButton
+            to="/admin/parker"
+            icon={<DirectionsCarIcon />}
+            text="Parkers"
+          />
           <ListItemButton>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="Customers" />
+            <ListItemText primary="User" />
           </ListItemButton>
           <ListItemButton>
             <ListItemIcon>
