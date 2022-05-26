@@ -116,8 +116,6 @@ function Admin() {
       setInitial(initials);
     }
   }, [user, data]);
-
-  console.log(user);
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>

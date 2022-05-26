@@ -5,18 +5,60 @@ import Chart from "./Chart";
 import Title from "./Title";
 import { Typography } from "@mui/material";
 import { useGetAllParkingSpotQuery } from "../services/parkingSpotService";
+import { useGetAllParkingQuery } from "../services/parkingService";
+import { useEffect } from "react";
+import { useState } from "react";
 
 function Dashboard() {
-  const { data } = useGetAllParkingSpotQuery();
+  const { data: parkingSpot } = useGetAllParkingSpotQuery();
+  const { data: parking } = useGetAllParkingQuery();
+  const [available, setAvailable] = useState();
+  const [unAvailable, setunAvailable] = useState();
+  const [daily, setDaily] = useState(0);
+  const [monthly, setMonthly] = useState(0);
 
-  const available = data.filter((parkingSpot) => {
-    return parkingSpot.status === true;
-  }).length;
+  useEffect(() => {
+    if (parkingSpot) {
+      setAvailable(
+        parkingSpot.filter((spot) => {
+          return spot.status === true;
+        }).length
+      );
+      setunAvailable(
+        parkingSpot.filter((spot) => {
+          return spot.status === false;
+        }).length
+      );
+    }
 
-  const unAvailable = data.filter((parkingSpot) => {
-    return parkingSpot.status === false;
-  }).length;
+    if (parking) {
+      var dateObj = new Date();
+      var currentYear = dateObj.getUTCFullYear();
 
+      var utc = new Date().toJSON().slice(0, 10);
+
+      const daily = parking.filter((p) => {
+        var date = p.entered.split("T")[0];
+        return date === utc;
+      }).length;
+
+      const monthly = parking.filter((p) => {
+        var [year, month] = p.entered.split("-");
+        return (
+          currentMonth().toString() === month && currentYear.toString() === year
+        );
+      }).length;
+
+      setDaily(daily);
+      setMonthly(monthly);
+    }
+  }, [parking, parkingSpot]);
+
+  function currentMonth() {
+    var date = new Date(),
+      month = date.getMonth() + 1;
+    return month + 1 < 10 ? "0" + month : month;
+  }
   return (
     <Grid container spacing={3}>
       <Grid item lg={12}>
@@ -62,7 +104,7 @@ function Dashboard() {
             >
               <Title>Daily</Title>
               <Typography component="p" variant="h4">
-                43
+                {daily}
               </Typography>
             </Paper>
           </Grid>
@@ -77,7 +119,7 @@ function Dashboard() {
             >
               <Title>Monthly</Title>
               <Typography component="p" variant="h4">
-                2098
+                {monthly}
               </Typography>
             </Paper>
           </Grid>
