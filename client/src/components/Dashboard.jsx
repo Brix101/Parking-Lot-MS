@@ -33,7 +33,6 @@ function Dashboard() {
     }
 
     if (parkingData) {
-      console.log(parkingData);
       var dateObj = new Date();
       var currentYear = dateObj.getUTCFullYear();
 
@@ -135,7 +134,7 @@ function Dashboard() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item lg={12}>
+          <Grid item xs={12} md={12} lg={12}>
             <Paper
               sx={{
                 p: 2,

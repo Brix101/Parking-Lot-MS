@@ -12,7 +12,10 @@ import {
   Divider,
   IconButton,
   Link,
+  Menu,
+  MenuItem,
   Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
 
@@ -21,6 +24,8 @@ import MuiAppBar from "@mui/material/AppBar";
 import { useGetUserQuery } from "../services/userService";
 
 const drawerWidth = 240;
+
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -78,6 +83,7 @@ const mdTheme = createTheme({
 });
 
 function Admin() {
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const location = useLocation();
   const [user, setUser] = useState({});
   const [initial, setInitial] = useState();
@@ -98,6 +104,15 @@ function Admin() {
       setInitial(initials);
     }
   }, [user, data]);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -129,26 +144,55 @@ function Admin() {
             >
               {location.state}
             </Typography>
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton color="inherit">
-                <Typography
-                  variant="caption"
-                  component="div"
-                  sx={{ flexGrow: 1 }}
-                >
-                  {user && (
-                    <>
-                      {user.firstName} {user.lastName}
-                    </>
-                  )}
-                </Typography>
-              </IconButton>
-              <IconButton
+
+            <Box
+              sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
+            >
+              <Typography
+                variant="body2"
+                component="div"
                 color="inherit"
-                sx={{ backgroundColor: "secondary.main" }}
+                noWrap
+                onClick={handleOpenUserMenu}
+                sx={{ flexGrow: 1, paddingRight: 2, cursor: "pointer" }}
               >
-                {initial}
-              </IconButton>
+                {user && (
+                  <>
+                    {user.firstName} {user.lastName}
+                  </>
+                )}
+              </Typography>
+              <Tooltip title="Open settings">
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={{ p: 0.5, backgroundColor: "secondary.main" }}
+                  color="inherit"
+                >
+                  {initial}
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
             </Box>
           </Toolbar>
         </AppBar>

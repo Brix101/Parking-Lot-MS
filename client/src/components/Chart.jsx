@@ -69,18 +69,9 @@ export default function Chart() {
                 dataKey="date"
                 stroke={theme.palette.text.secondary}
                 style={theme.typography.body2}
-              >
-                <Label
-                  position="center"
-                  style={{
-                    textAnchor: "end",
-                    fill: theme.palette.text.primary,
-                    ...theme.typography.body1,
-                  }}
-                >
-                  Date
-                </Label>
-              </XAxis>
+                label="
+                Date"
+              />
               <YAxis
                 stroke={theme.palette.text.secondary}
                 style={theme.typography.body2}
