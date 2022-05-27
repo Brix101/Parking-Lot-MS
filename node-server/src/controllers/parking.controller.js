@@ -14,7 +14,6 @@ const getAllController = async (req, res) => {
         type: QueryTypes.SELECT,
       }
     );
-    console.log(condition);
     res.send(data);
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
