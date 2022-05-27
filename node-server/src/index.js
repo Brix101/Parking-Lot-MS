@@ -51,10 +51,13 @@ io.on("connection", async (socket) => {
     const spots = await ParkingSpot.findAll();
     socket.emit("allSpots", spots);
 
-    // const parkings = await sequilize.query("SELECT * FROM `Parkings`", {
-    //   type: QueryTypes.SELECT,
-    // });
-    // socket.emit("allPakings", parkings);
+    const parkings = await sequelize.query(
+      "SELECT Parkings.id AS ParkingId,Parkers.id AS ParkerID,Parkings.entered,Parkings.exited,Parkers.plateNumber,Parkers.note FROM Parkers INNER JOIN Parkings ON Parkings.parkerId = Parkers.id ORDER BY Parkings.entered DESC",
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+    socket.emit("allPakings", parkings);
   }, 5000);
 
   socket.on("disconnect", () => {

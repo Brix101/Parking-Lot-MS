@@ -12,7 +12,7 @@ import Loader from "./Loader";
 
 function Dashboard() {
   const { data: parkingSpot, isLoading } = useGetAllParkingSpotQuery();
-  const { data: parking } = useGetAllParkingQuery();
+  const { data: parkingData } = useGetAllParkingQuery("");
   const [available, setAvailable] = useState();
   const [unAvailable, setunAvailable] = useState();
   const [daily, setDaily] = useState(0);
@@ -32,7 +32,8 @@ function Dashboard() {
       );
     }
 
-    if (parking) {
+    if (parkingData) {
+      console.log(parkingData);
       var dateObj = new Date();
       var currentYear = dateObj.getUTCFullYear();
 
@@ -40,7 +41,7 @@ function Dashboard() {
 
       setDaily(
         // get Daily
-        parking.filter((p) => {
+        parkingData.filter((p) => {
           var date = p.entered.split("T")[0];
           return date === utc;
         }).length
@@ -48,7 +49,7 @@ function Dashboard() {
 
       setMonthly(
         // get Monthly
-        parking.filter((p) => {
+        parkingData.filter((p) => {
           var [year, month] = p.entered.split("-");
           return (
             currentMonth().toString() === month &&
@@ -57,7 +58,7 @@ function Dashboard() {
         }).length
       );
     }
-  }, [parking, parkingSpot]);
+  }, [parkingData, parkingSpot]);
 
   function currentMonth() {
     var date = new Date(),

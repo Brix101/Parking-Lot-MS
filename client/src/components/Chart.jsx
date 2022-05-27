@@ -31,7 +31,7 @@ for (let i = 0; i < 30; i++) {
 initialData.reverse();
 
 export default function Chart() {
-  const { data, isLoading } = useGetAllParkingQuery();
+  const { data, isLoading } = useGetAllParkingQuery("");
   const theme = useTheme();
   useEffect(() => {
     if (data) {
