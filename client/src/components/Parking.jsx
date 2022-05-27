@@ -20,7 +20,9 @@ function Parking() {
   const [toView, setToView] = useState(5);
   const [toAdd, setToAdd] = useState(3);
   const [plateNumber, setPlateNumber] = useState("");
-  const { data, error, isLoading } = useGetAllParkingQuery(plateNumber);
+  const { data, error, isLoading } = useGetAllParkingQuery(plateNumber, {
+    pollingInterval: 1000,
+  });
 
   useEffect(() => {
     if (error) {
@@ -33,8 +35,8 @@ function Parking() {
       const onLimit = total >= toAdd;
       setToAdd(onLimit ? toAdd : total);
     }
+
     if (!plateNumber) {
-      setToAdd(3);
     }
   }, [data, error, toView, toAdd, plateNumber]);
 
@@ -61,6 +63,9 @@ function Parking() {
 
   const textChange = (e) => {
     setPlateNumber(e.target.value);
+    if (!e.target.value) {
+      setToAdd(3);
+    }
   };
 
   return (
