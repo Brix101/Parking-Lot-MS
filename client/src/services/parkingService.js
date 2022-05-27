@@ -3,8 +3,8 @@ import { baseAPI } from "../feature/apiReducer";
 const parkingApi = baseAPI.injectEndpoints({
   endpoints: (build) => ({
     getAllParking: build.query({
-      query: () => ({
-        url: "/parking",
+      query: (plateNumber) => ({
+        url: `/parking?plateNumber=${plateNumber}`,
       }),
       transformResponse(response, meta) {
         const headers = meta.response.headers.get("authorization");

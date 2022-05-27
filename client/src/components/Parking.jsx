@@ -19,9 +19,8 @@ function Parking() {
   const navigate = useNavigate();
   const [toView, setToView] = useState(5);
   const [toAdd, setToAdd] = useState(3);
-  const { data, error, isLoading } = useGetAllParkingQuery({
-    pollingInterval: 1000,
-  });
+  const [plateNumber, setPlateNumber] = useState("");
+  const { data, error, isLoading } = useGetAllParkingQuery(plateNumber);
 
   useEffect(() => {
     if (error) {
@@ -34,7 +33,10 @@ function Parking() {
       const onLimit = total >= toAdd;
       setToAdd(onLimit ? toAdd : total);
     }
-  }, [data, error, toView, toAdd]);
+    if (!plateNumber) {
+      setToAdd(3);
+    }
+  }, [data, error, toView, toAdd, plateNumber]);
 
   function pagination(event) {
     event.preventDefault();
@@ -56,13 +58,18 @@ function Parking() {
 
     return year + "-" + month + "-" + dt;
   };
+
+  const textChange = (e) => {
+    setPlateNumber(e.target.value);
+  };
+
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
         <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-          <SearchAppBar />
+          <SearchAppBar onChange={textChange} />
           <React.Fragment>
             <Title>Logs</Title>
             <Table size="small">
