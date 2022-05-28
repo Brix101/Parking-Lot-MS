@@ -13,11 +13,8 @@ import ParkerImage from "./components/ParkerImage";
 import Parking from "./components/Parking";
 import ParkingSpot from "./components/ParkingSpot";
 import User from "./components/User";
-import { useSelector } from "react-redux";
-import { userIsAdmin } from "./feature/userReducer";
 
 function Router() {
-  const isAdmin = useSelector(userIsAdmin);
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -30,7 +27,7 @@ function Router() {
         <Route path="parker-image" element={<ParkerImage />} />
         <Route path="parking" element={<Parking />} />
         <Route path="parking-spot" element={<ParkingSpot />} />
-        {isAdmin && <Route path="user" element={<User />} />}
+        <Route path="user" element={<User />} />
       </Route>
       {/* TODO add not found route
       <Route path="/nof-found"/> */}

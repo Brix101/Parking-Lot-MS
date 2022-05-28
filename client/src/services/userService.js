@@ -4,10 +4,15 @@ const userAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
     getUser: build.query({
       query: () => ({
-        url: "/user",
+        url: "/whoami",
+      }),
+    }),
+    getAllUser: build.query({
+      query: (name) => ({
+        url: `/users?name=${name}`,
       }),
     }),
   }),
 });
 
-export const { useGetUserQuery } = userAPI;
+export const { useGetUserQuery, useGetAllUserQuery } = userAPI;

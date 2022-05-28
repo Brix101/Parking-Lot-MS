@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { Typography } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -49,7 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 // Todo update search bar return value
-export default function SearchAppBar({ onChange }) {
+export default function SearchAppBar({ text, onChange, props }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -59,10 +60,16 @@ export default function SearchAppBar({ onChange }) {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search PlateNumber"
+              placeholder={text}
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
+          {props}
         </Toolbar>
       </AppBar>
     </Box>

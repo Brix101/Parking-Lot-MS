@@ -27,7 +27,7 @@ function Parker() {
         <Loader />
       ) : (
         <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-          <SearchAppBar onChange={textChange} />
+          <SearchAppBar text="Search Platenumber" onChange={textChange} />
           <Grid container spacing={3}>
             {data &&
               data.map((parker, i) => {

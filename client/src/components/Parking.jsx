@@ -61,6 +61,13 @@ function Parking() {
     return year + "-" + month + "-" + dt;
   };
 
+  function diff(dt2, dt1) {
+    // var msec = Math.abs(dt2 - dt1);
+    // var min = Math.floor(msec / 1000 / 60);
+    // return min;
+    return "sample";
+  }
+
   const textChange = (e) => {
     setPlateNumber(e.target.value);
     if (!e.target.value) {
@@ -74,7 +81,7 @@ function Parking() {
         <Loader />
       ) : (
         <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-          <SearchAppBar onChange={textChange} />
+          <SearchAppBar text="Search Platenumber" onChange={textChange} />
           <React.Fragment>
             <Title>Logs</Title>
             <Table size="small">
@@ -83,6 +90,7 @@ function Parking() {
                   <TableCell>Plate Number</TableCell>
                   <TableCell align="right">Entered</TableCell>
                   <TableCell align="right">Exited</TableCell>
+                  <TableCell align="right">Parking Duration</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -105,6 +113,9 @@ function Parking() {
                           {parker.entered}
                         </TableCell>
                         <TableCell align="right">{parker.exited}</TableCell>
+                        <TableCell align="right">
+                          {diff(parker.entered, parker.exited)}
+                        </TableCell>
                       </TableRow>
                     );
                   })}

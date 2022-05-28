@@ -1,5 +1,5 @@
 const { User } = require("../models");
-const { ValidationError } = require("sequelize");
+const { ValidationError, Op } = require("sequelize");
 
 const addController = async (req, res) => {
   try {
@@ -59,4 +59,43 @@ const getUserController = async (req, res) => {
   res.send({ user: authUser });
 };
 
-module.exports = { addController, getUserController };
+const getAllUserController = async (req, res) => {
+  try {
+    const name = req.query.name;
+    var condition = name
+      ? {
+          [Op.or]: [
+            {
+              firstName: { [Op.like]: `${name}%` },
+            },
+            {
+              lastName: { [Op.like]: `${name}%` },
+            },
+          ],
+        }
+      : null;
+    const data = await User.findAll({ where: condition });
+    console.log(condition);
+    const user = [];
+
+    data.forEach((userDate) => {
+      user.push({
+        firstName: userDate.firstName,
+        lastName: userDate.lastName,
+        userName: userDate.userName,
+        email: userDate.email,
+        isAdmin: userDate.isAdmin,
+      });
+    });
+
+    res.send(user);
+  } catch (error) {
+    return res.status(error instanceof ValidationError ? 400 : 500).send({
+      message:
+        error instanceof ValidationError
+          ? error.errors[0].message
+          : error.message || "Some error occurred",
+    });
+  }
+};
+module.exports = { addController, getUserController, getAllUserController };

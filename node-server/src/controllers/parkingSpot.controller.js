@@ -1,5 +1,5 @@
 const { ParkingSpot } = require("../models");
-const { ValidationError } = require("sequelize");
+const { ValidationError, Op } = require("sequelize");
 
 const addController = async (req, res) => {
   const socket = req.app.get("socket");

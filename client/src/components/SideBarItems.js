@@ -38,7 +38,7 @@ function SideBarItems() {
             text="Parking Spot"
           />
           {isAdmin && (
-            <SideButton to="/admin/User" icon={<PeopleIcon />} text="User" />
+            <SideButton to="/admin/user" icon={<PeopleIcon />} text="User" />
           )}
         </React.Fragment>
 
