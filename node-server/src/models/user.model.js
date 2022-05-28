@@ -60,6 +60,10 @@ const User = sequelize.define(
         },
       },
     },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     hooks: {

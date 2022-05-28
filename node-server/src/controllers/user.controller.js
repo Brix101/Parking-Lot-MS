@@ -53,6 +53,7 @@ const getUserController = async (req, res) => {
     lastName: user.lastName,
     userName: user.userName,
     email: user.email,
+    isAdmin: user.isAdmin,
   };
 
   res.send({ user: authUser });

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { blueGrey } from "@mui/material/colors";
 import SideBarItems from "../components/SideBarItems";
 import {
@@ -11,7 +13,6 @@ import {
   CssBaseline,
   Divider,
   IconButton,
-  Link,
   Menu,
   MenuItem,
   Toolbar,
@@ -22,10 +23,11 @@ import {
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import { useGetUserQuery } from "../services/userService";
+import { useLogoutMutation } from "../services/authService";
+import { useDispatch } from "react-redux";
+import { setLoginUser } from "../feature/userReducer";
 
 const drawerWidth = 240;
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -83,6 +85,8 @@ const mdTheme = createTheme({
 });
 
 function Admin() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const location = useLocation();
   const [user, setUser] = useState({});
@@ -93,17 +97,23 @@ function Admin() {
     setOpen(!open);
   };
 
-  const { data } = useGetUserQuery();
+  const { data: userData } = useGetUserQuery();
+  const [logout, { data: logoutData, isSuccess }] = useLogoutMutation();
 
   useEffect(() => {
-    if (data) {
-      setUser(data.user);
+    if (isSuccess || !userData || logoutData) {
+      navigate("/login");
+    }
+
+    if (userData) {
+      setUser(userData.user);
+      dispatch(setLoginUser(userData.user));
 
       var initials =
-        data.user.firstName.charAt(0) + data.user.lastName.charAt(0);
+        userData.user.firstName.charAt(0) + userData.user.lastName.charAt(0);
       setInitial(initials);
     }
-  }, [user, data]);
+  }, [user, userData, isSuccess, navigate, logoutData, dispatch]);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -113,6 +123,10 @@ function Admin() {
     setAnchorElUser(null);
   };
 
+  const logoutUser = () => {
+    logout();
+    window.location.reload(false);
+  };
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -187,11 +201,23 @@ function Admin() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <ManageAccountsIcon sx={{ marginRight: 2 }} />
+                  <Typography
+                    onClick={() => {
+                      navigate("/admin/account", { state: "Account" });
+                    }}
+                    textAlign="center"
+                  >
+                    Account
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <LogoutIcon sx={{ marginRight: 2 }} />
+                  <Typography textAlign="center" onClick={() => logoutUser()}>
+                    Logout
+                  </Typography>
+                </MenuItem>
               </Menu>
             </Box>
           </Toolbar>

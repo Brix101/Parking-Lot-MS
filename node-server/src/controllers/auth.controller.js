@@ -48,6 +48,6 @@ const loginController = async (req, res) => {
 };
 
 const logoutController = async (req, res) => {
-  res.clearCookie("refreshToken").send();
+  res.clearCookie("refreshToken").send({ message: "User Logout" });
 };
 module.exports = { loginController, logoutController };

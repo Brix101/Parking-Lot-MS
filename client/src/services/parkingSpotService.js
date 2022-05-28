@@ -17,7 +17,7 @@ const parkingSpotAPI = baseAPI.injectEndpoints({
       },
       async onCacheEntryAdded(
         arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
         const socket = io(server);
         try {

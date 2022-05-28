@@ -5,21 +5,24 @@ const initialState = {
   lastName: null,
   userName: null,
   email: null,
+  isAdmin: null,
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action) => {
+    setLoginUser: (state, action) => {
+      console.log(action.payload);
       state.email = action.payload.email;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.userName = action.payload.userName;
+      state.isAdmin = action.payload.isAdmin;
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setLoginUser } = userSlice.actions;
 
 export default userSlice.reducer;

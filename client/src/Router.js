@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 
 import Dashboard from "./components/Dashboard";
+import Account from "./components/Account";
 import Parker from "./components/Parker";
 import Parkers from "./components/Parkers";
 import ParkerImage from "./components/ParkerImage";
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<Admin />}>
         <Route index element={<Dashboard />} />
+        <Route path="account" element={<Account />} />
         <Route path="parker" element={<Parkers />} />
         <Route path="parker/:plate" element={<Parker />} />
         <Route path="parker-image" element={<ParkerImage />} />
