@@ -6,7 +6,7 @@ const getAllController = async (req, res) => {
   try {
     const plateNumber = req.query.plateNumber;
     const condition = plateNumber
-      ? `WHERE Parkers.plateNumber LIKE '${plateNumber}%'`
+      ? `WHERE Parkers.plateNumber LIKE '%${plateNumber}%'`
       : "";
     data = await sequilize.query(
       `SELECT Parkings.id AS ParkingId,Parkers.id AS ParkerID,Parkings.entered,Parkings.exited,Parkers.plateNumber,Parkers.note FROM Parkers INNER JOIN Parkings ON Parkings.parkerId = Parkers.id ${condition} ORDER BY Parkings.entered DESC`,
