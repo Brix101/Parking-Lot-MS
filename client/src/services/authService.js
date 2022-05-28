@@ -1,5 +1,4 @@
 import { baseAPI } from "../feature/apiReducer";
-import { setUser } from "../feature/userReducer";
 
 const authAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -10,6 +9,7 @@ const authAPI = baseAPI.injectEndpoints({
         body: data,
       }),
       transformResponse: (response, meta) => {
+        localStorage.removeItem("authorization");
         const headers = meta.response.headers.get("authorization");
         if (headers) {
           localStorage.setItem("authorization", headers);

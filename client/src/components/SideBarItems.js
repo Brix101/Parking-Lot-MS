@@ -11,10 +11,12 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import SideButton from "./Button/SideButton";
+import { useSelector } from "react-redux";
+import { userIsAdmin } from "../feature/userReducer";
 
 function SideBarItems() {
+  const isAdmin = useSelector(userIsAdmin);
   return (
     <>
       <List component="nav">
@@ -35,7 +37,9 @@ function SideBarItems() {
             icon={<LocalParkingIcon />}
             text="Parking Spot"
           />
-          <SideButton to="/admin/User" icon={<PeopleIcon />} text="User" />
+          {isAdmin && (
+            <SideButton to="/admin/User" icon={<PeopleIcon />} text="User" />
+          )}
         </React.Fragment>
 
         <Divider sx={{ my: 1 }} />

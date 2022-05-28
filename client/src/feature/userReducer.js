@@ -25,4 +25,6 @@ export const userSlice = createSlice({
 
 export const { setLoginUser } = userSlice.actions;
 
+export const userIsAdmin = (state) => state.user.isAdmin;
+
 export default userSlice.reducer;
