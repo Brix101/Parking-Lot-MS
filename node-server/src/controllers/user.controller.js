@@ -3,6 +3,7 @@ const { ValidationError, Op } = require("sequelize");
 
 const addController = async (req, res) => {
   try {
+    const socket = req.app.get("socket");
     const {
       firstName,
       lastName,
@@ -26,8 +27,8 @@ const addController = async (req, res) => {
       password,
       isAdmin,
     };
-    await User.create(data);
-
+    const user = await User.create(data);
+    socket.emit("addedUser", user);
     res.send({ message: `${firstName} ${lastName} Successfully Added!!!` });
   } catch (error) {
     res.status(error instanceof ValidationError ? 400 : 500).send({

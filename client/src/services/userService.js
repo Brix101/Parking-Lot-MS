@@ -1,4 +1,6 @@
 import { baseAPI } from "../feature/apiReducer";
+import io from "socket.io-client";
+import { server } from "../constant/server";
 
 const userAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -11,6 +13,25 @@ const userAPI = baseAPI.injectEndpoints({
       query: (name) => ({
         url: `/users?name=${name}`,
       }),
+      async onCacheEntryAdded(
+        arg,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+      ) {
+        const socket = io(server);
+        try {
+          await cacheDataLoaded;
+
+          socket.on("addedUser", (user) => {
+            updateCachedData((draft) => {
+              draft.push(user);
+            });
+          });
+        } catch (error) {}
+
+        await cacheEntryRemoved;
+
+        socket.close();
+      },
     }),
     addUser: build.mutation({
       query: ({ ...data }) => ({
