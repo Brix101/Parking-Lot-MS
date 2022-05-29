@@ -18,19 +18,9 @@ const addController = async (req, res) => {
       email,
       password,
     };
-    const user = await User.create(data);
+    await User.create(data);
 
-    res
-      .cookie("session", user.getRefreshToken(), {
-        maxAge: 3.154e10, // 1 year
-        httpOnly: true,
-        domain: "localhost",
-        path: "/",
-        sameSite: "strict",
-        secure: false,
-      })
-      .setHeader("x-access-token", user.getAccessToken())
-      .send({ "access-token": user.getAccessToken() });
+    res.send({ message: `${firstName} ${lastName} Successfully Added!!!` });
   } catch (error) {
     res.status(error instanceof ValidationError ? 400 : 500).send({
       message:
@@ -75,7 +65,6 @@ const getAllUserController = async (req, res) => {
         }
       : null;
     const data = await User.findAll({ where: condition });
-    console.log(condition);
     const user = [];
 
     data.forEach((userDate) => {

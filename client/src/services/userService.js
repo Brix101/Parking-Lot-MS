@@ -12,7 +12,15 @@ const userAPI = baseAPI.injectEndpoints({
         url: `/users?name=${name}`,
       }),
     }),
+    addUser: build.mutation({
+      query: ({ ...data }) => ({
+        url: "/user",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetUserQuery, useGetAllUserQuery } = userAPI;
+export const { useGetUserQuery, useGetAllUserQuery, useAddUserMutation } =
+  userAPI;

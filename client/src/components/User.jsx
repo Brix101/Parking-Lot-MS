@@ -6,7 +6,6 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import CloseIcon from "@mui/icons-material/Close";
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -15,33 +14,13 @@ import { useGetAllUserQuery } from "../services/userService";
 import Loader from "./Loader";
 import SearchAppBar from "./SearchAppBar";
 import Title from "./Title";
-import {
-  AppBar,
-  Box,
-  Button,
-  IconButton,
-  Modal,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  pb: 4,
-};
+import { IconButton } from "@mui/material";
+import SignUp from "./SignUp/SignUp";
 
 function User() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
   const isAdmin = useSelector(userIsAdmin);
   const [searchText, setSearchText] = useState("");
   const { data: userData, isLoading, error } = useGetAllUserQuery(searchText);
@@ -58,6 +37,7 @@ function User() {
   const textChange = (e) => {
     setSearchText(e.target.value);
   };
+
   return (
     <>
       {isLoading ? (
@@ -68,7 +48,7 @@ function User() {
             text="Search Name"
             onChange={textChange}
             props={
-              <IconButton color="inherit" onClick={handleOpen}>
+              <IconButton color="inherit" onClick={() => setOpen(true)}>
                 <AddCircleIcon color="inherit" />
               </IconButton>
             }
@@ -105,25 +85,8 @@ function User() {
           </React.Fragment>
         </Paper>
       )}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Add User
-              </Typography>
-              <IconButton color="inherit" onClick={handleClose}>
-                <CloseIcon />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-        </Box>
-      </Modal>
+
+      <SignUp open={open} handleClose={() => setOpen(false)} />
     </>
   );
 }
