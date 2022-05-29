@@ -15,7 +15,7 @@ const addController = async (req, res) => {
 
     if (password !== passConfirm) {
       return res.status(400).send({
-        message: "Password are not the Same",
+        message: "Please Input Same Password",
       });
     }
     const data = {

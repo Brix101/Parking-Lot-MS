@@ -5,7 +5,10 @@ from fastapi.responses import JSONResponse
 from utils.jwt_utils import get_jwt
 from utils.logger import logger
 
-Base.metadata.create_all(engine)#Initialize Database
+# butang daan dre ang mga routes kay para ma create ang table
+from routes import parker_routes, parking_routes,parking_spot_routes
+
+Base.metadata.create_all(engine,checkfirst=True)#Initialize Database
 
 app = FastAPI(title="Parking Lot MS")
 
@@ -23,7 +26,6 @@ async def exception_handler(request: Request, call_next):
         }    
         return JSONResponse(status_code=501, content=err_message)
     
-from routes import parker_routes, parking_routes,parking_spot_routes
 
 app.include_router(parker_routes.router)
 app.include_router(parking_routes.router)

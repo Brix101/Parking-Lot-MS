@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertTitle,
   AppBar,
   Box,
   Button,
@@ -44,18 +46,30 @@ function SignUp({ open, handleClose }) {
     isAdmin: false,
   });
 
-  const [addUser, { data, error, isLoading, status }] = useAddUserMutation();
+  const [addUser, { data, error, isLoading, isSuccess, isError }] =
+    useAddUserMutation();
 
   useEffect(() => {
-    if (error) {
-      console.log(error);
+    if (isSuccess) {
+      setState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        passConfirm: "",
+        isAdmin: false,
+      });
     }
-    if (activeStep === steps.length) {
-      addUser();
-    }
-  });
 
-  const handleNext = () => {
+    if (isError) {
+      setActiveStep(0);
+    }
+  }, [isSuccess, isError]);
+
+  const handleNext = (e) => {
+    if (e.target.type === "submit") {
+      addUser(state);
+    }
     setActiveStep(activeStep + 1);
   };
 
@@ -70,7 +84,6 @@ function SignUp({ open, handleClose }) {
 
   const handleChange = (e) => {
     setState({ ...state, [e.currentTarget.name]: e.currentTarget.value });
-    console.log(state);
   };
 
   function getStepContent(step) {
@@ -103,6 +116,12 @@ function SignUp({ open, handleClose }) {
           </Toolbar>
         </AppBar>
         {isLoading && <Loader />}
+        {error && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error.data.message}
+          </Alert>
+        )}
         <Container component="main" maxWidth="sm">
           <Paper
             variant="outlined"
@@ -119,11 +138,10 @@ function SignUp({ open, handleClose }) {
               {activeStep === steps.length ? (
                 <React.Fragment>
                   <Typography variant="h5" gutterBottom>
-                    {status}
+                    Success
                   </Typography>
                   <Typography variant="subtitle1">
-                    {data && data}
-                    {error && error}
+                    {data && data.message}
                   </Typography>
                 </React.Fragment>
               ) : (
@@ -140,6 +158,9 @@ function SignUp({ open, handleClose }) {
                       variant="contained"
                       onClick={handleNext}
                       sx={{ mt: 1, ml: 1 }}
+                      type={
+                        activeStep === steps.length - 1 ? "submit" : "button"
+                      }
                     >
                       {activeStep === steps.length - 1 ? "Submit" : "Next"}
                     </Button>
