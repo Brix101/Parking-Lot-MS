@@ -16,6 +16,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import PersonalInfo from "./PersonalInfo";
 import PasswordForm from "./PasswordForm";
 import React, { useState } from "react";
+import { useAddUserMutation } from "../../services/userService";
+import Loader from "../Loader";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -30,19 +33,27 @@ const style = {
 
 const steps = ["Personal Information", "Private Information"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <PersonalInfo />;
-    case 1:
-      return <PasswordForm />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
 function SignUp({ open, handleClose }) {
   const [activeStep, setActiveStep] = useState(0);
+  const [state, setState] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    passConfirm: "",
+    isAdmin: false,
+  });
+
+  const [addUser, { data, error, isLoading, status }] = useAddUserMutation();
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+    if (activeStep === steps.length) {
+      addUser();
+    }
+  });
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -56,6 +67,22 @@ function SignUp({ open, handleClose }) {
     handleClose();
     setActiveStep(0);
   };
+
+  const handleChange = (e) => {
+    setState({ ...state, [e.currentTarget.name]: e.currentTarget.value });
+    console.log(state);
+  };
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <PersonalInfo state={state} handleChange={handleChange} />;
+      case 1:
+        return <PasswordForm state={state} handleChange={handleChange} />;
+      default:
+        throw new Error("Unknown step");
+    }
+  }
 
   return (
     <Modal
@@ -75,6 +102,7 @@ function SignUp({ open, handleClose }) {
             </IconButton>
           </Toolbar>
         </AppBar>
+        {isLoading && <Loader />}
         <Container component="main" maxWidth="sm">
           <Paper
             variant="outlined"
@@ -91,12 +119,11 @@ function SignUp({ open, handleClose }) {
               {activeStep === steps.length ? (
                 <React.Fragment>
                   <Typography variant="h5" gutterBottom>
-                    Thank you for your order.
+                    {status}
                   </Typography>
                   <Typography variant="subtitle1">
-                    Your order number is #2001539. We have emailed your order
-                    confirmation, and will send you an update when your order
-                    has shipped.
+                    {data && data}
+                    {error && error}
                   </Typography>
                 </React.Fragment>
               ) : (

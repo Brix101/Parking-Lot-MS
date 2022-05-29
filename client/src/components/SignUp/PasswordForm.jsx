@@ -1,7 +1,7 @@
 import { Box, Grid, TextField } from "@mui/material";
 import React from "react";
 
-function PasswordForm() {
+function PasswordForm({ state, handleChange }) {
   return (
     <Box component="form" noValidate sx={{ mt: 3, p: 4 }}>
       <Grid container spacing={2}>
@@ -14,17 +14,21 @@ function PasswordForm() {
             type="password"
             id="password"
             autoComplete="new-password"
+            onChange={handleChange}
+            value={state.password}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             required
             fullWidth
-            name="confirmPass"
+            name="passConfirm"
             label="Confirm Password"
             type="password"
-            id="confirmPass"
+            id="passConfirm"
             autoComplete="confirm-password"
+            onChange={handleChange}
+            value={state.passConfirm}
           />
         </Grid>
       </Grid>

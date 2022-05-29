@@ -1,7 +1,7 @@
 import { Box, Grid, TextField } from "@mui/material";
 import React from "react";
 
-function PersonalInfo() {
+function PersonalInfo({ state, handleChange }) {
   return (
     <Box component="form" noValidate sx={{ mt: 3, p: 4 }}>
       <Grid container spacing={2}>
@@ -14,6 +14,8 @@ function PersonalInfo() {
             id="firstName"
             label="First Name"
             autoFocus
+            onChange={handleChange}
+            value={state.firstName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -24,6 +26,8 @@ function PersonalInfo() {
             label="Last Name"
             name="lastName"
             autoComplete="family-name"
+            onChange={handleChange}
+            value={state.lastName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -34,6 +38,8 @@ function PersonalInfo() {
             label="Username"
             name="userName"
             autoComplete="userName"
+            onChange={handleChange}
+            value={state.userName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -44,6 +50,8 @@ function PersonalInfo() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            onChange={handleChange}
+            value={state.email}
           />
         </Grid>
       </Grid>

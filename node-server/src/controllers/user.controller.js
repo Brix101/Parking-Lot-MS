@@ -3,8 +3,15 @@ const { ValidationError, Op } = require("sequelize");
 
 const addController = async (req, res) => {
   try {
-    const { firstName, lastName, userName, email, password, passConfirm } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      userName,
+      email,
+      password,
+      passConfirm,
+      isAdmin,
+    } = req.body;
 
     if (password !== passConfirm) {
       return res.status(400).send({
@@ -17,6 +24,7 @@ const addController = async (req, res) => {
       userName,
       email,
       password,
+      isAdmin,
     };
     await User.create(data);
 

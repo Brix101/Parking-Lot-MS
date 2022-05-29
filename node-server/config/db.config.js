@@ -2,7 +2,7 @@ module.exports = {
   HOST: "localhost",
   USER: "root",
   PASSWORD: "root",
-  DB: "parking-lot-ms",
+  DB: "parking_lot_ms_db",
   dialect: "mysql",
   OP: 0,
   logging: 0, //? Disables logging
