@@ -3,9 +3,9 @@ from fastapi.encoders import jsonable_encoder
 
 class ParkingSpotSchema(BaseModel):
     spotCode : str
-    status : bool | None = True
-    description: str | None = None
-    active: bool | None = False
+    status : bool or None = True
+    description: str or None = None
+    active: bool or None = False
 
     class Config:
         orm_mode = True

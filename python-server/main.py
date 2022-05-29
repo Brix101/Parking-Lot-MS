@@ -23,8 +23,6 @@ async def exception_handler(request: Request, call_next):
         }    
         return JSONResponse(status_code=501, content=err_message)
     
-
-
 from routes import parker_routes, parking_routes,parking_spot_routes
 
 app.include_router(parker_routes.router)
