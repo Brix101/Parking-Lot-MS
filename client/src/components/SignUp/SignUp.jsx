@@ -18,7 +18,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import PersonalInfo from "./PersonalInfo";
 import PasswordForm from "./PasswordForm";
 import React, { useState } from "react";
-import { useAddUserMutation } from "../../services/userService";
+import {
+  useAddUserMutation,
+  useUpdateUserMutation,
+} from "../../services/userService";
 import Loader from "../Loader";
 import { useEffect } from "react";
 
@@ -35,7 +38,7 @@ const style = {
 
 const steps = ["Personal Information", "Private Information"];
 
-function SignUp({ open, handleClose }) {
+function SignUp({ open, handleClose, update }) {
   const [activeStep, setActiveStep] = useState(0);
   const [state, setState] = useState({
     firstName: "",
@@ -49,7 +52,12 @@ function SignUp({ open, handleClose }) {
   const [addUser, { data, error, isLoading, isSuccess, isError }] =
     useAddUserMutation();
 
+  const [updateUser] = useUpdateUserMutation();
+
   useEffect(() => {
+    if (update) {
+      setState(update);
+    }
     if (isSuccess) {
       setState({
         firstName: "",
@@ -64,11 +72,15 @@ function SignUp({ open, handleClose }) {
     if (isError) {
       setActiveStep(0);
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, update]);
 
   const handleNext = (e) => {
     if (e.target.type === "submit") {
-      addUser(state);
+      if (update) {
+        updateUser(state);
+      } else {
+        addUser(state);
+      }
     }
     setActiveStep(activeStep + 1);
   };
@@ -108,7 +120,7 @@ function SignUp({ open, handleClose }) {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Add User
+              {update ? "Update" : "Add"} User
             </Typography>
             <IconButton color="inherit" onClick={close}>
               <CloseIcon />

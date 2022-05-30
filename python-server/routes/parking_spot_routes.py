@@ -1,6 +1,4 @@
-from email import message
-from fastapi import APIRouter,Depends,HTTPException
-from sqlalchemy import null
+from fastapi import APIRouter,Depends
 from sqlalchemy.orm import Session
 from config.database import get_db
 
@@ -13,13 +11,14 @@ router = APIRouter(
     tags=["ParkingSpot"]
 )
 
+
 @router.get("/")
 async def get_parking_spot(db:Session = Depends(get_db)):
     data = db.query(ParkingSpot).all()
     return data
 
 @router.post("/")
-async def add_location(parkingSpot:ParkingSpotSchema,db:Session = Depends(get_db)):
+async def add_spot(parkingSpot:ParkingSpotSchema,db:Session = Depends(get_db)):
    
     try:            
         # **obj will unpack dict object/ in JS ...data
@@ -31,5 +30,3 @@ async def add_location(parkingSpot:ParkingSpotSchema,db:Session = Depends(get_db
         
     except Exception as e:
        raise e
-
-# TODO add delete & update

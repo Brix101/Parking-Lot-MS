@@ -43,7 +43,6 @@ const io = new Server(httpServer, {
 const connections = new Set();
 app.set("socket", io);
 io.on("connection", async (socket) => {
-  // console.log("Connected  | " + socket.id);
   connections.add(socket);
 
   // ? Poll every 5 secs

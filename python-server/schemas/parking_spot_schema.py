@@ -5,7 +5,7 @@ class ParkingSpotSchema(BaseModel):
     spotCode : str
     status : bool or None = True
     description: str or None = None
-    active: bool or None = False
+    active: bool or None = True
 
     class Config:
         orm_mode = True

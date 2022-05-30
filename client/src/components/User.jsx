@@ -14,12 +14,13 @@ import { useGetAllUserQuery } from "../services/userService";
 import Loader from "./Loader";
 import SearchAppBar from "./SearchAppBar";
 import Title from "./Title";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import SignUp from "./SignUp/SignUp";
 
 function User() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [update, setUpdate] = useState({});
 
   const isAdmin = useSelector(userIsAdmin);
   const [searchText, setSearchText] = useState("");
@@ -31,6 +32,9 @@ function User() {
     }
     if (error) {
       console.log(error);
+    }
+    if (userData) {
+      console.log(userData);
     }
   });
 
@@ -48,7 +52,12 @@ function User() {
             text="Search Name"
             onChange={textChange}
             props={
-              <IconButton color="inherit" onClick={() => setOpen(true)}>
+              <IconButton
+                color="inherit"
+                onClick={() => {
+                  setOpen(true);
+                }}
+              >
                 <AddCircleIcon color="inherit" />
               </IconButton>
             }
@@ -70,7 +79,14 @@ function User() {
                     return (
                       <TableRow key={i}>
                         <TableCell>
-                          {user.firstName} {user.lastName}
+                          <Button
+                            onClick={() => {
+                              setUpdate(user);
+                              setOpen(true);
+                            }}
+                          >
+                            {user.firstName} {user.lastName}
+                          </Button>
                         </TableCell>
                         <TableCell align="right">{user.userName}</TableCell>
                         <TableCell align="right">{user.email}</TableCell>
@@ -86,7 +102,14 @@ function User() {
         </Paper>
       )}
 
-      <SignUp open={open} handleClose={() => setOpen(false)} />
+      <SignUp
+        open={open}
+        handleClose={() => {
+          setUpdate({});
+          setOpen(false);
+        }}
+        update={update}
+      />
     </>
   );
 }

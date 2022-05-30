@@ -1,4 +1,10 @@
-import { Box, Grid, TextField } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+} from "@mui/material";
 import React from "react";
 
 function PersonalInfo({ state, handleChange }) {
@@ -52,6 +58,12 @@ function PersonalInfo({ state, handleChange }) {
             autoComplete="email"
             onChange={handleChange}
             value={state.email}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Checkbox checked={state.isAdmin} />}
+            label="Admin"
           />
         </Grid>
       </Grid>

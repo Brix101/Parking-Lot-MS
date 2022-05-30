@@ -26,6 +26,12 @@ const userAPI = baseAPI.injectEndpoints({
               draft.push(user);
             });
           });
+          socket.on("allUser", (user) => {
+            updateCachedData((draft) => {
+              draft.splice(0, draft.length);
+              draft.push(...user);
+            });
+          });
         } catch (error) {}
 
         await cacheEntryRemoved;
@@ -40,8 +46,19 @@ const userAPI = baseAPI.injectEndpoints({
         body: data,
       }),
     }),
+    updateUser: build.mutation({
+      query: ({ id, ...data }) => ({
+        url: `/user/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetUserQuery, useGetAllUserQuery, useAddUserMutation } =
-  userAPI;
+export const {
+  useGetUserQuery,
+  useGetAllUserQuery,
+  useAddUserMutation,
+  useUpdateUserMutation,
+} = userAPI;

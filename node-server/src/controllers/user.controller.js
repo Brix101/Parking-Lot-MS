@@ -76,13 +76,14 @@ const getAllUserController = async (req, res) => {
     const data = await User.findAll({ where: condition });
     const user = [];
 
-    data.forEach((userDate) => {
+    data.forEach((userData) => {
       user.push({
-        firstName: userDate.firstName,
-        lastName: userDate.lastName,
-        userName: userDate.userName,
-        email: userDate.email,
-        isAdmin: userDate.isAdmin,
+        id: userData.id,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        userName: userData.userName,
+        email: userData.email,
+        isAdmin: userData.isAdmin,
       });
     });
 
@@ -96,4 +97,52 @@ const getAllUserController = async (req, res) => {
     });
   }
 };
-module.exports = { addController, getUserController, getAllUserController };
+
+const updateUserController = async (req, res) => {
+  const socket = req.app.get("socket");
+  try {
+    const id = req.params.id;
+    const num = await User.update(req.body, {
+      where: { id: id },
+    });
+
+    if (num[0] !== 1) {
+      return res.status(404).send({
+        message: `spotCode Not Found`,
+      });
+    }
+
+    const data = await User.findAll();
+    const user = [];
+
+    data.forEach((userData) => {
+      user.push({
+        id: userData.id,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        userName: userData.userName,
+        email: userData.email,
+        isAdmin: userData.isAdmin,
+      });
+    });
+
+    socket.emit("allUser", user);
+
+    res.send({
+      message: "Updated successfully!",
+    });
+  } catch (error) {
+    return res.status(error instanceof ValidationError ? 400 : 500).send({
+      message:
+        error instanceof ValidationError
+          ? error.errors[0].message
+          : error.message || "Some error occurred",
+    });
+  }
+};
+module.exports = {
+  addController,
+  getUserController,
+  getAllUserController,
+  updateUserController,
+};
