@@ -21,12 +21,16 @@ function createData(date, count) {
 // set Initial data for last 30 days
 const initialData = [];
 var today = new Date();
-for (let i = 0; i < 30; i++) {
-  var priorDate = new Date(new Date().setDate(today.getDate() - i))
-    .toISOString()
-    .split("T")[0];
 
-  initialData.push(createData(priorDate.substring(5, 10), 0));
+for (let i = 0; i < 30; i++) {
+  var priorDate = new Date(new Date().setDate(today.getDate() - i)).setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
+  initialData.push(createData(new Date(priorDate), 0));
 }
 initialData.reverse();
 
@@ -36,7 +40,7 @@ export default function Chart() {
   useEffect(() => {
     if (data) {
       const parking = data.map((parking) => {
-        return parking.entered.split("T")[0].substring(5, 10);
+        return parking.entered;
       });
 
       parking.forEach(function (parkerCount) {

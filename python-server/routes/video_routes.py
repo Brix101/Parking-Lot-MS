@@ -1,13 +1,5 @@
-import base64
-from email import header
-from fastapi import APIRouter, HTTPException, Header, WebSocket, Response
+from fastapi import APIRouter
 from fastapi.responses import FileResponse
-from pkg_resources import yield_lines
-import requests
-from pathlib import Path
-import cv2 as cv
-import websockets
-import asyncio
 
 
 # "FLOW"

@@ -3,8 +3,7 @@ from fastapi.encoders import jsonable_encoder
 
 class ParkingSpotSchema(BaseModel):
     spotCode : str
-    status : bool or None = True
-    description: str or None = None
+    isAvailable : bool or None = True
     active: bool or None = True
 
     class Config:

@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import { useGetAllParkingSpotQuery } from "../services/parkingSpotService";
 import Loader from "../components/Loader";
-import { Fab } from "@mui/material";
+import { createTheme, Fab } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import { useNavigate } from "react-router-dom";
+import { ThemeProvider } from "@emotion/react";
+import LoginIcon from "@mui/icons-material/Login";
+
+const theme = createTheme();
 
 function Home() {
   const navigate = useNavigate();
@@ -23,12 +27,12 @@ function Home() {
   });
 
   const status = (code) => {
-    const isAvailable = parkingSpots.find((spot) => spot.spotCode === code);
-    return isAvailable.status ? "green" : "red";
+    const spot = parkingSpots.find((spot) => spot.spotCode === code);
+    return spot.isAvailable ? "green" : "red";
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       {isLoading ? (
         <Loader />
       ) : (
@@ -43,7 +47,7 @@ function Home() {
             }}
             onClick={() => navigate("/login")}
           >
-            <NavigationIcon sx={{ mr: 1 }} />
+            <LoginIcon sx={{ mr: 1 }} />
             Login
           </Fab>
           <Paper
@@ -688,7 +692,7 @@ function Home() {
           </Paper>
         </>
       )}
-    </>
+    </ThemeProvider>
   );
 }
 

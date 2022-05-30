@@ -11,13 +11,9 @@ const Location = sequelize.define("ParkingSpots", {
       },
     },
   },
-  status: {
+  isAvailable: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
-  },
-  description: {
-    type: DataTypes.STRING,
-    allowNull: true,
   },
   active: {
     type: DataTypes.BOOLEAN,
