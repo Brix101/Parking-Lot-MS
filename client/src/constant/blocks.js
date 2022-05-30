@@ -1,6 +1,14 @@
-import { modalUnstyledClasses } from "@mui/material";
-
 const blocks = [
+  {
+    code: "Entrance",
+    name: "Entrance",
+    currentTime: 0,
+  },
+  {
+    code: "Exit",
+    name: "Exit",
+    currentTime: 0,
+  },
   {
     code: "B_1",
     name: "Block 1",
@@ -139,16 +147,6 @@ const blocks = [
   {
     code: "B_28",
     name: "Block 28",
-    currentTime: 0,
-  },
-  {
-    code: "Entrance",
-    name: "Entrance",
-    currentTime: 0,
-  },
-  {
-    code: "Exit",
-    name: "Exit",
     currentTime: 0,
   },
 ];

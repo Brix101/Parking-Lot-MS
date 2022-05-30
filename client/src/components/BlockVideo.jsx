@@ -6,7 +6,7 @@ const BlockVideo = ({ block }) => {
   return (
     <div className="BlockVideo">
       <h5>{block.name}</h5>
-      <video width="500" controls muted="muted">
+      <video width="500" autoPlay muted="muted">
         <source src={src} type="video/mp4" />
       </video>
     </div>
