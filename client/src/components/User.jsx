@@ -20,7 +20,7 @@ import SignUp from "./SignUp/SignUp";
 function User() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [update, setUpdate] = useState({});
+  const [update, setUpdate] = useState(undefined);
 
   const isAdmin = useSelector(userIsAdmin);
   const [searchText, setSearchText] = useState("");
@@ -32,9 +32,6 @@ function User() {
     }
     if (error) {
       console.log(error);
-    }
-    if (userData) {
-      console.log(userData);
     }
   });
 
@@ -105,7 +102,7 @@ function User() {
       <SignUp
         open={open}
         handleClose={() => {
-          setUpdate({});
+          setUpdate(undefined);
           setOpen(false);
         }}
         update={update}

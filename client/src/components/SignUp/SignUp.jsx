@@ -58,7 +58,7 @@ function SignUp({ open, handleClose, update }) {
     if (update) {
       setState(update);
     }
-    if (isSuccess) {
+    if (isSuccess || !update) {
       setState({
         firstName: "",
         lastName: "",
@@ -159,23 +159,43 @@ function SignUp({ open, handleClose, update }) {
               ) : (
                 <React.Fragment>
                   {getStepContent(activeStep)}
-                  <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                    {activeStep !== 0 && (
-                      <Button onClick={handleBack} sx={{ mt: 1, ml: 1 }}>
-                        Back
-                      </Button>
-                    )}
-
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: `${
+                        update ? "space-between" : "flex-end"
+                      }`,
+                    }}
+                  >
                     <Button
                       variant="contained"
-                      onClick={handleNext}
-                      sx={{ mt: 1, ml: 1 }}
-                      type={
-                        activeStep === steps.length - 1 ? "submit" : "button"
-                      }
+                      sx={{
+                        mt: 1,
+                        ml: 1,
+                        display: `${update ? "block" : "none"}`,
+                      }}
+                      color="error"
                     >
-                      {activeStep === steps.length - 1 ? "Submit" : "Next"}
+                      Delete
                     </Button>
+                    <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                      {activeStep !== 0 && (
+                        <Button onClick={handleBack} sx={{ mt: 1, ml: 1 }}>
+                          Back
+                        </Button>
+                      )}
+
+                      <Button
+                        variant="contained"
+                        onClick={handleNext}
+                        sx={{ mt: 1, ml: 1 }}
+                        type={
+                          activeStep === steps.length - 1 ? "submit" : "button"
+                        }
+                      >
+                        {activeStep === steps.length - 1 ? "Submit" : "Next"}
+                      </Button>
+                    </Box>
                   </Box>
                 </React.Fragment>
               )}
