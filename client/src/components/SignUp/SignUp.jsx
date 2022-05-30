@@ -20,6 +20,7 @@ import PasswordForm from "./PasswordForm";
 import React, { useState } from "react";
 import {
   useAddUserMutation,
+  useDeleteUserMutation,
   useUpdateUserMutation,
 } from "../../services/userService";
 import Loader from "../Loader";
@@ -53,6 +54,7 @@ function SignUp({ open, handleClose, update }) {
     useAddUserMutation();
 
   const [updateUser] = useUpdateUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
 
   useEffect(() => {
     if (update) {
@@ -77,6 +79,7 @@ function SignUp({ open, handleClose, update }) {
   const handleNext = (e) => {
     if (e.target.type === "submit") {
       if (update) {
+        close();
         updateUser(state);
       } else {
         addUser(state);
@@ -175,6 +178,10 @@ function SignUp({ open, handleClose, update }) {
                         display: `${update ? "block" : "none"}`,
                       }}
                       color="error"
+                      onClick={() => {
+                        deleteUser(update.id);
+                        close();
+                      }}
                     >
                       Delete
                     </Button>

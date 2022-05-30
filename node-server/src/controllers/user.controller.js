@@ -108,7 +108,7 @@ const updateUserController = async (req, res) => {
 
     if (num[0] !== 1) {
       return res.status(404).send({
-        message: `spotCode Not Found`,
+        message: `User Not Found`,
       });
     }
 
@@ -140,9 +140,49 @@ const updateUserController = async (req, res) => {
     });
   }
 };
+
+const deleteUserController = async (req, res) => {
+  const socket = req.app.get("socket");
+  try {
+    const id = req.params.id;
+    const num = await User.destroy({
+      where: { id: id },
+    });
+
+    if (num !== 1) {
+      return res.status(404).send({
+        message: `User Not Found`,
+      });
+    }
+    const data = await User.findAll();
+    const user = [];
+
+    data.forEach((userData) => {
+      user.push({
+        id: userData.id,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        userName: userData.userName,
+        email: userData.email,
+        isAdmin: userData.isAdmin,
+      });
+    });
+
+    socket.emit("allUser", user);
+
+    res.send({
+      message: "Deleted successfully!",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message || "Some error occurred",
+    });
+  }
+};
 module.exports = {
   addController,
   getUserController,
   getAllUserController,
   updateUserController,
+  deleteUserController,
 };

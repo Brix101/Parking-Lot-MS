@@ -32,6 +32,12 @@ const userAPI = baseAPI.injectEndpoints({
               draft.push(...user);
             });
           });
+          socket.on("delUser", (user) => {
+            updateCachedData((draft) => {
+              draft.splice(0, draft.length);
+              draft.push(...user);
+            });
+          });
         } catch (error) {}
 
         await cacheEntryRemoved;
@@ -53,6 +59,12 @@ const userAPI = baseAPI.injectEndpoints({
         body: data,
       }),
     }),
+    deleteUser: build.mutation({
+      query: (id) => ({
+        url: `/user/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -61,4 +73,5 @@ export const {
   useGetAllUserQuery,
   useAddUserMutation,
   useUpdateUserMutation,
+  useDeleteUserMutation,
 } = userAPI;

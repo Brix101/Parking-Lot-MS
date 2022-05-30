@@ -62,7 +62,7 @@ function PersonalInfo({ state, handleChange }) {
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox checked={state.isAdmin} />}
+            control={<Checkbox checked={state.isAdmin} value={state.isAdmin} />}
             label="Admin"
           />
         </Grid>

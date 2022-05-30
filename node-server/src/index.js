@@ -10,6 +10,7 @@ const { deserializeUser } = require("./middlewares");
 const sequelize = require("./utils/database");
 const { ParkingSpot } = require("./models");
 const ip = require("./utils/ip");
+const { generateSpot } = require("./utils/generateSpot");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -31,6 +32,7 @@ app.use(
 
 app.use(deserializeUser);
 routes(app);
+generateSpot();
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
@@ -64,6 +66,7 @@ io.on("connection", async (socket) => {
     // console.log(`Disconnected | ${socket.id}`);
   });
 });
+
 httpServer.listen(port, () => {
   console.log(`App running on port ${port}`);
 });
