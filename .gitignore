@@ -1,6 +1,8 @@
 node_modules
 .venv
 data/*
+_videos/*
+detection/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
