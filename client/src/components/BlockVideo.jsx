@@ -3,7 +3,6 @@ import "./BlockVideo.css";
 import axios from "axios";
 
 const BlockVideo = ({ block }) => {
-<<<<<<< HEAD
   const [videoId, setVideoId] = useState("");
   const [source, setSource] = useState("");
   const [currentTime, setCurrentTime] = useState(0);
@@ -46,9 +45,7 @@ const BlockVideo = ({ block }) => {
     }
   };
 
-=======
   const src = "http://localhost:8000/videos/video/" + block.code;
->>>>>>> c8d0257c500fdaad088ac9884a1d7d47662d96ea
   return (
     <div className="BlockVideo">
       <h5>{block.name}</h5>
