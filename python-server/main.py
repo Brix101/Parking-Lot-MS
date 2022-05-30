@@ -6,7 +6,7 @@ from utils.jwt_utils import get_jwt
 from utils.logger import logger
 
 # butang daan dre ang mga routes kay para ma create ang table
-from routes import parker_routes, parking_routes,parking_spot_routes
+from routes import parker_routes, parking_routes,parking_spot_routes, video_routes
 
 Base.metadata.create_all(engine,checkfirst=True)#Initialize Database
 
@@ -31,6 +31,7 @@ async def exception_handler(request: Request, call_next):
 app.include_router(parker_routes.router)
 app.include_router(parking_routes.router)
 app.include_router(parking_spot_routes.router)
+app.include_router(video_routes.router)
 
 
 
