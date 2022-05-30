@@ -32,7 +32,7 @@ const loginController = async (req, res) => {
       .cookie("refreshToken", user.getRefreshToken(), {
         maxAge: 3.154e10, // 1 year
         httpOnly: true,
-        domain: "192.168.1.36",
+        domain: "localhost",
         path: "/",
         sameSite: "strict",
         secure: false,
