@@ -10,7 +10,7 @@ const { deserializeUser } = require("./middlewares");
 const sequelize = require("./utils/database");
 const { ParkingSpot } = require("./models");
 const ip = require("./utils/ip");
-//const { generateSpot } = require("./utils/generateSpot");
+const { generateSpot } = require("./utils/generateSpot");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -36,7 +36,7 @@ app.use(
 
 app.use(deserializeUser);
 routes(app);
-//generateSpot();
+generateSpot();
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
