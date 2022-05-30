@@ -108,11 +108,14 @@ function Admin() {
       var initials =
         userData.user.firstName.charAt(0) + userData.user.lastName.charAt(0);
       setInitial(initials);
+    } else {
+      navigate("/login");
     }
   }, [userData]);
 
   useEffect(() => {
-    if (isSuccess || !userData || logoutData) {
+    console.log(isSuccess);
+    if (isSuccess) {
       navigate("/login");
     }
   }, [isSuccess]);
