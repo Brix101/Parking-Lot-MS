@@ -110,6 +110,7 @@ function Admin() {
       setInitial(initials);
     }
   }, [userData]);
+
   useEffect(() => {
     if (isSuccess || !userData || logoutData) {
       navigate("/login");
