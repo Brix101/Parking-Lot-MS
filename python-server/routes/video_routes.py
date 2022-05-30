@@ -21,8 +21,7 @@ videos = [
 
 ]
 
-CHUNK_SIZE = 1024*1024
-
+#TODO: change to absolute path for video when in raspi
 @router.get("/video/{block}")
 def get_video(block: str):
   path = "_videos/{}.mp4".format(block)

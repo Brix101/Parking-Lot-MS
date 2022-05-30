@@ -28,6 +28,7 @@ const loginController = async (req, res) => {
       return res.status(403).send({ message: "Password not Match" });
     }
 
+    //TODO: change to ip of client when server is on raspi
     res
       .cookie("refreshToken", user.getRefreshToken(), {
         maxAge: 3.154e10, // 1 year
