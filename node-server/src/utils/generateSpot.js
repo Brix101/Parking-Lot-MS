@@ -5,7 +5,7 @@ const generateSpot = () => {
     if (res.count === 0) {
       for (let count = 1; count <= 74; count++) {
         ParkingSpot.create({
-          spotCode: `PS-${count}`,
+          spotCode: `sp${count}`,
         });
       }
     }

@@ -2,7 +2,7 @@ import React from "react";
 import "./BlockVideo.css";
 
 const BlockVideo = ({ block }) => {
-  const src = "http://192.168.1.36:8000/videos/video/" + block.code;
+  const src = "http://localhost:8000/videos/video/" + block.code;
   return (
     <div className="BlockVideo">
       <h5>{block.name}</h5>
