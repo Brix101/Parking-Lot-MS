@@ -1,3 +1,4 @@
+from tracemalloc import start
 from fastapi import APIRouter, HTTPException, Header, WebSocket, Response
 from fastapi.responses import FileResponse
 from pathlib import Path
@@ -22,8 +23,8 @@ videos = [
 
 CHUNK_SIZE = 1024*1024
 
-@router.get("/{block}")
-def get_video(block: str, range: str = Header(None)):
+@router.get("/video/{block}")
+def get_video(block: str):
   path = "_videos/{}.mp4".format(block)
   return FileResponse(path, media_type="video/mp4")
 
@@ -41,3 +42,5 @@ def start_detection():
     frame_no_exit += 1
   
   cap_exit.release()
+
+start_detection()

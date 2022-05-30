@@ -22,7 +22,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", `http://${ip.address()}:3000`],
+    origin: [
+      "http://localhost:3000",
+      `http://${ip.address()}:3000`,
+      "http://192.168.1.36:3000",
+    ],
     methods: ["GET", "PUT", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "authorization"],
     exposedHeaders: ["Content-Type", "authorization"],
@@ -37,7 +41,11 @@ routes(app);
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", `http://${ip.address()}:3000`],
+    origin: [
+      "http://localhost:3000",
+      `http://${ip.address()}:3000`,
+      "http://192.168.1.36:3000",
+    ],
     credentials: true,
   },
 });

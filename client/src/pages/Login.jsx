@@ -26,16 +26,20 @@ function Login() {
   const [userLogin, { error, isLoading, isSuccess }] = useLoginMutation();
 
   useEffect(() => {
+    if (user) {
+      navigate("/admin");
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (error) {
       console.log(error);
+      return;
     }
     if (isSuccess) {
       navigate("/admin");
     }
-    if (user) {
-      navigate("/admin");
-    }
-  });
+  }, [isSuccess]);
 
   const handleChange = (e) => {
     setState({ ...state, [e.currentTarget.name]: e.currentTarget.value });

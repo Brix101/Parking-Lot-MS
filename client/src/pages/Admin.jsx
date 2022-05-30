@@ -101,10 +101,22 @@ function Admin() {
   const [logout, { data: logoutData, isSuccess }] = useLogoutMutation();
 
   useEffect(() => {
+    if (userData) {
+      setUser(userData.user);
+      dispatch(setLoginUser(userData.user));
+
+      var initials =
+        userData.user.firstName.charAt(0) + userData.user.lastName.charAt(0);
+      setInitial(initials);
+    }
+  }, [userData]);
+  useEffect(() => {
     if (isSuccess || !userData || logoutData) {
       navigate("/login");
     }
+  }, [isSuccess]);
 
+  useEffect(() => {
     if (userData) {
       setUser(userData.user);
       dispatch(setLoginUser(userData.user));

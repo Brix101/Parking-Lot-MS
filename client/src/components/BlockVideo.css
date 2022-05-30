@@ -1,0 +1,20 @@
+.BlockVideo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  margin: 0 4px;
+  margin-top: 24px;
+  position: relative;
+}
+.BlockVideo * {
+  margin: 0;
+}
+
+.BlockVideo h5{
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  padding: 4px;
+  background-color: white;
+}

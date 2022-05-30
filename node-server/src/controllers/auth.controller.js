@@ -1,5 +1,6 @@
 const { User } = require("../models");
 const { ValidationError, Op } = require("sequelize");
+const ip = require("../utils/ip");
 
 const loginController = async (req, res) => {
   try {
@@ -31,7 +32,7 @@ const loginController = async (req, res) => {
       .cookie("refreshToken", user.getRefreshToken(), {
         maxAge: 3.154e10, // 1 year
         httpOnly: true,
-        domain: "localhost",
+        domain: "192.168.1.36",
         path: "/",
         sameSite: "strict",
         secure: false,
