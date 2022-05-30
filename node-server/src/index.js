@@ -16,7 +16,6 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const routes = require("./routes");
-// TODO update cors to dynamic ip
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -4,8 +4,10 @@ import { useGetAllParkingSpotQuery } from "../services/parkingSpotService";
 import Loader from "../components/Loader";
 import { Fab } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   const {
     data: parkingSpots,
     error,
@@ -39,6 +41,7 @@ function Home() {
               right: 16,
               zIndex: 500,
             }}
+            onClick={() => navigate("/login")}
           >
             <NavigationIcon sx={{ mr: 1 }} />
             Login
@@ -53,7 +56,7 @@ function Home() {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100%"
-              height="720"
+              height="100vh"
               fill="none"
               viewBox="0 0 1440 1024"
             >
