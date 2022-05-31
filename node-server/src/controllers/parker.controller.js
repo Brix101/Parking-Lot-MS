@@ -8,8 +8,8 @@ const getAllController = async (req, res) => {
     const condition = plateNumber
       ? `WHERE Parkers.plateNumber LIKE '%${plateNumber}%'`
       : "";
-    data = await sequilize.query(
-      `SELECT Parkers.id AS ParkerId,Parkers.plateNumber,Parkings.entered,Parkings.exited FROM Parkers INNER JOIN Parkings ON Parkings.parkerId = Parkers.id ${condition} GROUP BY Parkers.id ORDER BY Parkings.entered DESC`,
+    const data = await sequilize.query(
+      `SELECT Parkers.plateNumber, Parkings.entered, Parkings.exited FROM Parkings INNER JOIN Parkers ON Parkers.id = Parkings.parkerId ORDER BY Parkings.entered DESC ${condition}`,
       {
         type: QueryTypes.SELECT,
       }
@@ -29,13 +29,22 @@ const getAllController = async (req, res) => {
 const getByPlateController = async (req, res) => {
   try {
     const plateNumber = req.params.plateNumber;
-    data = await sequilize.query(
-      "SELECT Parkers.id, Parkers.plateNumber, ParkerImages.imageLink, Parkings.entered, Parkings.exited FROM `Parkers` INNER JOIN ParkerImages ON Parkers.id = ParkerImages.parkerId INNER JOIN Parkings ON Parkings.id = Parkings.parkerId WHERE Parkers.plateNumber = :plateNumber",
+    const plateData = await sequilize.query(
+      "SELECT Parkers.plateNumber, Parkings.entered, Parkings.exited FROM Parkings INNER JOIN Parkers ON Parkers.id = Parkings.parkerId WHERE Parkers.plateNumber = :plateNumber",
       {
         replacements: { plateNumber: plateNumber },
         type: QueryTypes.SELECT,
       }
     );
+
+    const imageData = await sequilize.query(
+      "SELECT ParkerImages.imageLink FROM Parkers INNER JOIN ParkerImages ON ParkerImages.parkerId = Parkers.id WHERE Parkers.plateNumber = :plateNumber",
+      {
+        replacements: { plateNumber: plateNumber },
+        type: QueryTypes.SELECT,
+      }
+    );
+
     const plate = {
       id: null,
       plateNumber: null,
@@ -43,14 +52,17 @@ const getByPlateController = async (req, res) => {
       history: [],
     };
 
-    data.map((plateData) => {
-      plate.id = plateData.id;
-      plate.plateNumber = plateData.plateNumber;
-      plate.images.push(plateData.imageLink);
+    plateData.map((data) => {
+      plate.id = data.id;
+      plate.plateNumber = data.plateNumber;
       plate.history.push({
-        entered: plateData.entered,
-        exited: plateData.exited,
+        entered: data.entered,
+        exited: data.exited,
       });
+    });
+
+    imageData.map((data) => {
+      plate.images.push(data);
     });
 
     res.send(plate);

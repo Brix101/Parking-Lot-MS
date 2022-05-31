@@ -14,7 +14,6 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import SideButton from "./Button/SideButton";
 import { useSelector } from "react-redux";
 import { userIsAdmin } from "../feature/userReducer";
-// const download = require("downloadjs");
 import { server } from "../constant/server";
 
 function SideBarItems() {

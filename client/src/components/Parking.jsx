@@ -47,10 +47,13 @@ function Parking() {
   }
 
   function diff(entered, exited) {
-    var enteredDate = moment(new Date(entered));
-    var exitedDate = moment(new Date(exited));
-    var duration = moment.duration(exitedDate.diff(enteredDate));
-    return duration.asHours().toFixed(2);
+    var enteredDate = moment(entered);
+    var exitedDate = moment(exited);
+    if (exited) {
+      var duration = moment.duration(exitedDate.diff(enteredDate));
+      return duration.asHours().toFixed(2);
+    }
+    return 0;
   }
 
   const textChange = (e) => {
@@ -61,9 +64,12 @@ function Parking() {
   };
 
   const dateConverter = (date) => {
-    return moment(new Date(date))
-      .subtract(1, "days")
-      .format("MMMM D YYYY, h:mm a");
+    if (date) {
+      return moment(new Date(date).toUTCString().slice(5, 25)).format(
+        "MMMM D YYYY, h:mm a"
+      );
+    }
+    return null;
   };
 
   return (
@@ -100,10 +106,10 @@ function Parking() {
                             {parker.plateNumber}
                           </Button>
                         </TableCell>
-                        <TableCell align="right" style={{ color: "red" }}>
+                        <TableCell align="right" style={{ color: "green" }}>
                           {dateConverter(parker.entered)}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="right" style={{ color: "red" }}>
                           {dateConverter(parker.exited)}
                         </TableCell>
                         <TableCell align="right">

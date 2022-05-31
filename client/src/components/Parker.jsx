@@ -25,12 +25,16 @@ function ParkerComponent() {
     if (error) {
       console.log(error);
     }
+    console.log(data);
   });
 
   const dateConverter = (date) => {
-    return moment(new Date(date))
-      .subtract(1, "days")
-      .format("MMMM D YYYY, h:mm a");
+    if (date) {
+      return moment(new Date(date).toUTCString().slice(5, 25)).format(
+        "MMMM D YYYY, h:mm a"
+      );
+    }
+    return null;
   };
   return (
     <>
@@ -57,10 +61,13 @@ function ParkerComponent() {
                         {data.history.map((history, i) => {
                           return (
                             <TableRow key={i}>
-                              <TableCell align="left" style={{ color: "red" }}>
+                              <TableCell
+                                align="left"
+                                style={{ color: "green" }}
+                              >
                                 {dateConverter(history.entered)}
                               </TableCell>
-                              <TableCell align="left">
+                              <TableCell align="left" style={{ color: "red" }}>
                                 {dateConverter(history.exited)}
                               </TableCell>
                             </TableRow>
@@ -80,12 +87,12 @@ function ParkerComponent() {
                       cols={3}
                       rowHeight={"100%"}
                     >
-                      {data.images.map((imageLink, i) => {
+                      {data.images.map((image, i) => {
                         return (
                           <>
                             <ImageListItem key={i}>
                               <img
-                                src={imageLink}
+                                src={image.imageLink}
                                 alt={data.plateNumber}
                                 loading="lazy"
                               />

@@ -33,9 +33,12 @@ function Parker() {
   };
 
   const dateConverter = (date) => {
-    return moment(new Date(date))
-      .subtract(1, "days")
-      .format("MMMM D YYYY, h:mm a");
+    if (date) {
+      return moment(new Date(date).toUTCString().slice(5, 25)).format(
+        "MMMM D YYYY, h:mm a"
+      );
+    }
+    return null;
   };
 
   return (
@@ -71,10 +74,10 @@ function Parker() {
                             {parker.plateNumber}
                           </Button>
                         </TableCell>
-                        <TableCell align="right" style={{ color: "red" }}>
+                        <TableCell align="right" style={{ color: "green" }}>
                           {dateConverter(parker.entered)}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="right" style={{ color: "red" }}>
                           {dateConverter(parker.exited)}
                         </TableCell>
                       </TableRow>
