@@ -58,15 +58,18 @@ io.on("connection", async (socket) => {
   setInterval(async () => {
     const spots = await ParkingSpot.findAll();
     socket.emit("allSpots", spots);
+  }, 1000);
 
+  // ? Poll every 1 sec
+  setInterval(async () => {
     const parkings = await sequelize.query(
       "SELECT Parkings.id AS ParkingId,Parkers.id AS ParkerID,Parkings.entered,Parkings.exited,Parkers.plateNumber,Parkers.note FROM Parkers INNER JOIN Parkings ON Parkings.parkerId = Parkers.id ORDER BY Parkings.entered DESC",
       {
-        type: QueryTypes.SELECT,
+        type: QueryTypes.RAW,
       }
     );
     socket.emit("allParkings", parkings);
-  }, 1000);
+  }, 2000);
 
   socket.on("disconnect", () => {
     connections.delete(socket);

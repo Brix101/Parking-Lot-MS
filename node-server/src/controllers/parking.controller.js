@@ -3,6 +3,7 @@ const { QueryTypes } = require("sequelize");
 const sequilize = require("../utils/database");
 
 const getAllController = async (req, res) => {
+  const socket = req.app.get("socket");
   try {
     const plateNumber = req.query.plateNumber;
     const condition = plateNumber
@@ -14,6 +15,8 @@ const getAllController = async (req, res) => {
         type: QueryTypes.SELECT,
       }
     );
+
+    socket.emit("allParkings", data);
     res.send(data);
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
