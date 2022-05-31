@@ -124,6 +124,10 @@ const blocks = [
     name: "B_29",
     numOfBlocks: 3,
   },
+  {
+    name: "B_29",
+    numOfBlocks: 3,
+  },
 ];
 
 module.exports = blocks;
