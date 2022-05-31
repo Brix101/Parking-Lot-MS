@@ -116,6 +116,7 @@ function Admin() {
   useEffect(() => {
     if (isSuccess) {
       navigate("/login");
+      window.location.reload(false);
     }
   }, [isSuccess]);
 
@@ -183,7 +184,12 @@ function Admin() {
                 color="inherit"
                 noWrap
                 onClick={handleOpenUserMenu}
-                sx={{ flexGrow: 1, paddingRight: 2, cursor: "pointer" }}
+                sx={{
+                  flexGrow: 1,
+                  paddingRight: 2,
+                  cursor: "pointer",
+                  textTransform: "capitalize",
+                }}
               >
                 {user && (
                   <>
@@ -194,7 +200,11 @@ function Admin() {
               <Tooltip title="Open settings">
                 <IconButton
                   onClick={handleOpenUserMenu}
-                  sx={{ p: 0.5, backgroundColor: "secondary.main" }}
+                  sx={{
+                    p: 0.5,
+                    backgroundColor: "secondary.main",
+                    textTransform: "uppercase",
+                  }}
                   color="inherit"
                 >
                   {initial}

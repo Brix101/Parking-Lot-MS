@@ -60,6 +60,7 @@ const BlockVideo = ({ block }) => {
           <source src={source} type="video/mp4" />
         </video>
       ) : (
+        // TODO: Editonon ni badi
         <h1>Buang ko</h1>
       )}
     </div>

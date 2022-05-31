@@ -9,6 +9,7 @@ import { useGetAllParkingQuery } from "../services/parkingService";
 import { useEffect } from "react";
 import { useState } from "react";
 import Loader from "./Loader";
+import moment from "moment";
 
 function Dashboard() {
   const { data: parkingSpot, isLoading } = useGetAllParkingSpotQuery();
@@ -42,14 +43,20 @@ function Dashboard() {
     if (parkingData) {
       // get Daily
       const dailyCount = parkingData.filter((p) => {
-        return removeTime(new Date(p.entered)) === removeTime(date);
+        var date = dateConverter(p.entered);
+        var now = dateConverter(moment());
+        return date === now;
       }).length;
 
       setDaily(dailyCount);
 
       // get Monthly
       const monthlyCount = parkingData.filter((p) => {
-        var [year, month] = p.entered.split("-");
+        var check = moment(dateConverter(p.entered));
+
+        var month = check.format("MM");
+        var year = check.format("YYYY");
+
         return (
           currentMonth().toString() === month && currentYear.toString() === year
         );
@@ -61,13 +68,22 @@ function Dashboard() {
 
   function currentMonth() {
     var date = new Date(),
-      month = date.getMonth() + 1;
+      month = date.getMonth();
     return month + 1 < 10 ? "0" + month : month;
   }
 
-  function removeTime(date = new Date()) {
-    return date.setHours(0, 0, 0, 0);
-  }
+  const dateConverter = (date) => {
+    if (date) {
+      return moment(new Date(date).toUTCString().slice(5, 25)).format(
+        "MMMM D YYYY"
+      );
+    }
+    return null;
+  };
+
+  // function removeTime(date = new Date()) {
+  //   return date.setHours(0, 0, 0, 0);
+  // }
   return (
     <>
       {isLoading ? (

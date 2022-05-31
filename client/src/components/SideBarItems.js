@@ -14,9 +14,13 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import SideButton from "./Button/SideButton";
 import { useSelector } from "react-redux";
 import { userIsAdmin } from "../feature/userReducer";
+import { server } from "../constant/server";
 
 function SideBarItems() {
   const isAdmin = useSelector(userIsAdmin);
+  const handleDownload = async () => {
+    await fetch(`${server}/api/report`);
+  };
   return (
     <>
       <List component="nav">
@@ -47,7 +51,7 @@ function SideBarItems() {
           <ListSubheader component="div" inset>
             Saved reports
           </ListSubheader>
-          <ListItemButton>
+          <ListItemButton onClick={handleDownload}>
             <ListItemIcon>
               <AssignmentIcon />
             </ListItemIcon>

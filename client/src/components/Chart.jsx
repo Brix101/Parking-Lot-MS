@@ -23,6 +23,7 @@ function createData(date, count) {
 
 // set Initial data for last 30 days
 var initialData = [];
+
 const initializeData = () => {
   const today = new Date();
   initialData = [];

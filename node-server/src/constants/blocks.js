@@ -125,7 +125,7 @@ const blocks = [
     numOfBlocks: 3,
   },
   {
-    name: "B_29",
+    name: "B_30",
     numOfBlocks: 3,
   },
 ];

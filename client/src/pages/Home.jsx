@@ -26,9 +26,14 @@ function Home() {
     }
   });
 
-  const status = (code) => {
-    const spot = parkingSpots.find((spot) => spot.spotCode === code);
-    return spot.isAvailable ? "green" : "red";
+  const status = (block, code) => {
+    const spot = parkingSpots.find(
+      (spot) => spot.spotCode === code && spot.blockCode === block
+    );
+    if (spot) {
+      return spot.isAvailable ? "green" : "red";
+    }
+    return "grey";
   };
 
   return (
@@ -64,527 +69,587 @@ function Home() {
               fill="none"
               viewBox="0 0 1440 1024"
             >
-              <g className="Desktop - 1" clipPath="url(#a)">
+              <g className="Final" clipPath="url(#a)">
                 <path fill="#fff" d="M0 0h1440v1024H0z" />
                 <g className="Spots">
-                  <path
-                    fill={status("sp74")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1369.83 17.5h65.667v125h-65.667z"
-                    className="sp74"
-                  />
-                  <path
-                    fill={status("sp73")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1299.17 17.5h65.667v125h-65.667z"
-                    className="sp73"
-                  />
-                  <path
-                    fill={status("sp72")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1228.5 17.5h65.667v125H1228.5z"
-                    className="sp72"
-                  />
-                  <path
-                    fill={status("sp71")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1129.83 17.5h65.667v125h-65.667z"
-                    className="sp71"
-                  />
-                  <path
-                    fill={status("sp70")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1059.17 17.5h65.667v125h-65.667z"
-                    className="sp70"
-                  />
-                  <path
-                    fill={status("sp69")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M988.5 17.5h65.667v125H988.5z"
-                    className="sp69"
-                  />
-                  <path
-                    fill={status("sp68")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M888.833 17.5H954.5v125h-65.667z"
-                    className="sp68"
-                  />
-                  <path
-                    fill={status("sp67")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M818.167 17.5h65.667v125h-65.667z"
-                    className="sp67"
-                  />
-                  <path
-                    fill={status("sp66")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M747.5 17.5h65.667v125H747.5z"
-                    className="sp66"
-                  />
-                  <path
-                    fill={status("sp65")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M629.833 17.5H695.5v125h-65.667z"
-                    className="sp65"
-                  />
-                  <path
-                    fill={status("sp64")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M559.167 17.5h65.667v125h-65.667z"
-                    className="sp64"
-                  />
-                  <path
-                    fill={status("sp63")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M488.5 17.5h65.667v125H488.5z"
-                    className="sp63"
-                  />
-                  <path
-                    fill={status("sp62")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M386.833 15.5H452.5v125h-65.667z"
-                    className="sp62"
-                  />
-                  <path
-                    fill={status("sp61")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M316.167 15.5h65.667v125h-65.667z"
-                    className="sp61"
-                  />
-                  <path
-                    fill={status("sp60")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M245.5 15.5h65.667v125H245.5z"
-                    className="sp60"
-                  />
-                  <path
-                    fill={status("sp59")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M143.833 17.5H209.5v125h-65.667z"
-                    className="sp59"
-                  />
-                  <path
-                    fill={status("sp58")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M73.167 17.5h65.667v125H73.167z"
-                    className="sp58"
-                  />
-                  <path
-                    fill={status("sp57")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M2.5 17.5h65.667v125H2.5z"
-                    className="sp57"
-                  />
-                  <path
-                    fill={status("sp56")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M102.5 245.5h65.667v125H102.5z"
-                    className="sp56"
-                  />
-                  <path
-                    fill={status("sp55")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M219.5 245.5h65.667v125H219.5z"
-                    className="sp55"
-                  />
-                  <path
-                    fill={status("sp54")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M290.167 245.5h65.667v125h-65.667z"
-                    className="sp54"
-                  />
-                  <path
-                    fill={status("sp53")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M360.833 245.5H426.5v125h-65.667z"
-                    className="sp53"
-                  />
-                  <path
-                    fill={status("sp52")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M488.5 245.5h65.667v125H488.5z"
-                    className="sp52"
-                  />
-                  <path
-                    fill={status("sp51")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M559.167 245.5h65.667v125h-65.667z"
-                    className="sp51"
-                  />
-                  <path
-                    fill={status("sp50")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M629.833 245.5H695.5v125h-65.667z"
-                    className="sp50"
-                  />
-                  <path
-                    fill={status("sp49")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M747.5 245.5h65.667v125H747.5z"
-                    className="sp49"
-                  />
-                  <path
-                    fill={status("sp48")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M818.167 245.5h65.667v125h-65.667z"
-                    className="sp48"
-                  />
-                  <path
-                    fill={status("sp47")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M888.833 245.5H954.5v125h-65.667z"
-                    className="sp47"
-                  />
-                  <path
-                    fill={status("sp46")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1016.5 245.5h65.667v125H1016.5z"
-                    className="sp46"
-                  />
-                  <path
-                    fill={status("sp45")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1087.17 245.5h65.667v125h-65.667z"
-                    className="sp45"
-                  />
-                  <path
-                    fill={status("sp44")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1157.83 245.5h65.667v125h-65.667z"
-                    className="sp44"
-                  />
-                  <path
-                    fill={status("sp43")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1271.5 245.5h65.667v125H1271.5z"
-                    className="sp43"
-                  />
-                  <path
-                    fill={status("sp42")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1271.5 396.5h65.667v125H1271.5z"
-                    className="sp42"
-                  />
-                  <path
-                    fill={status("sp41")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1157.83 396.5h65.667v125h-65.667z"
-                    className="sp41"
-                  />
-                  <path
-                    fill={status("sp40")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1087.17 396.5h65.667v125h-65.667z"
-                    className="sp40"
-                  />
-                  <path
-                    fill={status("sp39")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1016.5 396.5h65.667v125H1016.5z"
-                    className="sp39"
-                  />
-                  <path
-                    fill={status("sp38")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M888.833 396.5H954.5v125h-65.667z"
-                    className="sp38"
-                  />
-                  <path
-                    fill={status("sp37")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M818.167 396.5h65.667v125h-65.667z"
-                    className="sp37"
-                  />
-                  <path
-                    fill={status("sp36")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M747.5 396.5h65.667v125H747.5z"
-                    className="sp36"
-                  />
-                  <path
-                    fill={status("sp35")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M629.833 396.5H695.5v125h-65.667z"
-                    className="sp35"
-                  />
-                  <path
-                    fill={status("sp34")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M559.167 396.5h65.667v125h-65.667z"
-                    className="sp34"
-                  />
-                  <path
-                    fill={status("sp33")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M488.5 396.5h65.667v125H488.5z"
-                    className="sp33"
-                  />
-                  <path
-                    fill={status("sp32")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M360.833 396.5H426.5v125h-65.667z"
-                    className="sp32"
-                  />
-                  <path
-                    fill={status("sp31")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M290.167 396.5h65.667v125h-65.667z"
-                    className="sp31"
-                  />
-                  <path
-                    fill={status("sp30")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M219.5 396.5h65.667v125H219.5z"
-                    className="sp30"
-                  />
-                  <path
-                    fill={status("sp29")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M102.5 396.5h65.667v125H102.5z"
-                    className="sp29"
-                  />
-                  <path
-                    fill={status("sp28")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M102.5 624.5h65.667v125H102.5z"
-                    className="sp28"
-                  />
-                  <path
-                    fill={status("sp27")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M219.5 624.5h65.667v125H219.5z"
-                    className="sp27"
-                  />
-                  <path
-                    fill={status("sp26")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M290.167 624.5h65.667v125h-65.667z"
-                    className="sp26"
-                  />
-                  <path
-                    fill={status("sp25")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M360.833 624.5H426.5v125h-65.667z"
-                    className="sp25"
-                  />
-                  <path
-                    fill={status("sp24")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M559.167 624.5h65.667v125h-65.667z"
-                    className="sp24"
-                  />
-                  <path
-                    fill={status("sp23")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M488.5 624.5h65.667v125H488.5z"
-                    className="sp23"
-                  />
-                  <path
-                    fill={status("sp22")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M629.833 624.5H695.5v125h-65.667z"
-                    className="sp22"
-                  />
-                  <path
-                    fill={status("sp21")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M747.5 624.5h65.667v125H747.5z"
-                    className="sp21"
-                  />
-                  <path
-                    fill={status("sp20")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M818.167 624.5h65.667v125h-65.667z"
-                    className="sp20"
-                  />
-                  <path
-                    fill={status("sp19")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M888.833 624.5H954.5v125h-65.667z"
-                    className="sp19"
-                  />
-                  <path
-                    fill={status("sp18")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1016.5 624.5h65.667v125H1016.5z"
-                    className="sp18"
-                  />
-                  <path
-                    fill={status("sp17")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1087.17 624.5h65.667v125h-65.667z"
-                    className="sp17"
-                  />
-                  <path
-                    fill={status("sp16")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1157.83 624.5h65.667v125h-65.667z"
-                    className="sp16"
-                  />
-                  <path
-                    fill={status("sp15")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1271.5 624.5h65.667v125H1271.5z"
-                    className="sp15"
-                  />
-                  <path
-                    fill={status("sp14")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1271.5 775.5h65.667v125H1271.5z"
-                    className="sp14"
-                  />
-                  <path
-                    fill={status("sp13")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1157.83 775.5h65.667v125h-65.667z"
-                    className="sp13"
-                  />
-                  <path
-                    fill={status("sp12")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1087.17 775.5h65.667v125h-65.667z"
-                    className="sp12"
-                  />
-                  <path
-                    fill={status("sp11")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M1016.5 775.5h65.667v125H1016.5z"
-                    className="sp11"
-                  />
-                  <path
-                    fill={status("sp10")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M888.833 775.5H954.5v125h-65.667z"
-                    className="sp10"
-                  />
-                  <path
-                    fill={status("sp9")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M818.167 775.5h65.667v125h-65.667z"
-                    className="sp9"
-                  />
-                  <path
-                    fill={status("sp8")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M747.5 775.5h65.667v125H747.5z"
-                    className="sp8"
-                  />
-                  <path
-                    fill={status("sp7")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M629.833 775.5H695.5v125h-65.667z"
-                    className="sp7"
-                  />
-                  <path
-                    fill={status("sp6")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M559.167 775.5h65.667v125h-65.667z"
-                    className="sp6"
-                  />
-                  <path
-                    fill={status("sp5")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M488.5 775.5h65.667v125H488.5z"
-                    className="sp5"
-                  />
-                  <path
-                    fill={status("sp4")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M360.833 775.5H426.5v125h-65.667z"
-                    className="sp4"
-                  />
-                  <path
-                    fill={status("sp3")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M290.167 775.5h65.667v125h-65.667z"
-                    className="sp3"
-                  />
-                  <path
-                    fill={status("sp2")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M219.5 775.5h65.667v125H219.5z"
-                    className="sp2"
-                  />
-                  <path
-                    fill={status("sp1")}
-                    stroke="#000"
-                    strokeWidth="5"
-                    d="M102.5 775.5h65.667v125H102.5z"
-                    className="sp1"
-                  />
+                  <g className="B_30">
+                    <path
+                      fill={status("B_30", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1369.83 17.5h65.667v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_30", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1299.17 17.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_30", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1228.5 17.5h65.667v125H1228.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_29">
+                    <path
+                      fill={status("B_29", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1129.83 17.5h65.667v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_29", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1059.17 17.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_29", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M988.5 17.5h65.667v125H988.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_28">
+                    <path
+                      fill={status("B_28", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M888.833 17.5H954.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_28", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M818.167 17.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_28", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M747.5 17.5h65.667v125H747.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_27">
+                    <path
+                      fill={status("B_27", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M629.833 17.5H695.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_27", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M559.167 17.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_27", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M488.5 17.5h65.667v125H488.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_26">
+                    <path
+                      fill={status("B_26", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M386.833 15.5H452.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_26", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M316.167 15.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_26", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M245.5 15.5h65.667v125H245.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_25">
+                    <path
+                      fill={status("B_25", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M143.833 17.5H209.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_25", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M73.167 17.5h65.667v125H73.167z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_25", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M2.5 17.5h65.667v125H2.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_24">
+                    <path
+                      fill={status("B_24", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M102.5 245.5h65.667v125H102.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_23">
+                    <path
+                      fill={status("B_23", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M219.5 245.5h65.667v125H219.5z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_23", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M290.167 245.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_23", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M360.833 245.5H426.5v125h-65.667z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_22">
+                    <path
+                      fill={status("B_22", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M488.5 245.5h65.667v125H488.5z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_22", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M559.167 245.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_22", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M629.833 245.5H695.5v125h-65.667z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_21">
+                    <path
+                      fill={status("B_21", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M747.5 245.5h65.667v125H747.5z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_21", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M818.167 245.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_21", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M888.833 245.5H954.5v125h-65.667z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_20">
+                    <path
+                      fill={status("B_20", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1016.5 245.5h65.667v125H1016.5z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_20", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1087.17 245.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_20", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1157.83 245.5h65.667v125h-65.667z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_19">
+                    <path
+                      fill={status("B_19", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1271.5 245.5h65.667v125H1271.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_18">
+                    <path
+                      fill={status("B_18", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1271.5 396.5h65.667v125H1271.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_17">
+                    <path
+                      fill={status("B_17", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1157.83 396.5h65.667v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_17", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1087.17 396.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_17", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1016.5 396.5h65.667v125H1016.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_16">
+                    <path
+                      fill={status("B_16", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M888.833 396.5H954.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_16", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M818.167 396.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_16", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M747.5 396.5h65.667v125H747.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_15">
+                    <path
+                      fill={status("B_15", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M629.833 396.5H695.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_15", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M559.167 396.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_15", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M488.5 396.5h65.667v125H488.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_14">
+                    <path
+                      fill={status("B_14", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M360.833 396.5H426.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_14", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M290.167 396.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_14", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M219.5 396.5h65.667v125H219.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_13">
+                    <path
+                      fill={status("B_13", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M102.5 396.5h65.667v125H102.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_12">
+                    <path
+                      fill={status("B_12", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M102.5 624.5h65.667v125H102.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_11">
+                    <path
+                      fill={status("B_11", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M219.5 624.5h65.667v125H219.5z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_11", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M290.167 624.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_11", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M360.833 624.5H426.5v125h-65.667z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_10">
+                    <path
+                      fill={status("B_10", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M559.167 624.5h65.667v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_10", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M488.5 624.5h65.667v125H488.5z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_10", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M629.833 624.5H695.5v125h-65.667z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_9">
+                    <path
+                      fill={status("B_9", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M747.5 624.5h65.667v125H747.5z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_9", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M818.167 624.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_9", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M888.833 624.5H954.5v125h-65.667z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_8">
+                    <path
+                      fill={status("B_8", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1016.5 624.5h65.667v125H1016.5z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_8", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1087.17 624.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_8", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1157.83 624.5h65.667v125h-65.667z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_7">
+                    <path
+                      fill={status("B_7", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1271.5 624.5h65.667v125H1271.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_6">
+                    <path
+                      fill={status("B_6", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1271.5 775.5h65.667v125H1271.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_5">
+                    <path
+                      fill={status("B_5", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1157.83 775.5h65.667v125h-65.667z"
+                      className="sp13"
+                    />
+                    <path
+                      fill={status("B_5", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1087.17 775.5h65.667v125h-65.667z"
+                      className="sp12"
+                    />
+                    <path
+                      fill={status("B_5", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M1016.5 775.5h65.667v125H1016.5z"
+                      className="sp11"
+                    />
+                  </g>
+                  <g className="B_4">
+                    <path
+                      fill={status("B_4", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M888.833 775.5H954.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_4", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M818.167 775.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_4", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M747.5 775.5h65.667v125H747.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_3">
+                    <path
+                      fill={status("B_3", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M629.833 775.5H695.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_3", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M559.167 775.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_3", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M488.5 775.5h65.667v125H488.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_2">
+                    <path
+                      fill={status("B_2", "sp3")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M360.833 775.5H426.5v125h-65.667z"
+                      className="sp3"
+                    />
+                    <path
+                      fill={status("B_2", "sp2")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M290.167 775.5h65.667v125h-65.667z"
+                      className="sp2"
+                    />
+                    <path
+                      fill={status("B_2", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M219.5 775.5h65.667v125H219.5z"
+                      className="sp1"
+                    />
+                  </g>
+                  <g className="B_1">
+                    <path
+                      fill={status("B_1", "sp1")}
+                      stroke="#000"
+                      strokeWidth="5"
+                      d="M102.5 775.5h65.667v125H102.5z"
+                      className="sp1"
+                    />
+                  </g>
                 </g>
                 <g className="Layout">
                   <g className="Road">

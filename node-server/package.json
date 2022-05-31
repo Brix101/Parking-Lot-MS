@@ -20,7 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.19.0",
-    "socket.io": "^4.5.0"
+    "socket.io": "^4.5.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

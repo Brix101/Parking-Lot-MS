@@ -5,9 +5,7 @@ const generateSpot = async () => {
   const res = await ParkingSpot.findAndCountAll();
   if (res.count === 0) {
     const bl = blocks.length;
-    console.log(bl);
     for (let i = 0; i < bl; i++) {
-      console.log(blocks[i].name);
       blockCode = blocks[i].name;
       numOfSpaces = blocks[i].numOfBlocks;
       for (let j = 0; j < numOfSpaces; j++) {
