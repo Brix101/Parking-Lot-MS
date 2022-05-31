@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import moment from "moment";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import Table from "@mui/material/Table";
@@ -45,27 +46,11 @@ function Parking() {
     setToView(toView + toAdd);
   }
 
-  const DateConverter = (toConvert) => {
-    const date = new Date(toConvert);
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var dt = date.getDate();
-
-    if (dt < 10) {
-      dt = "0" + dt;
-    }
-    if (month < 10) {
-      month = "0" + month;
-    }
-
-    return year + "-" + month + "-" + dt;
-  };
-
-  function diff(dt2, dt1) {
-    // var msec = Math.abs(dt2 - dt1);
-    // var min = Math.floor(msec / 1000 / 60);
-    // return min;
-    return "sample";
+  function diff(entered, exited) {
+    var enteredDate = moment(new Date(entered));
+    var exitedDate = moment(new Date(exited));
+    var duration = moment.duration(exitedDate.diff(enteredDate));
+    return duration.asHours().toFixed(2);
   }
 
   const textChange = (e) => {
@@ -73,6 +58,10 @@ function Parking() {
     if (!e.target.value) {
       setToAdd(3);
     }
+  };
+
+  const dateConverter = (date) => {
+    return moment(new Date(date)).format("MMMM D YYYY, h:mm a");
   };
 
   return (
@@ -110,9 +99,11 @@ function Parking() {
                           </Button>
                         </TableCell>
                         <TableCell align="right" style={{ color: "red" }}>
-                          {parker.entered}
+                          {dateConverter(parker.entered)}
                         </TableCell>
-                        <TableCell align="right">{parker.exited}</TableCell>
+                        <TableCell align="right">
+                          {dateConverter(parker.exited)}
+                        </TableCell>
                         <TableCell align="right">
                           {diff(parker.entered, parker.exited)}
                         </TableCell>
