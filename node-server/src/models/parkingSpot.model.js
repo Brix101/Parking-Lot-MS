@@ -11,6 +11,15 @@ const Location = sequelize.define("ParkingSpots", {
       },
     },
   },
+  blockCode: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "The field cannot be empty",
+      },
+    },
+  },
   isAvailable: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,

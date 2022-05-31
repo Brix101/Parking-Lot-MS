@@ -26,6 +26,9 @@ const deserializeUser = async (req, res, next) => {
     const { decoded } = verifyJwt(refreshToken);
     if (decoded) {
       const user = await User.findByPk(decoded.id);
+      if (!user) {
+        return res.sendStatus(403);
+      }
       const newAccessToken = user.getAccessToken();
 
       res.setHeader("authorization", newAccessToken);
