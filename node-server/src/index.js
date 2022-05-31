@@ -16,7 +16,6 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const routes = require("./routes");
-// TODO update cors to dynamic ip
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -55,23 +54,25 @@ app.set("socket", io);
 io.on("connection", async (socket) => {
   connections.add(socket);
 
-  // ? Poll every 5 secs
+  // ? Poll every 1 sec
   setInterval(async () => {
     const spots = await ParkingSpot.findAll();
     socket.emit("allSpots", spots);
+  }, 1000);
 
+  // ? Poll every 1 sec
+  setInterval(async () => {
     const parkings = await sequelize.query(
       "SELECT Parkings.id AS ParkingId,Parkers.id AS ParkerID,Parkings.entered,Parkings.exited,Parkers.plateNumber,Parkers.note FROM Parkers INNER JOIN Parkings ON Parkings.parkerId = Parkers.id ORDER BY Parkings.entered DESC",
       {
-        type: QueryTypes.SELECT,
+        type: QueryTypes.RAW,
       }
     );
-    socket.emit("allPakings", parkings);
-  }, 5000);
+    socket.emit("allParkings", parkings);
+  }, 2000);
 
   socket.on("disconnect", () => {
     connections.delete(socket);
-    // console.log(`Disconnected | ${socket.id}`);
   });
 });
 

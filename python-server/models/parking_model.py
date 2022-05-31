@@ -13,7 +13,7 @@ class Parking(Base,BaseModel):
     parkingSpotId = Column(Integer, ForeignKey('ParkingSpots.id',ondelete='CASCADE'))
     parkerId = Column(Integer, ForeignKey('Parkers.id',ondelete='CASCADE'))
     
-    parkingSpot = relationship("ParkingSpot",cascade="all,delete", back_populates="parking")
+    parkingSpot = relationship("ParkingSpot", back_populates="parking")
     parker = relationship("Parker",cascade="all,delete", back_populates="parking")
     
     

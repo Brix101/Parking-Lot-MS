@@ -50,5 +50,3 @@ async def add_parker(res: Response,file : UploadFile = File(..., description="Se
     except Exception as e:
         raise e
 
-
-# TODO update Delete

@@ -12,7 +12,9 @@ import Loader from "./Loader";
 
 function Dashboard() {
   const { data: parkingSpot, isLoading } = useGetAllParkingSpotQuery();
-  const { data: parkingData } = useGetAllParkingQuery("");
+  const { data: parkingData } = useGetAllParkingQuery("", {
+    pollingInterval: 1000,
+  });
   const [available, setAvailable] = useState();
   const [unAvailable, setunAvailable] = useState();
   const [daily, setDaily] = useState(0);
@@ -22,47 +24,49 @@ function Dashboard() {
     if (parkingSpot) {
       setAvailable(
         parkingSpot.filter((spot) => {
-          return spot.status === true;
+          return spot.isAvailable === true;
         }).length
       );
       setunAvailable(
         parkingSpot.filter((spot) => {
-          return spot.status === false;
+          return spot.isAvailable === false;
         }).length
       );
     }
+  }, [parkingSpot]);
+
+  useEffect(() => {
+    const date = new Date();
+    const currentYear = date.getUTCFullYear();
 
     if (parkingData) {
-      var dateObj = new Date();
-      var currentYear = dateObj.getUTCFullYear();
+      // get Daily
+      const dailyCount = parkingData.filter((p) => {
+        return removeTime(new Date(p.entered)) === removeTime(date);
+      }).length;
 
-      var utc = new Date().toJSON().slice(0, 10);
+      setDaily(dailyCount);
 
-      setDaily(
-        // get Daily
-        parkingData.filter((p) => {
-          var date = p.entered.split("T")[0];
-          return date === utc;
-        }).length
-      );
+      // get Monthly
+      const monthlyCount = parkingData.filter((p) => {
+        var [year, month] = p.entered.split("-");
+        return (
+          currentMonth().toString() === month && currentYear.toString() === year
+        );
+      }).length;
 
-      setMonthly(
-        // get Monthly
-        parkingData.filter((p) => {
-          var [year, month] = p.entered.split("-");
-          return (
-            currentMonth().toString() === month &&
-            currentYear.toString() === year
-          );
-        }).length
-      );
+      setMonthly(monthlyCount);
     }
-  }, [parkingData, parkingSpot]);
+  }, [parkingData]);
 
   function currentMonth() {
     var date = new Date(),
       month = date.getMonth() + 1;
     return month + 1 < 10 ? "0" + month : month;
+  }
+
+  function removeTime(date = new Date()) {
+    return date.setHours(0, 0, 0, 0);
   }
   return (
     <>

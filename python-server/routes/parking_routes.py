@@ -44,7 +44,6 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
 @router.post("/exit", dependencies=[Depends(auth)])
 async def parker_exit(res:Response,exit:ExitSchema ,db:Session = Depends(get_db)):
     try:
-        # TODO !!! Update Exception Catcher
         #? get owner of plateNumber
         parker = db.query(Parker).filter_by(plateNumber=exit.plateNumber).one_or_none()
         if(parker is None):            
@@ -67,5 +66,3 @@ async def parker_exit(res:Response,exit:ExitSchema ,db:Session = Depends(get_db)
     
     except Exception as e:
         raise e
-
-# TODO add update for exit

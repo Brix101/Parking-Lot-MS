@@ -114,7 +114,6 @@ function Admin() {
   }, [userData]);
 
   useEffect(() => {
-    console.log(isSuccess);
     if (isSuccess) {
       navigate("/login");
     }

@@ -13,35 +13,46 @@ import { useGetAllParkingQuery } from "../services/parkingService";
 import { useEffect } from "react";
 import Loader from "./Loader";
 
+function dataToString(date = new Date()) {
+  return new Date(date.setHours(0, 0, 0, 0)).toString().substring(4, 10);
+}
 // Generate Sales Data
 function createData(date, count) {
   return { date, count };
 }
 
 // set Initial data for last 30 days
-const initialData = [];
-var today = new Date();
-for (let i = 0; i < 30; i++) {
-  var priorDate = new Date(new Date().setDate(today.getDate() - i))
-    .toISOString()
-    .split("T")[0];
+var initialData = [];
+const initializeData = () => {
+  const today = new Date();
+  initialData = [];
+  for (let i = 0; i < 30; i++) {
+    var priorDate = dataToString(
+      new Date(new Date().setDate(today.getDate() - i))
+    );
 
-  initialData.push(createData(priorDate.substring(5, 10), 0));
-}
-initialData.reverse();
+    initialData.push(createData(priorDate, 0));
+  }
+  initialData.reverse();
+};
 
 export default function Chart() {
-  const { data, isLoading } = useGetAllParkingQuery("");
   const theme = useTheme();
+  const { data, isLoading } = useGetAllParkingQuery("", {
+    pollingInterval: 1000,
+  });
+
   useEffect(() => {
     if (data) {
+      initializeData();
       const parking = data.map((parking) => {
-        return parking.entered.split("T")[0].substring(5, 10);
+        return parking.entered;
       });
 
       parking.forEach(function (parkerCount) {
+        const parkerDate = dataToString(new Date(parkerCount));
         initialData.forEach((inData) => {
-          if (inData.date === parkerCount) {
+          if (inData.date === parkerDate) {
             inData.count++;
           }
         });
