@@ -226,7 +226,7 @@ function Admin() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem
+                {/* <MenuItem
                   onClick={() => {
                     navigate("/admin/account", { state: "Account" });
                     handleCloseUserMenu();
@@ -234,7 +234,7 @@ function Admin() {
                 >
                   <ManageAccountsIcon sx={{ marginRight: 2 }} />
                   <Typography textAlign="center">Account</Typography>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem onClick={() => logoutUser()}>
                   <LogoutIcon sx={{ marginRight: 2 }} />
                   <Typography textAlign="center">Logout</Typography>
