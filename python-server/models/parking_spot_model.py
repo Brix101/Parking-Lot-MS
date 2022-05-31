@@ -10,7 +10,7 @@ class ParkingSpot(Base,BaseModel):
     spotCode=Column(String(100))
     isAvailable=Column(Boolean,default=True)
     active=Column(Boolean,default=False)
-    
+    blockCode=Column(String(20))
     parking = relationship("Parking", back_populates="parkingSpot",passive_deletes=True)
     
     def on_entry(self):
