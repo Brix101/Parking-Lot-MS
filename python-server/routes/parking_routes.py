@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Depends,Response, Request,Query
+from fastapi import APIRouter,Depends,Response, Request,Query, HTTPException
 from sqlalchemy import JSON
 from sqlalchemy.orm import Session
 from config.database import get_db
@@ -23,6 +23,8 @@ router = APIRouter(
 
 destination = Destination()
 
+
+current_msec = 0
 
 blocks_and_bounds = [
     BlockModel(block_code="B_1", spot1=[648, 1431, 565, 1080], ),
@@ -65,12 +67,19 @@ async def modify_availability(request: Request, db:Session = Depends(get_db)):
     if body_bytes:
         obj_dict = json.loads(body_bytes)
         data = json.loads(obj_dict['data'])
-        print("DATA LENGTH : {}".format(len(data)))
         for detected in data:
             block = detected['block']
             type = detected['type']
-            print(block)
+            score = detected['score']
+            park_spot = detected['spot']
+            frame_no = detected['frame_no']
+            bounds = detected['bounds']
+            new_bounds = []
+            for b in bounds:
+                new_bounds.append(int(b))
+            print("Block: {}\tType: {}\nParkingSpot: {}\tFrame Number: {}\nScore: {}".format(block, type, park_spot, frame_no, score))
             
+
     else: 
         print("LOL")
         
