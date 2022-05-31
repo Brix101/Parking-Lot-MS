@@ -14,9 +14,9 @@ class ParkingSpot(Base,BaseModel):
     parking = relationship("Parking", back_populates="parkingSpot",passive_deletes=True)
     
     def on_entry(self):
-        self.status = False
+        self.isAvailable = False
     
     def on_exit(self):
-        self.status = True
+        self.isAvailable = True
         
     

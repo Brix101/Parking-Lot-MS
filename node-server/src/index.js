@@ -54,7 +54,7 @@ app.set("socket", io);
 io.on("connection", async (socket) => {
   connections.add(socket);
 
-  // ? Poll every 5 secs
+  // ? Poll every 1 sec
   setInterval(async () => {
     const spots = await ParkingSpot.findAll();
     socket.emit("allSpots", spots);
@@ -65,12 +65,11 @@ io.on("connection", async (socket) => {
         type: QueryTypes.SELECT,
       }
     );
-    socket.emit("allPakings", parkings);
-  }, 5000);
+    socket.emit("allParkings", parkings);
+  }, 1000);
 
   socket.on("disconnect", () => {
     connections.delete(socket);
-    // console.log(`Disconnected | ${socket.id}`);
   });
 });
 

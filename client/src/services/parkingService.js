@@ -23,11 +23,12 @@ const parkingApi = baseAPI.injectEndpoints({
         const socket = io(server);
         try {
           await cacheDataLoaded;
-          socket.on("allPakings", (parkingLogs) => {
-            updateCachedData((draft) => {
-              draft.splice(0, draft.length);
-              draft.push(...parkingLogs);
-            });
+          socket.on("allParkings", (parkingLogs) => {
+            console.log(parkingLogs);
+            // updateCachedData((draft) => {
+            //   draft.splice(0, draft.length);
+            //   draft.push(...parkingLogs);
+            // });
           });
         } catch (error) {}
 
