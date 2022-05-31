@@ -38,7 +38,9 @@ const initializeData = () => {
 
 export default function Chart() {
   const theme = useTheme();
-  const { data, isLoading } = useGetAllParkingQuery("");
+  const { data, isLoading } = useGetAllParkingQuery("", {
+    pollingInterval: 1000,
+  });
 
   useEffect(() => {
     if (data) {

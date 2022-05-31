@@ -12,7 +12,9 @@ import Loader from "./Loader";
 
 function Dashboard() {
   const { data: parkingSpot, isLoading } = useGetAllParkingSpotQuery();
-  const { data: parkingData } = useGetAllParkingQuery("");
+  const { data: parkingData } = useGetAllParkingQuery("", {
+    pollingInterval: 1000,
+  });
   const [available, setAvailable] = useState();
   const [unAvailable, setunAvailable] = useState();
   const [daily, setDaily] = useState(0);
