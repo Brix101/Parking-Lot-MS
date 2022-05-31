@@ -4,7 +4,7 @@ import React from "react";
 function Account() {
   return (
     <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-      <h3>Parking Spots</h3>
+      <h3>Account</h3>
     </Paper>
   );
 }
