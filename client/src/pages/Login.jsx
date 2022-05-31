@@ -7,11 +7,12 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../services/authService";
 import { useGetUserQuery } from "../services/userService";
+import image from "../static/images/parkinglot.jpg";
 
 const theme = createTheme();
 
@@ -56,12 +57,37 @@ function Login() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ display: user ? "none" : "block" }}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
+        <Grid container component="main" sx={{ height: "100vh" }}>
+          <CssBaseline />
+          <Grid
+            item
+            xs={false}
+            sm={4}
+            md={7}
+            sx={{
+              backgroundImage: `url(${image})`,
+              backgroundRepeat: "no-repeat",
+              backgroundColor: (t) =>
+                t.palette.mode === "light"
+                  ? t.palette.grey[50]
+                  : t.palette.grey[900],
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={6}
+            square
+          >
             <Box
               sx={{
-                marginTop: 8,
+                my: 8,
+                mx: 4,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -69,12 +95,12 @@ function Login() {
             >
               <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>P</Avatar>
               <Typography component="h1" variant="h5">
-                Login
+                Sign in
               </Typography>
               <Box
                 component="form"
-                onSubmit={handleSubmit}
                 noValidate
+                onSubmit={handleSubmit}
                 sx={{ mt: 1 }}
               >
                 <TextField
@@ -104,14 +130,26 @@ function Login() {
                   type="submit"
                   fullWidth
                   variant="contained"
+                  disabled={isLoading}
                   sx={{ mt: 3, mb: 2 }}
                 >
                   {isLoading ? "Loading..." : "Login"}
                 </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => navigate("/")}
+                      variant="body2"
+                    >
+                      View Parking Space
+                    </Link>
+                  </Grid>
+                </Grid>
               </Box>
             </Box>
-          </Container>
-        </Box>
+          </Grid>
+        </Grid>
       </ThemeProvider>
     </>
   );

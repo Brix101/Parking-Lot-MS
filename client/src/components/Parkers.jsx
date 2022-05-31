@@ -1,13 +1,24 @@
-import { Button, Grid, Paper } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { useGetAllParkerQuery } from "../services/parkerService";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import SearchAppBar from "./SearchAppBar";
+import Title from "./Title";
 
 function Parker() {
   const navigate = useNavigate();
-  const { data, error, isLoading } = useGetAllParkerQuery({
+  const [plateNumber, setPlateNumber] = useState("");
+  const { data, error, isLoading } = useGetAllParkerQuery(plateNumber, {
     pollingInterval: 1000,
   });
 
@@ -18,7 +29,13 @@ function Parker() {
   });
 
   const textChange = (e) => {
-    console.log(e.target.value);
+    setPlateNumber(e.target.value);
+  };
+
+  const dateConverter = (date) => {
+    return moment(new Date(date))
+      .subtract(1, "days")
+      .format("MMMM D YYYY, h:mm a");
   };
 
   return (
@@ -28,33 +45,44 @@ function Parker() {
       ) : (
         <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
           <SearchAppBar text="Search Platenumber" onChange={textChange} />
-          <Grid container spacing={3}>
-            {data &&
-              data.map((parker, i) => {
-                return (
-                  <Grid item xs={12} md={12} lg={12} key={i}>
-                    <Paper
-                      sx={{
-                        p: 2,
-                        display: "flex",
-                        flexDirection: "column",
-                        height: 135,
-                      }}
-                    >
-                      <Button
-                        onClick={() => {
-                          navigate(`/admin/parker/${parker.plateNumber}`, {
-                            state: parker.plateNumber,
-                          });
-                        }}
-                      >
-                        {parker.plateNumber}
-                      </Button>
-                    </Paper>
-                  </Grid>
-                );
-              })}
-          </Grid>
+          <React.Fragment>
+            <Title>Parkers</Title>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Plate Number</TableCell>
+                  <TableCell align="right">Last Entered</TableCell>
+                  <TableCell align="right">Last Exited</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data &&
+                  data.map((parker, i) => {
+                    return (
+                      <TableRow key={i}>
+                        <TableCell>
+                          <Button
+                            onClick={() => {
+                              navigate(`/admin/parker/${parker.plateNumber}`, {
+                                state: parker.plateNumber,
+                              });
+                            }}
+                          >
+                            {parker.plateNumber}
+                          </Button>
+                        </TableCell>
+                        <TableCell align="right" style={{ color: "red" }}>
+                          {dateConverter(parker.entered)}
+                        </TableCell>
+                        <TableCell align="right">
+                          {dateConverter(parker.exited)}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </React.Fragment>
         </Paper>
       )}
     </>

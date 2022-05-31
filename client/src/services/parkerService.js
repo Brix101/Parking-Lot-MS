@@ -1,12 +1,10 @@
 import { baseAPI } from "../feature/apiReducer";
-import io from "socket.io-client";
-import { server } from "../constant/server";
 
 const parkerApi = baseAPI.injectEndpoints({
   endpoints: (build) => ({
     getAllParker: build.query({
-      query: () => ({
-        url: "/parker",
+      query: (plateNumber) => ({
+        url: `/parker?plateNumber=${plateNumber}`,
       }),
       transformResponse(response, meta) {
         const headers = meta.response.headers.get("authorization");
@@ -16,9 +14,9 @@ const parkerApi = baseAPI.injectEndpoints({
         return response;
       },
     }),
-    getAllParkerImage: build.query({
+    getAllParkerData: build.query({
       query: (plateNumber) => ({
-        url: `/parker/${plateNumber}`,
+        url: `/plate/${plateNumber}`,
       }),
       transformResponse(response, meta) {
         const headers = meta.response.headers.get("authorization");
@@ -40,6 +38,6 @@ const parkerApi = baseAPI.injectEndpoints({
 
 export const {
   useGetAllParkerQuery,
-  useGetAllParkerImageQuery,
+  useGetAllParkerDataQuery,
   useUpdateParkerMutation,
 } = parkerApi;

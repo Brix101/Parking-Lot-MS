@@ -69,28 +69,28 @@ function Home() {
               fill="none"
               viewBox="0 0 1440 1024"
             >
-              <g className="Final" clip-path="url(#a)">
+              <g className="Final" clipPath="url(#a)">
                 <path fill="#fff" d="M0 0h1440v1024H0z" />
                 <g className="Spots">
                   <g className="B_30">
                     <path
                       fill={status("B_30", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1369.83 17.5h65.667v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_30", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1299.17 17.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_30", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1228.5 17.5h65.667v125H1228.5z"
                       className="sp1"
                     />
@@ -99,21 +99,21 @@ function Home() {
                     <path
                       fill={status("B_29", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1129.83 17.5h65.667v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_29", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1059.17 17.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_29", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M988.5 17.5h65.667v125H988.5z"
                       className="sp1"
                     />
@@ -122,21 +122,21 @@ function Home() {
                     <path
                       fill={status("B_28", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M888.833 17.5H954.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_28", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M818.167 17.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_28", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M747.5 17.5h65.667v125H747.5z"
                       className="sp1"
                     />
@@ -145,21 +145,21 @@ function Home() {
                     <path
                       fill={status("B_27", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M629.833 17.5H695.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_27", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M559.167 17.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_27", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M488.5 17.5h65.667v125H488.5z"
                       className="sp1"
                     />
@@ -168,21 +168,21 @@ function Home() {
                     <path
                       fill={status("B_26", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M386.833 15.5H452.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_26", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M316.167 15.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_26", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M245.5 15.5h65.667v125H245.5z"
                       className="sp1"
                     />
@@ -191,21 +191,21 @@ function Home() {
                     <path
                       fill={status("B_25", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M143.833 17.5H209.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_25", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M73.167 17.5h65.667v125H73.167z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_25", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M2.5 17.5h65.667v125H2.5z"
                       className="sp1"
                     />
@@ -214,7 +214,7 @@ function Home() {
                     <path
                       fill={status("B_24", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M102.5 245.5h65.667v125H102.5z"
                       className="sp1"
                     />
@@ -223,21 +223,21 @@ function Home() {
                     <path
                       fill={status("B_23", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M219.5 245.5h65.667v125H219.5z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_23", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M290.167 245.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_23", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M360.833 245.5H426.5v125h-65.667z"
                       className="sp1"
                     />
@@ -246,21 +246,21 @@ function Home() {
                     <path
                       fill={status("B_22", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M488.5 245.5h65.667v125H488.5z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_22", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M559.167 245.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_22", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M629.833 245.5H695.5v125h-65.667z"
                       className="sp1"
                     />
@@ -269,21 +269,21 @@ function Home() {
                     <path
                       fill={status("B_21", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M747.5 245.5h65.667v125H747.5z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_21", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M818.167 245.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_21", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M888.833 245.5H954.5v125h-65.667z"
                       className="sp1"
                     />
@@ -292,21 +292,21 @@ function Home() {
                     <path
                       fill={status("B_20", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1016.5 245.5h65.667v125H1016.5z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_20", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1087.17 245.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_20", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1157.83 245.5h65.667v125h-65.667z"
                       className="sp1"
                     />
@@ -315,7 +315,7 @@ function Home() {
                     <path
                       fill={status("B_19", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1271.5 245.5h65.667v125H1271.5z"
                       className="sp1"
                     />
@@ -324,7 +324,7 @@ function Home() {
                     <path
                       fill={status("B_18", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1271.5 396.5h65.667v125H1271.5z"
                       className="sp1"
                     />
@@ -333,21 +333,21 @@ function Home() {
                     <path
                       fill={status("B_17", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1157.83 396.5h65.667v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_17", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1087.17 396.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_17", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1016.5 396.5h65.667v125H1016.5z"
                       className="sp1"
                     />
@@ -356,21 +356,21 @@ function Home() {
                     <path
                       fill={status("B_16", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M888.833 396.5H954.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_16", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M818.167 396.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_16", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M747.5 396.5h65.667v125H747.5z"
                       className="sp1"
                     />
@@ -379,21 +379,21 @@ function Home() {
                     <path
                       fill={status("B_15", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M629.833 396.5H695.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_15", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M559.167 396.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_15", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M488.5 396.5h65.667v125H488.5z"
                       className="sp1"
                     />
@@ -402,21 +402,21 @@ function Home() {
                     <path
                       fill={status("B_14", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M360.833 396.5H426.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_14", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M290.167 396.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_14", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M219.5 396.5h65.667v125H219.5z"
                       className="sp1"
                     />
@@ -425,7 +425,7 @@ function Home() {
                     <path
                       fill={status("B_13", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M102.5 396.5h65.667v125H102.5z"
                       className="sp1"
                     />
@@ -434,7 +434,7 @@ function Home() {
                     <path
                       fill={status("B_12", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M102.5 624.5h65.667v125H102.5z"
                       className="sp1"
                     />
@@ -443,21 +443,21 @@ function Home() {
                     <path
                       fill={status("B_11", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M219.5 624.5h65.667v125H219.5z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_11", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M290.167 624.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_11", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M360.833 624.5H426.5v125h-65.667z"
                       className="sp1"
                     />
@@ -466,21 +466,21 @@ function Home() {
                     <path
                       fill={status("B_10", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M559.167 624.5h65.667v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_10", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M488.5 624.5h65.667v125H488.5z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_10", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M629.833 624.5H695.5v125h-65.667z"
                       className="sp1"
                     />
@@ -489,21 +489,21 @@ function Home() {
                     <path
                       fill={status("B_9", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M747.5 624.5h65.667v125H747.5z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_9", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M818.167 624.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_9", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M888.833 624.5H954.5v125h-65.667z"
                       className="sp1"
                     />
@@ -512,21 +512,21 @@ function Home() {
                     <path
                       fill={status("B_8", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1016.5 624.5h65.667v125H1016.5z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_8", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1087.17 624.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_8", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1157.83 624.5h65.667v125h-65.667z"
                       className="sp1"
                     />
@@ -535,7 +535,7 @@ function Home() {
                     <path
                       fill={status("B_7", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1271.5 624.5h65.667v125H1271.5z"
                       className="sp1"
                     />
@@ -544,7 +544,7 @@ function Home() {
                     <path
                       fill={status("B_6", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1271.5 775.5h65.667v125H1271.5z"
                       className="sp1"
                     />
@@ -553,21 +553,21 @@ function Home() {
                     <path
                       fill={status("B_5", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1157.83 775.5h65.667v125h-65.667z"
                       className="sp13"
                     />
                     <path
                       fill={status("B_5", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1087.17 775.5h65.667v125h-65.667z"
                       className="sp12"
                     />
                     <path
                       fill={status("B_5", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M1016.5 775.5h65.667v125H1016.5z"
                       className="sp11"
                     />
@@ -576,21 +576,21 @@ function Home() {
                     <path
                       fill={status("B_4", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M888.833 775.5H954.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_4", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M818.167 775.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_4", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M747.5 775.5h65.667v125H747.5z"
                       className="sp1"
                     />
@@ -599,21 +599,21 @@ function Home() {
                     <path
                       fill={status("B_3", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M629.833 775.5H695.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_3", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M559.167 775.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_3", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M488.5 775.5h65.667v125H488.5z"
                       className="sp1"
                     />
@@ -622,21 +622,21 @@ function Home() {
                     <path
                       fill={status("B_2", "sp3")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M360.833 775.5H426.5v125h-65.667z"
                       className="sp3"
                     />
                     <path
                       fill={status("B_2", "sp2")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M290.167 775.5h65.667v125h-65.667z"
                       className="sp2"
                     />
                     <path
                       fill={status("B_2", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M219.5 775.5h65.667v125H219.5z"
                       className="sp1"
                     />
@@ -645,7 +645,7 @@ function Home() {
                     <path
                       fill={status("B_1", "sp1")}
                       stroke="#000"
-                      stroke-width="5"
+                      strokeWidth="5"
                       d="M102.5 775.5h65.667v125H102.5z"
                       className="sp1"
                     />

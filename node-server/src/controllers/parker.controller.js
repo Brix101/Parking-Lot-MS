@@ -4,9 +4,16 @@ const sequilize = require("../utils/database");
 
 const getAllController = async (req, res) => {
   try {
-    data = await sequilize.query("SELECT id, plateNumber, note FROM Parkers", {
-      type: QueryTypes.SELECT,
-    });
+    const plateNumber = req.query.plateNumber;
+    const condition = plateNumber
+      ? `WHERE Parkers.plateNumber LIKE '%${plateNumber}%'`
+      : "";
+    data = await sequilize.query(
+      `SELECT Parkers.id AS ParkerId,Parkers.plateNumber,Parkings.entered,Parkings.exited FROM Parkers INNER JOIN Parkings ON Parkings.parkerId = Parkers.id ${condition} GROUP BY Parkers.id ORDER BY Parkings.entered DESC`,
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
 
     res.send(data);
   } catch (error) {
@@ -23,14 +30,30 @@ const getByPlateController = async (req, res) => {
   try {
     const plateNumber = req.params.plateNumber;
     data = await sequilize.query(
-      "SELECT ParkerImages.id, Parkers.plateNumber, ParkerImages.imageLink FROM `Parkers` INNER JOIN ParkerImages ON Parkers.id = ParkerImages.parkerId WHERE Parkers.plateNumber = :plateNumber",
+      "SELECT Parkers.id, Parkers.plateNumber, ParkerImages.imageLink, Parkings.entered, Parkings.exited FROM `Parkers` INNER JOIN ParkerImages ON Parkers.id = ParkerImages.parkerId INNER JOIN Parkings ON Parkings.id = Parkings.parkerId WHERE Parkers.plateNumber = :plateNumber",
       {
         replacements: { plateNumber: plateNumber },
         type: QueryTypes.SELECT,
       }
     );
+    const plate = {
+      id: null,
+      plateNumber: null,
+      images: [],
+      history: [],
+    };
 
-    res.send(data);
+    data.map((plateData) => {
+      plate.id = plateData.id;
+      plate.plateNumber = plateData.plateNumber;
+      plate.images.push(plateData.imageLink);
+      plate.history.push({
+        entered: plateData.entered,
+        exited: plateData.exited,
+      });
+    });
+
+    res.send(plate);
   } catch (error) {
     return res.status(error instanceof ValidationError ? 400 : 500).send({
       message:

@@ -61,7 +61,9 @@ function Parking() {
   };
 
   const dateConverter = (date) => {
-    return moment(new Date(date)).format("MMMM D YYYY, h:mm a");
+    return moment(new Date(date))
+      .subtract(1, "days")
+      .format("MMMM D YYYY, h:mm a");
   };
 
   return (
