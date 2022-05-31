@@ -30,7 +30,7 @@ const getByPlateController = async (req, res) => {
   try {
     const plateNumber = req.params.plateNumber;
     const plateData = await sequilize.query(
-      "SELECT Parkers.plateNumber, Parkings.entered, Parkings.exited FROM Parkings INNER JOIN Parkers ON Parkers.id = Parkings.parkerId WHERE Parkers.plateNumber = :plateNumber",
+      "SELECT Parkers.plateNumber, Parkings.entered, Parkings.exited FROM Parkings INNER JOIN Parkers ON Parkers.id = Parkings.parkerId WHERE Parkers.plateNumber = :plateNumber ORDER BY Parkings.entered DESC",
       {
         replacements: { plateNumber: plateNumber },
         type: QueryTypes.SELECT,
