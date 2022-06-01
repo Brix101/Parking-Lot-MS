@@ -5,7 +5,7 @@ const adminGenerator = async () => {
     await User.create({
       firstName: "Juan",
       lastName: "Dela Cruz",
-      userName: "juandc",
+      userName: "adminjuan",
       email: "juandelacruz@email.com",
       password: "password",
       isAdmin: true,
