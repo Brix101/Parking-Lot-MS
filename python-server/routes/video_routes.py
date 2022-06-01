@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from fastapi.responses import FileResponse
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
+from routes.parking_routes import current_seconds
 
 
 # "FLOW"
@@ -24,6 +25,9 @@ def change_availability_of_all_blocks():
   pass
 
 
+@router.get("/get-current-seconds")
+def get_current_seconds():
+  return current_seconds
 #TODO: change to absolute path for video when in raspi
 @router.get("/video/{block}")
 def get_video(block: str):
@@ -31,9 +35,3 @@ def get_video(block: str):
   #TODO: get current Time
   response = FileResponse(path, media_type="video/mp4")
   return response
-
-#TODO: set current time from detection
-@router.get("/current-time/{block}")
-def get_current_time(block: str):
-  current_time = 5
-  return current_time

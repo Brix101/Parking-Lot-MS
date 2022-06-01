@@ -85,12 +85,12 @@ import sched, time
 
 #TODO: CHANGE IP TO RASPIS IP
 def detect_all_blocks(blocks):
-    url = "http://192.168.1.36:8000/parking/get-spots-location"
+    url = "http://localhost:8000/parking/get-spots-location"
     req = requests.get(url)
     block_spots = json.loads(req.text)
     paths = []
     for block in blocks:
-        path = "http://192.168.1.36:8000/videos/"+block+".mp4"
+        path = "http://localhost:8000/videos/"+block+".mp4"
         paths.append(path)
 
     max_frames = 7450 # should be 9000
@@ -115,14 +115,18 @@ def detect_all_blocks(blocks):
     frame_no = 0
     # TODO TIME
     while(True):
+        current_seconds = 0
         frames = []
         height = 1080
         width = 1020
         index = 0
         frame_no = int(24.93329747728922 * process_time)
+        #time.sleep(3)
         for capture in captures:
+            # delay capture
             # capture.set(current_frame_expected)
             _, frame = capture.read()
+            current_seconds = capture.get(cv.CAP_PROP_POS_MSEC) * 1000
             block = blocks[index]
             index += 1
             captured = CapturedModel(block=block, frame=frame, height=height, width=width)
@@ -134,7 +138,7 @@ def detect_all_blocks(blocks):
             detected_vehicles = detected_vehicles_per_frame(captured.block, captured.frame)
             fetched_vehicles_with_bounds = fetch_bounds(detected_vehicles=detected_vehicles, width=width, height=height)
             for fetched in fetched_vehicles_with_bounds:
-                frame = fetched['frame']
+                del fetched['frame']
                 bounds = fetched['bounds']
                 fetched_block = fetched['block']
                 left = int(bounds[0])
@@ -150,21 +154,23 @@ def detect_all_blocks(blocks):
                     if block_code == fetched_block:
                         # compare all spots to 
                         if compare_bounds(spot1, fetched_bounds):
+                            fetched['current_seconds'] = current_seconds
                             fetched['spot'] = "sp1"
                             fetched['frame_no'] = frame_no
                             result.append(fetched)
                         if spot2 is not None:
                             if compare_bounds(spot2, fetched_bounds):
+                                fetched['current_seconds'] = current_seconds
                                 fetched['spot'] = "sp2"
                                 fetched['frame_no'] = frame_no
                                 result.append(fetched)
                         if spot3 is not None:
                             if compare_bounds(spot3, fetched_bounds):
+                                fetched['current_seconds'] = current_seconds
                                 fetched['spot'] = "sp3"
                                 fetched['frame_no'] = frame_no
                                 result.append(fetched)
                     
-                del fetched['frame']
         result = json.dumps(result)
         payload = {'data': result}
         headers = {'Content-type': 'application/json'}

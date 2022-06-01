@@ -17,3 +17,8 @@ class BlockModel(BaseModel):
   
   def toJson(self):
       return jsonable_encoder(self)
+
+class AvailableModel(BaseModel):
+    block: str
+    spot: str
+    status: bool

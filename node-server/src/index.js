@@ -58,7 +58,7 @@ io.on("connection", async (socket) => {
   setInterval(async () => {
     const spots = await ParkingSpot.findAll();
     socket.emit("allSpots", spots);
-  }, 1000);
+  }, 500);
 
   // ? Poll every 1 sec
   setInterval(async () => {

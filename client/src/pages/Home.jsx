@@ -7,6 +7,7 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import LoginIcon from "@mui/icons-material/Login";
+//TODO: CHANGE TO IP OF  RASPI
 
 const theme = createTheme();
 
@@ -26,6 +27,10 @@ function Home() {
     }
   });
 
+  useEffect(() => {
+    console.log(parkingSpots);
+  }, [parkingSpots]);
+
   const status = (block, code) => {
     const spot = parkingSpots.find(
       (spot) => spot.spotCode === code && spot.blockCode === block
@@ -35,7 +40,6 @@ function Home() {
     }
     return "grey";
   };
-
   return (
     <ThemeProvider theme={theme}>
       {isLoading ? (

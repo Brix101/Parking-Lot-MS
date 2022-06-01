@@ -10,7 +10,7 @@ const BlockVideo = ({ block }) => {
   useEffect(() => {
     if (block !== "" && source === "") {
       setVideoId("video-" + block);
-      const src = "http://localhost:8000/videos/video/" + block.code;
+      const src = `http://localhost:8000/videos/${block.code}.mp4`;
       setSource(src);
     }
   }, [block]);
@@ -24,8 +24,9 @@ const BlockVideo = ({ block }) => {
   //TODO: Change domain of server on production
   const fetchCurrentTime = async () => {
     await axios
-      .get("http://localhost:8000/videos/current-time/" + block.code)
+      .get("http://localhost:8000/videos/get-current-seconds")
       .then((result) => {
+        console.log(result);
         if (result.status >= 200 && result.status < 300) {
           setCurrentTime(result.data);
         } else {
