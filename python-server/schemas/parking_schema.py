@@ -2,7 +2,8 @@ from pydantic import BaseModel
 from fastapi.encoders import jsonable_encoder
 
 class EntrySchema(BaseModel):
-    parkingSpotId : int
+    spotCode: str
+    blockCode: str
     parkerId: int
 
     class Config:

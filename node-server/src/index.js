@@ -11,6 +11,7 @@ const sequelize = require("./utils/database");
 const { ParkingSpot } = require("./models");
 const ip = require("./utils/ip");
 const { generateSpot } = require("./utils/generateSpot");
+const { adminGenerator } = require("./utils/adminGenerator");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -36,6 +37,7 @@ app.use(
 app.use(deserializeUser);
 routes(app);
 generateSpot();
+adminGenerator();
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {

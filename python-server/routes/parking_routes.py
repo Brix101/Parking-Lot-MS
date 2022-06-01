@@ -93,8 +93,9 @@ async def get_parker(db:Session = Depends(get_db)):
 @router.post("/entry", dependencies=[Depends(auth)])
 async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
     try:
-        # ? iterate
-        new_parker = Parking(**entry.toJson())
+        spot = db.query(ParkingSpot).filter_by(blockCode=entry.blockCode,spotCode=entry.spotCode).one_or_none()
+        # # ? iterate
+        new_parker = Parking(parkingSpotId=spot.id,parkerId=entry.parkerId)
         
         # ? Update parking spot status
         spot = db.query(ParkingSpot).get(new_parker.parkingSpotId)
@@ -103,7 +104,7 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
         db.add(new_parker)
         db.commit()
         
-        return {"message":f"{spot.spotCode} parked"}
+        return {"message":f"{spot.blockCode, spot.spotCode} parked"}
     
     except Exception as e:
         raise e
