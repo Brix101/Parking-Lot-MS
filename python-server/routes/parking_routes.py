@@ -228,7 +228,7 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
         db.add(new_parker)
         db.commit()
         
-        return {"message":f"{spot.spotCode} parked"}
+        return {"message":f"{spot.blockCode, spot.spotCode} parked"}
     
     except Exception as e:
         raise e

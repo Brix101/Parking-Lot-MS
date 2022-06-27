@@ -7,12 +7,18 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import LoginIcon from "@mui/icons-material/Login";
+<<<<<<< HEAD
 //TODO: CHANGE TO IP OF  RASPI
+=======
+import { useGetUserQuery } from "../services/userService";
+>>>>>>> 22b5a62855a25801868f78190663baed039af5dc
 
 const theme = createTheme();
 
 function Home() {
   const navigate = useNavigate();
+
+  const { data: user } = useGetUserQuery();
   const {
     data: parkingSpots,
     error,
@@ -46,19 +52,36 @@ function Home() {
         <Loader />
       ) : (
         <>
-          <Fab
-            variant="extended"
-            sx={{
-              position: "fixed",
-              top: 16,
-              right: 16,
-              zIndex: 500,
-            }}
-            onClick={() => navigate("/login")}
-          >
-            <LoginIcon sx={{ mr: 1 }} />
-            Login
-          </Fab>
+          {user ? (
+            <Fab
+              variant="extended"
+              sx={{
+                position: "fixed",
+                top: 16,
+                right: 16,
+                zIndex: 500,
+              }}
+              onClick={() => navigate("/admin")}
+            >
+              <LoginIcon sx={{ mr: 1 }} />
+              Admin
+            </Fab>
+          ) : (
+            <Fab
+              variant="extended"
+              sx={{
+                position: "fixed",
+                top: 16,
+                right: 16,
+                zIndex: 500,
+              }}
+              onClick={() => navigate("/login")}
+            >
+              <LoginIcon sx={{ mr: 1 }} />
+              Login
+            </Fab>
+          )}
+
           <Paper
             sx={{
               p: 2,

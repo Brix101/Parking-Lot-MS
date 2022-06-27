@@ -15,8 +15,11 @@ import SideButton from "./Button/SideButton";
 import { useSelector } from "react-redux";
 import { userIsAdmin } from "../feature/userReducer";
 import { server } from "../constant/server";
+import HomeIcon from "@mui/icons-material/Home";
+import { useNavigate } from "react-router-dom";
 
 function SideBarItems() {
+  const navigate = useNavigate();
   const isAdmin = useSelector(userIsAdmin);
   const handleDownload = async () => {
     await fetch(`${server}/api/report`);
@@ -51,6 +54,12 @@ function SideBarItems() {
           <ListSubheader component="div" inset>
             Saved reports
           </ListSubheader>
+          <ListItemButton onClick={() => navigate("/")}>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="View Home" />
+          </ListItemButton>
           <ListItemButton onClick={handleDownload}>
             <ListItemIcon>
               <AssignmentIcon />
