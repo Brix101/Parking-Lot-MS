@@ -215,12 +215,13 @@ def create_parker(db, file):
 
 
 
-@router.post("/entry", dependencies=[Depends(auth)])
+@router.post("/entry")
 async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
     try:
+        spot = db.query(ParkingSpot).filter_by(blockCode=entry.blockCode, spotCode=entry.spotCode).first()
         # ? iterate
-        new_parker = Parking(**entry.toJson())
-        
+        new_parker = Parking(parkingSpotId=spot.id, parkerId=entry.parkerId)
+
         # ? Update parking spot status
         spot = db.query(ParkingSpot).get(new_parker.parkingSpotId)
         spot.on_entry()
@@ -232,7 +233,7 @@ async def parker_entry(entry: EntrySchema,db:Session = Depends(get_db)):
     except Exception as e:
         raise e
 
-@router.post("/exit", dependencies=[Depends(auth)])
+@router.post("/exit")
 async def parker_exit(res:Response,exit:ExitSchema ,db:Session = Depends(get_db)):
     try:
         #? get owner of plateNumber

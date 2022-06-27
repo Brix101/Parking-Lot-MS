@@ -50,6 +50,7 @@ def compare_bounds(spot_bounds, detected_bounds):
     dt = detected_bounds[2]
     db = detected_bounds[3]
     if sl >= dl and sr >= dr and st >= dt and sb >= db:
+        print(f"Spot bounds: {spot_bounds}\tDetected bounds: {detected_bounds}")
         sp = (2 *(sl - sr)) + (2*(st - sb))
         dp = (2 *(dl - dr)) + (2*(dt - db))
         percent = int((dp/sp) * 100)
@@ -122,6 +123,7 @@ def detect_all_blocks(blocks):
         index = 0
         frame_no = int(24.93329747728922 * process_time)
         #time.sleep(3)
+        time.sleep(2)
         for capture in captures:
             # delay capture
             # capture.set(current_frame_expected)

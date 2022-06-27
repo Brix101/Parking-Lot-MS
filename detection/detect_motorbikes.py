@@ -57,7 +57,7 @@ def detect(frame):
   for i in range(0, 99):
     score = scores[i]
     box = boxes[i]
-    if score > .20:
+    if score > .10:
       m_scores.append(score)
       m_boxes.append(box)
       
